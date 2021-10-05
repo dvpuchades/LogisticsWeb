@@ -1,0 +1,26 @@
+#############################################################
+#                   API DOCUMENTATION                       #
+#############################################################
+
+· USER
+
+SIGN UP______________________________(POST[email, password])/api/auth/signup
+LOG IN_______________________________(POST[email, password])/api/auth/login
+UPLOAD DELIVERY______________________(POST[info])/api/delivery
+GET DEALERS__________________________(GET)/api/dealer/[id_restaurant]
+GET DELIVERIES_______________________(GET)/api/delivery/[id_restaurant]
+ASIGN DELIVERY_______________________(PUT[dealer])/api/delivery/[id]
+FINISH DELIVERY______________________(PUT)/api/delivery/[id]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+· RESTAURANT  | JUST FOR AUTHORIZED USERS |
+
+CREATE BRAND_________________________(POST[name, info])/api/brand
+ADD RESTAURANT_______________________(POST[id_brand, name, info])/api/restaurant
+REMOVE RESTAURANT____________________(DELETE)/api/restaurant/[id]
+EDIT RESTAURANT______________________(PUT[info])/api/restaurant/[id]
+CHANGE RESTAURANT OF DEALER__________(PUT[id_restaurant])/api/dealer/[id]
+GET ALL BRAND DEALERS________________(GET)/api/dealer
+GET ALL DELIVERIES___________________(GET)/api/delivery
+CANCEL DELIVERY______________________(DELETE)/api/delivery/[id]

@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "description": "Back-end for the Fattorino app, managing the database requests using an API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon run index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dvpuchades/Fattorino.git"
+  },
+  "author": "dvpuchades",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dvpuchades/Fattorino/issues"
+  },
+  "homepage": "https://github.com/dvpuchades/Fattorino#readme"
+}
