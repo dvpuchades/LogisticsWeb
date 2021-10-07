@@ -23,12 +23,23 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
+    User.findOne({email: req.body.email})
+        .then(user => {
+            if(user) res.status(423).json({error: 'email used before'})
+        })
+
     const rounds = 10
     bcrypt.hash(req.body.password, rounds, (error, hash) => {
-        // TODO: check if user is signed up
         if(error) res.status(500).json(error)
         else {
-            const newUser = User({email: req.body.email, password: hash})
+            const newUser = User({
+                name: req.body.name,
+                email: req.body.email,
+                phone: req.body.phone,
+                password: hash,
+                brand: req.body.brand,
+                restaurant: req.body.restaurant
+            })
             newUser.save()
                 .then(user => {
                     res.status(200).json({token: generateToken(user)})

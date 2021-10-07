@@ -4,10 +4,14 @@ const app = express()
 
 const authRoute = require('./routes/auth')
 const routes = require('./routes/routes')
+const middleware = require('./middleware')
 
-const  dbURI = "mongodb://localhost/authentication"
+const  dbURI = "mongodb://localhost/fattorino"
 app.use(express.json())
 app.use('/api/auth', authRoute)
+
+app.use(middleware.verify)
+
 app.use('/api', routes)
 
 mongoose.connect(dbURI , {useNewUrlParser: true, useUnifiedTopology: true})

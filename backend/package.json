@@ -1,23 +1,21 @@
 {
-  "name": "server",
+  "name": "backend",
   "version": "0.0.0",
-  "description": "Back-end for the Fattorino app, managing the database requests using an API.",
+  "description": "Backend side of fattorino app",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon run index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dvpuchades/Fattorino.git"
+    "start": "node index.js",
+    "test": "nodemon"
   },
   "author": "dvpuchades",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dvpuchades/Fattorino/issues"
-  },
-  "homepage": "https://github.com/dvpuchades/Fattorino#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
   }
 }
