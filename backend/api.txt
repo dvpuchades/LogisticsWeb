@@ -24,8 +24,8 @@ CREATE BRAND___________________________(POST[name, info])/api/brand
 · RESTAURANT  | JUST FOR AUTHORIZED USERS |
 
 CHANGE RESTAURANT OF USER______________(PUT[id_restaurant])/api/user/[id]
-+ GET ALL BRAND USERS____________________(GET)/api/user
-+ GET BRAND ACTIVE USERS_________________(GET)/api/user/active
++ GET ALL BRAND USERS__________________(GET)/api/user
++ GET BRAND ACTIVE USERS_______________(GET)/api/user/active
 GIVE/REMOVE PRIVILEGE__________________(PUT[privilege[true/false]])/api/user/[id]
 
 ADD RESTAURANT_________________________(POST[id_brand, name, info])/api/restaurant
@@ -33,4 +33,4 @@ REMOVE RESTAURANT______________________(DELETE)/api/restaurant/[id]
 EDIT RESTAURANT________________________(PUT[info])/api/restaurant/[id]
 
 + GET ALL DELIVERIES___________________(GET)/api/delivery
-CANCEL DELIVERY________________________(DELETE)/api/delivery/[id]
++ CANCEL DELIVERY______________________(DELETE)/api/delivery/[id]

@@ -48,9 +48,9 @@ router.get('/:restaurantId', (req, res) => {
         })
 });
 
-router.delete('/:Id', (req, res) => {
-    Delivery.delete({_id: req.params.Id}, (error, result) => {
-        if(!result) res.status(404).json({error: 'delivery not found'})
+router.delete('/:id', (req, res) => {
+    Delivery.deleteOne({_id: req.params.id}, (error, result) => {
+        if (!result) res.status(404).json({error: 'delivery not found'}) 
         else if(error) res.status(500).json(error)
         else res.status(200).send()
     })
