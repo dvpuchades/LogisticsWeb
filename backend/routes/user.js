@@ -1,33 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const Delivery = require('../models/delivery')
 const User = require('../models/user')
 
-router.post('/delivery', (req, res) => {
-    
-    const newDelivery = Delivery({
-        uploadUser: req.user._id, 
-        restaurant: req.body.restaurant,
-        dealer: req.body.dealer, 
-        address: req.body.address,
-        postcode: req.body.postcode, 
-        initTime: Date(),
-        finishTime: req.body.finishTime,
-        amount: req.body.amount,
-        customer: req.body.customer
-    })
-
-    newDelivery.save()
-        .then(Delivery => {
-            res.status(200).send()
-        })
-        .catch(error => {
-            res.status(500).json(error)
-        })
-});
-
-router.get('/user', (req, res) => {
+router.get('/', (req, res) => {
     User.find({brand: req.user.brand})
         .then(users => {
             if (!users) res.status(404).json({error: 'not user found'})
@@ -49,7 +25,7 @@ router.get('/user', (req, res) => {
         })
 });
 
-router.get('/user/active', (req, res) => {
+router.get('/active', (req, res) => {
     let showableUsers = []
     Active.find({finishTime: null})
         .then( actives => {

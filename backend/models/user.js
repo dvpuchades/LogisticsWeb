@@ -24,6 +24,10 @@ const model = mongoose.Schema({
     restaurant: {
         type: mongoose.ObjectId,
         required: false
+    },
+    privilege: {
+        type: Boolean,
+        required: false
     }
 });
 

@@ -6,25 +6,31 @@
 
 + SIGN UP______________________________(POST[email, password])/api/auth/signup
 + LOG IN_______________________________(POST[email, password])/api/auth/login
+
 + UPLOAD DELIVERY______________________(POST[info])/api/delivery
-GET USERS______________________________(GET)/api/user/[id_restaurant]
-GET ACTIVE USERS_______________________(GET)/api/user/active/[id_restaurant]
-SIGN IN ACTIVE_________________________(POST[id_user])/api/user/active/
-SIGN OUT ACTIVE________________________(PUT)/api/user/active/[id_user]
-GET DELIVERIES_________________________(GET)/api/delivery/[id_restaurant]
++ GET DELIVERIES_______________________(GET)/api/delivery/[id_restaurant]
 ASIGN DELIVERY_________________________(PUT[id_user])/api/delivery/[id]
 FINISH DELIVERY________________________(PUT)/api/delivery/[id]
+
+GET USERS______________________________(GET)/api/user/[id_restaurant]
+GET ACTIVE USERS_______________________(GET)/api/user/active/[id_restaurant]
+SIGN IN/OUT ACTIVE_____________________(PUT[active])/api/user/active/[id_user]
+SEND LOCATION__________________________(POST[location])/api/user/[id_user]
+
+CREATE BRAND___________________________(POST[name, info])/api/brand
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 · RESTAURANT  | JUST FOR AUTHORIZED USERS |
 
-CREATE BRAND___________________________(POST[name, info])/api/brand
+CHANGE RESTAURANT OF USER______________(PUT[id_restaurant])/api/user/[id]
++ GET ALL BRAND USERS____________________(GET)/api/user
++ GET BRAND ACTIVE USERS_________________(GET)/api/user/active
+GIVE/REMOVE PRIVILEGE__________________(PUT[privilege[true/false]])/api/user/[id]
+
 ADD RESTAURANT_________________________(POST[id_brand, name, info])/api/restaurant
 REMOVE RESTAURANT______________________(DELETE)/api/restaurant/[id]
 EDIT RESTAURANT________________________(PUT[info])/api/restaurant/[id]
-CHANGE RESTAURANT OF USER______________(PUT[id_restaurant])/api/user/[id]
-GET ALL BRAND USERS____________________(GET)/api/user
-GET BRAND ACTIVE USERS_________________(GET)/api/user/active
-GET ALL DELIVERIES_____________________(GET)/api/delivery
+
++ GET ALL DELIVERIES___________________(GET)/api/delivery
 CANCEL DELIVERY________________________(DELETE)/api/delivery/[id]
