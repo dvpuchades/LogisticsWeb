@@ -26,7 +26,7 @@ CREATE BRAND___________________________(POST[name, info])/api/brand
 CHANGE RESTAURANT OF USER______________(PUT[id_restaurant])/api/user/[id]
 + GET ALL BRAND USERS__________________(GET)/api/user
 + GET BRAND ACTIVE USERS_______________(GET)/api/user/active
-GIVE/REMOVE PRIVILEGE__________________(PUT[privilege[true/false]])/api/user/[id]
++ GIVE/REMOVE PRIVILEGE________________(PUT[privilege[true/false]])/api/user/[id]
 
 ADD RESTAURANT_________________________(POST[id_brand, name, info])/api/restaurant
 REMOVE RESTAURANT______________________(DELETE)/api/restaurant/[id]
