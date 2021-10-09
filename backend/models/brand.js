@@ -4,6 +4,14 @@ const model = mongoose.Schema({
     name: {
         type: String,
         required: true
+    },
+    createdBy: {
+        type: mongoose.ObjectId,
+        required: true
+    },
+    creationDate: {
+        type: Date,
+        required: true
     }
 });
 

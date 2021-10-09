@@ -5,6 +5,7 @@ const app = express()
 const authRoute = require('./routes/auth')
 const deliveryRoute = require('./routes/delivery')
 const userRoute = require('./routes/user')
+const brandRoute = require('./routes/brand')
 const middleware = require('./middleware')
 
 const  dbURI = "mongodb://localhost/fattorino"
@@ -15,6 +16,7 @@ app.use(middleware.verify)
 
 app.use('/api/delivery', deliveryRoute)
 app.use('/api/user', userRoute)
+app.use('/api/brand', brandRoute)
 
 mongoose.connect(dbURI , {useNewUrlParser: true, useUnifiedTopology: true})
 const db = mongoose.connection

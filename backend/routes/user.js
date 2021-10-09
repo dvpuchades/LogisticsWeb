@@ -3,6 +3,7 @@ const router = express.Router()
 
 const User = require('../models/user')
 const Active = require('../models/active')
+const Location = require('../models/location')
 
 router.get('/', (req, res) => {
     User.find({brand: req.user.brand})
@@ -46,6 +47,31 @@ router.get('/active', (req, res) => {
         .catch(error => {
             res.status(500).json(error)
         })
+});
+
+router.post('/location', (req, res) => {
+    if(typeof req.body.latitude !== "number" 
+        || typeof req.body.longitude !== "number") {
+            res.status(400).json({error: 'define longitude and latitude'})
+    }
+    else{
+        let time
+        if(typeof req.body.time !== 'undefined') time = req.body.time
+        else time = Date()
+        newLocation = Location({
+            object: req.user,
+            longitude: req.body.longitude,
+            latitude: req.body.latitude,
+            time: time
+        })
+        newLocation.save()
+            .then(user => {
+                res.status(200).send()
+            })
+            .catch(error => {
+                res.status(500).json(error)
+            })
+    }
 });
 
 router.put('/:id', (req, res) => {

@@ -15,9 +15,11 @@ FINISH DELIVERY________________________(PUT)/api/delivery/[id]
 GET USERS______________________________(GET)/api/user/[id_restaurant]
 GET ACTIVE USERS_______________________(GET)/api/user/active/[id_restaurant]
 SIGN IN/OUT ACTIVE_____________________(PUT[active])/api/user/active/[id_user]
-SEND LOCATION__________________________(POST[location])/api/user/[id_user]
++ SEND LOCATION________________________(POST[location])/api/user/location
+GET ALL USERS LAST LOCATION____________(GET)/api/user/location/last
+GET USER LAST LOCATION_________________(GET)/api/user/location/last/[id_user]
 
-CREATE BRAND___________________________(POST[name, info])/api/brand
++ CREATE BRAND_________________________(POST[name])/api/brand
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
