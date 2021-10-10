@@ -48,6 +48,17 @@ router.get('/:restaurantId', (req, res) => {
         })
 });
 
+router.put('/:id', (req, res) => {
+    if (typeof req.body.dealer !== 'undefined') {
+        Delivery.findOneAndUpdate({_id: req.params.id}, {name: req.body.name}, {new: true}, (error, updatedDelivery) => {
+            if (error) return res.status(500).json({error})
+            else if (!updatedDelivery) res.status(404).json({error: 'delivery not found'})
+            else res.status(200).json(updatedDelivery)
+        })
+    }
+    else res.status(400).json({error: 'define valid parameters'})
+});
+
 router.delete('/:id', (req, res) => {
     Delivery.deleteOne({_id: req.params.id}, (error, result) => {
         if (!result) res.status(404).json({error: 'delivery not found'}) 

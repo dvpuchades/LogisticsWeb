@@ -9,8 +9,8 @@
 
 + UPLOAD DELIVERY______________________(POST[info])/api/delivery
 + GET DELIVERIES_______________________(GET)/api/delivery/[id_restaurant]
-ASIGN DELIVERY_________________________(PUT[id_user])/api/delivery/[id]
-FINISH DELIVERY________________________(PUT)/api/delivery/[id]
++ ASIGN DELIVERY_________________________(PUT[id_user])/api/delivery/[id]
+o FINISH DELIVERY________________________(PUT)/api/delivery/[id]
 
 GET USERS______________________________(GET)/api/user/[id_restaurant]
 GET ACTIVE USERS_______________________(GET)/api/user/active/[id_restaurant]
@@ -25,14 +25,14 @@ GET USER LAST LOCATION_________________(GET)/api/user/location/last/[id_user]
 
 · RESTAURANT  | JUST FOR AUTHORIZED USERS |
 
-CHANGE RESTAURANT OF USER______________(PUT[id_restaurant])/api/user/[id]
++ CHANGE RESTAURANT OF USER____________(PUT[id_restaurant])/api/user/[id]
 + GET ALL BRAND USERS__________________(GET)/api/user
 + GET BRAND ACTIVE USERS_______________(GET)/api/user/active
 + GIVE/REMOVE PRIVILEGE________________(PUT[privilege[true/false]])/api/user/[id]
 
 + ADD RESTAURANT_______________________(POST[id_brand, name])/api/restaurant
-o REMOVE RESTAURANT______________________(DELETE)/api/restaurant/[id]
-EDIT RESTAURANT________________________(PUT[info])/api/restaurant/[id]
++ REMOVE RESTAURANT____________________(DELETE)/api/restaurant/[id]
++ EDIT RESTAURANT______________________(PUT[info])/api/restaurant/[id]
 
 + GET ALL DELIVERIES___________________(GET)/api/delivery
 + CANCEL DELIVERY______________________(DELETE)/api/delivery/[id]
