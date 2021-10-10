@@ -56,6 +56,22 @@ router.put('/:id', (req, res) => {
             else res.status(200).json(updatedDelivery)
         })
     }
+    else if (typeof req.body.finished !== 'undefined') {
+        if (req.body.finished) {
+            Delivery.findOneAndUpdate({_id: req.params.id}, {finishTime: Date()}, {new: true}, (error, updatedDelivery) => {
+                if (error) return res.status(500).json({error})
+                else if (!updatedDelivery) res.status(404).json({error: 'delivery not found'})
+                else res.status(200).json(updatedDelivery)
+            })
+        }
+        else {
+            Delivery.findOneAndUpdate({_id: req.params.id}, {finishTime: null}, {new: true}, (error, updatedDelivery) => {
+                if (error) return res.status(500).json({error})
+                else if (!updatedDelivery) res.status(404).json({error: 'delivery not found'})
+                else res.status(200).json(updatedDelivery)
+            })
+        }
+    }
     else res.status(400).json({error: 'define valid parameters'})
 });
 

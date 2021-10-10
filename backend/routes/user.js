@@ -27,6 +27,28 @@ router.get('/', (req, res) => {
         })
 });
 
+router.get('/:restaurantId', (req, res) => {
+    User.find({brand: req.user.brand, restaurant: req.params.restaurantId})
+        .then(users => {
+            if (!users) res.status(404).json({error: 'not user found'})
+            else {
+                let showableUsers = []
+                users.forEach(user => {
+                    showableUsers.push({
+                        name: user.name,
+                        email: user.email,
+                        phone: user.phone,
+                        restaurant: user.restaurant
+                    })
+                })
+                res.status(200).json(showableUsers)
+            } 
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+});
+
 router.get('/active', (req, res) => {
     let showableUsers = []
     Active.find({finishTime: null})
@@ -47,6 +69,63 @@ router.get('/active', (req, res) => {
         .catch(error => {
             res.status(500).json(error)
         })
+});
+
+router.get('/active/:restaurantId', (req, res) => {
+    let showableUsers = []
+    Active.find({finishTime: null})
+        .then( actives => {
+            if(!actives) res.status(404).json({error: 'not active users'})
+            actives.forEach(active => {
+                User.findOne({_id: active.user})
+                    .then(user => {
+                        if (user.restaurant == restaurantId){
+                            showableUsers.push({
+                                name: user.name,
+                                email: user.email,
+                                phone: user.phone
+                            })
+                        }
+                    })
+                res.status(200).json(showableUsers)
+            })
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+});
+
+router.put('/active/:id', (res, req) => {
+    if (typeof req.body.active === 'undefined') res.status(400).json({error: 'insert valid parameters'})
+    else if (req.body.active){
+        Active.findOne({finishTime: null})
+            .then(active => {
+                if (!active){
+                    const newActive = Active({
+                        user: res.user,
+                        initTime: Date()
+                    })
+                    Active.save(newActive)
+                        .then(active => {
+                            res.status(200).json(newActive)
+                        })
+                        .catch(error => {
+                            res.status(500).json(error)
+                        })
+                }
+                else res.status(200).json(active)
+            })
+            .catch(error => {
+                res.status(500).json(error)
+            })
+    }
+    else {
+        Active.findOneAndUpdate({_id: req.params.id}, {finishTime: Date()}, {new: true}, (error, updatedActive) => {
+            if (error) return res.status(500).json({error})
+            else if (!updatedActive) res.status(400).json({error: 'user was not active'})
+            else res.status(200).json(updatedActive)
+        })
+    }
 });
 
 router.post('/location', (req, res) => {

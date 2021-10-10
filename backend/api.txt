@@ -9,12 +9,12 @@
 
 + UPLOAD DELIVERY______________________(POST[info])/api/delivery
 + GET DELIVERIES_______________________(GET)/api/delivery/[id_restaurant]
-+ ASIGN DELIVERY_________________________(PUT[id_user])/api/delivery/[id]
-o FINISH DELIVERY________________________(PUT)/api/delivery/[id]
++ ASIGN DELIVERY_______________________(PUT[id_user])/api/delivery/[id]
++ FINISH DELIVERY______________________(PUT[boolean finished])/api/delivery/[id]
 
-GET USERS______________________________(GET)/api/user/[id_restaurant]
-GET ACTIVE USERS_______________________(GET)/api/user/active/[id_restaurant]
-SIGN IN/OUT ACTIVE_____________________(PUT[active])/api/user/active/[id_user]
++ GET USERS____________________________(GET)/api/user/[id_restaurant]
++ GET ACTIVE USERS_____________________(GET)/api/user/active/[id_restaurant]
++ SIGN IN/OUT ACTIVE___________________(PUT[active])/api/user/active/[id_user]
 + SEND LOCATION________________________(POST[location])/api/user/location
 GET ALL USERS LAST LOCATION____________(GET)/api/user/location/last
 GET USER LAST LOCATION_________________(GET)/api/user/location/last/[id_user]
