@@ -12,7 +12,15 @@ const model = mongoose.Schema({
     brand: {
         type: mongoose.ObjectId,
         required: true
-    }
+    },
+    createdBy: {
+        type: mongoose.ObjectId,
+        required: true
+    },
+    creationDate: {
+        type: mongoose.ObjectId,
+        required: true
+    },
 });
 
 module.exports = new mongoose.model("Restaurant", model)

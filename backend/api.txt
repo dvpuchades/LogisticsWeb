@@ -30,8 +30,8 @@ CHANGE RESTAURANT OF USER______________(PUT[id_restaurant])/api/user/[id]
 + GET BRAND ACTIVE USERS_______________(GET)/api/user/active
 + GIVE/REMOVE PRIVILEGE________________(PUT[privilege[true/false]])/api/user/[id]
 
-ADD RESTAURANT_________________________(POST[id_brand, name, info])/api/restaurant
-REMOVE RESTAURANT______________________(DELETE)/api/restaurant/[id]
++ ADD RESTAURANT_______________________(POST[id_brand, name])/api/restaurant
+o REMOVE RESTAURANT______________________(DELETE)/api/restaurant/[id]
 EDIT RESTAURANT________________________(PUT[info])/api/restaurant/[id]
 
 + GET ALL DELIVERIES___________________(GET)/api/delivery

@@ -75,11 +75,17 @@ router.post('/location', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
+    if(typeof req.body.restaurant !== 'undefined') {
+        User.findOneAndUpdate({_id: req.params.id}, {restaurant: req.body.restaurant}, {new: true}, (error, updatedUser) => {
+            if (error) return res.status(500).json({error})
+            else if (!updatedUser) res.status(404).json({error: 'user not found'})
+            else res.status(200).json(updatedUser)
+        })
+    }
     if(typeof req.body.privilege !== 'undefined') {
         User.findOne({_id: req.user})
             .then(operatingUser => {
                 if (operatingUser.privilege == true){
-                    console.log(req.body.privilege)
                     User.findOneAndUpdate({_id: req.params.id}, {privilege: req.body.privilege}, {new: true}, (error, updatedUser) => {
                         if (error) return res.status(500).json({error})
                         else if (!updatedUser) res.status(404).json({error: 'user not found'})
