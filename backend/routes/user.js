@@ -154,7 +154,7 @@ router.post('/location', (req, res) => {
 });
 
 router.get('/location/:id', (req, res) => {
-    Location.findOne({}, {}, { object: req.params.id, sort: { 'created_at' : -1 } })
+    Location.findOne({ object: req.params.id, sort: { 'time' : -1 } })
         .then(location => {
             if (!location) res.status(404).json({error: 'location not found'})
             else{
@@ -167,13 +167,44 @@ router.get('/location/:id', (req, res) => {
 });
 
 router.get('/location/:idRestaurant', (req, res) => {
-    User.find() //seguir aqui
-    Location.findOne({}, {}, { object: req.params.id, sort: { 'created_at' : -1 } })
-        .then(location => {
-            if (!location) res.status(404).json({error: 'location not found'})
-            else{
-                res.status(200).json(location)
-            }
+    let showableUsers = []
+    User.find({restaurant: req.params.idRestaurant})
+        .then( users => {
+            if(!users) res.status(404).json({error: 'not users'})
+            users.forEach(user => {
+                Active.findOne({user: user._id, finishTime: null})
+                    .then(active => {
+                        if (active) {
+                            Location.findOne({}, {}, { object: req.params.id, sort: { 'created_at' : -1 } })
+                                .then(location => {
+                                    if (!location){
+                                        showableUsers.push({
+                                            name: user.name,
+                                            email: user.email,
+                                            phone: user.phone,
+                                        })
+                                    }
+                                    else{
+                                        showableUsers.push({
+                                            name: user.name,
+                                            email: user.email,
+                                            phone: user.phone,
+                                            location: {
+                                                longitude: location.longitude,
+                                                latitude: location.latitude,
+                                                time: location.time
+                                            }
+                                        })
+                                    }
+                                })
+                                .catch(error => {
+                                    res.status(500).json(error)
+                                })
+                        }
+                    })
+            })
+            if(showableUsers == []) res.status(404).json({error: 'not active users'})
+            else res.status(200).json(showableUsers)
         })
         .catch(error => {
             res.status(500).json(error)
