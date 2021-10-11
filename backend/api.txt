@@ -4,37 +4,40 @@
 
 · USER
 
-+ SIGN UP______________________________(POST[email, password])/api/auth/signup
-+ LOG IN_______________________________(GET[email, password])/api/auth/login
++ SIGN UP_______________________________________(POST[email, password])/api/auth/
++ LOG IN________________________________________(GET[email, password])/api/auth/
 
-+ UPLOAD DELIVERY______________________(POST[info])/api/delivery
-+ GET DELIVERIES_______________________(GET)/api/delivery/[id_restaurant]
-+ ASIGN DELIVERY_______________________(PUT[id_user])/api/delivery/[id]
-+ FINISH DELIVERY______________________(PUT[boolean finished])/api/delivery/[id]
++ UPDATE PASSWORD_________________________________(PUT[password])/api/auth
++ UPDATE PHONE____________________________________(PUT[phone])/api/auth
 
-UPDATE PASSWORD________________________(PUT[password])/api/user/auth
-UPDATE PHONE___________________________(PUT[phone])/api/user/auth
-+ GET USERS____________________________(GET)/api/user/[id_restaurant]
-+ GET ACTIVE USERS_____________________(GET)/api/user/active/[id_restaurant]
-+ SIGN IN/OUT ACTIVE___________________(PUT[active])/api/user/active/[id_user]
-+ SEND LOCATION________________________(POST[location])/api/user/location
-GET ALL ACTIVE USERS LOCATION__________(GET)/api/user/location/[id_restaurant]
-+ GET USER LOCATION____________________(GET)/api/user/location/[id_user]
++ UPLOAD DELIVERY_______________________________(POST[info])/api/delivery
++ GET DELIVERIES________________________________(GET)/api/delivery/[id_restaurant]
++ ASIGN DELIVERY________________________________(PUT[id_user])/api/delivery/[id]
++ FINISH DELIVERY_______________________________(PUT[boolean finished])/api/delivery/[id]
 
-+ CREATE BRAND_________________________(POST[name])/api/brand
+
++ GET USERS_____________________________________(GET)/api/user/[id_restaurant]
++ GET ACTIVE USERS______________________________(GET)/api/user/active/[id_restaurant]
++ SIGN IN/OUT ACTIVE____________________________(PUT[active])/api/user/active/[id_user]
++ SEND LOCATION_________________________________(POST[location])/api/user/location
++ GET RESTAURANT ACTIVE USERS LOCATION__________(GET)/api/user/location/[id_restaurant]
++ GET USER LOCATION_____________________________(GET)/api/user/location/[id_user]
++ GET RESTAURANTS________________________________(GET)/api/restaurant
+
++ CREATE BRAND__________________________________(POST[name])/api/brand
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 · RESTAURANT  | JUST FOR AUTHORIZED USERS |
 
-+ CHANGE RESTAURANT OF USER____________(PUT[id_restaurant])/api/user/[id]
-+ GET ALL BRAND USERS__________________(GET)/api/user
-+ GET BRAND ACTIVE USERS_______________(GET)/api/user/active
-+ GIVE/REMOVE PRIVILEGE________________(PUT[privilege[true/false]])/api/user/[id]
++ CHANGE RESTAURANT OF USER_____________________(PUT[id_restaurant])/api/user/[id]
++ GET ALL BRAND USERS___________________________(GET)/api/user
++ GET BRAND ACTIVE USERS________________________(GET)/api/user/active
++ GIVE/REMOVE PRIVILEGE_________________________(PUT[privilege[true/false]])/api/user/[id]
 
-+ ADD RESTAURANT_______________________(POST[id_brand, name])/api/restaurant
-+ REMOVE RESTAURANT____________________(DELETE)/api/restaurant/[id]
-+ EDIT RESTAURANT______________________(PUT[info])/api/restaurant/[id]
++ ADD RESTAURANT________________________________(POST[id_brand, name])/api/restaurant
++ REMOVE RESTAURANT_____________________________(DELETE)/api/restaurant/[id]
++ EDIT RESTAURANT_______________________________(PUT[info])/api/restaurant/[id]
 
-+ GET ALL DELIVERIES___________________(GET)/api/delivery
-+ CANCEL DELIVERY______________________(DELETE)/api/delivery/[id]
++ GET ALL DELIVERIES____________________________(GET)/api/delivery
++ CANCEL DELIVERY_______________________________(DELETE)/api/delivery/[id]

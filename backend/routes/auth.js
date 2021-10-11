@@ -5,7 +5,9 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const tokenSecret = 'something'
 
-router.get('/login', (req, res) => {
+const rounds = 10
+
+router.get('/', (req, res) => {
     User.findOne({email: req.body.email})
         .then(user => {
             if (!user) res.status(404).json({error: 'not user found'})
@@ -22,33 +24,55 @@ router.get('/login', (req, res) => {
         })
 });
 
-router.post('/signup', (req, res) => {
+router.post('/', (req, res) => {
     User.findOne({email: req.body.email})
         .then(user => {
             if(user) res.status(423).json({error: 'email used before'})
+            else{
+                bcrypt.hash(req.body.password, rounds, (error, hash) => {
+                    if(error) res.status(500).json(error)
+                    else {
+                        const newUser = User({
+                            name: req.body.name,
+                            email: req.body.email,
+                            phone: req.body.phone,
+                            password: hash,
+                            brand: req.body.brand,
+                            restaurant: req.body.restaurant
+                        })
+                        newUser.save()
+                            .then(user => {
+                                res.status(200).json({token: generateToken(user)})
+                            })
+                            .catch(error => {
+                                res.status(500).json(error)
+                            })
+                    }
+                })
+            }
         })
+});
 
-    const rounds = 10
-    bcrypt.hash(req.body.password, rounds, (error, hash) => {
-        if(error) res.status(500).json(error)
-        else {
-            const newUser = User({
-                name: req.body.name,
-                email: req.body.email,
-                phone: req.body.phone,
-                password: hash,
-                brand: req.body.brand,
-                restaurant: req.body.restaurant
-            })
-            newUser.save()
-                .then(user => {
-                    res.status(200).json({token: generateToken(user)})
+router.put('/', (req, res) => {
+    if (req.body.phone) {
+        User.findOneAndUpdate({_id: req.user._id}, {phone: req.body.phone}, {new: true}, (error, updatedUser) => {
+            if (error) return res.status(500).json({error})
+            else if (!updatedUser) res.status(404).json({error: 'user not found'})
+            else res.status(200).send()
+        })
+    }
+    if (req.body.password) {
+        bcrypt.hash(req.body.password, rounds, (error, hash) => {
+            if(error) res.status(500).json(error)
+            else {
+                User.findOneAndUpdate({_id: req.user._id}, {password: req.body.password}, {new: true}, (error, updatedUser) => {
+                    if (error) return res.status(500).json({error})
+                    else if (!updatedUser) res.status(404).json({error: 'user not found'})
+                    else res.status(200).send()
                 })
-                .catch(error => {
-                    res.status(500).json(error)
-                })
-        }
-    })
+            }
+        })
+    }
 });
 
 function generateToken(user){

@@ -28,6 +28,14 @@ router.post('/', (req, res) => {
         })
 });
 
+router.get('/restaurant', (req, res) => {
+    Restaurant.find({brand: req.user.brand})
+        .then(restaurants => {
+            if(!restaurants) res.status(404).json({ error: 'restaurants not found' })
+            else res.status(200).json(restaurants)
+        })
+});
+
 router.put('/restaurant/:id', (req, res) => {
     User.findOne({_id: req.user})
         .then(user => {
