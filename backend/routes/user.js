@@ -153,6 +153,33 @@ router.post('/location', (req, res) => {
     }
 });
 
+router.get('/location/:id', (req, res) => {
+    Location.findOne({}, {}, { object: req.params.id, sort: { 'created_at' : -1 } })
+        .then(location => {
+            if (!location) res.status(404).json({error: 'location not found'})
+            else{
+                res.status(200).json(location)
+            }
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+});
+
+router.get('/location/:idRestaurant', (req, res) => {
+    User.find() //seguir aqui
+    Location.findOne({}, {}, { object: req.params.id, sort: { 'created_at' : -1 } })
+        .then(location => {
+            if (!location) res.status(404).json({error: 'location not found'})
+            else{
+                res.status(200).json(location)
+            }
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+});
+
 router.put('/:id', (req, res) => {
     if(typeof req.body.restaurant !== 'undefined') {
         User.findOneAndUpdate({_id: req.params.id}, {restaurant: req.body.restaurant}, {new: true}, (error, updatedUser) => {

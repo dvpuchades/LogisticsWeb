@@ -16,8 +16,8 @@
 + GET ACTIVE USERS_____________________(GET)/api/user/active/[id_restaurant]
 + SIGN IN/OUT ACTIVE___________________(PUT[active])/api/user/active/[id_user]
 + SEND LOCATION________________________(POST[location])/api/user/location
-GET ALL USERS LAST LOCATION____________(GET)/api/user/location/last
-GET USER LAST LOCATION_________________(GET)/api/user/location/last/[id_user]
+GET ALL ACTIVE USERS LOCATION__________(GET)/api/user/location/[id_restaurant]
++ GET USER LOCATION____________________(GET)/api/user/location/[id_user]
 
 + CREATE BRAND_________________________(POST[name])/api/brand
 
