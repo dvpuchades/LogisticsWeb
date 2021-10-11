@@ -5,13 +5,15 @@
 · USER
 
 + SIGN UP______________________________(POST[email, password])/api/auth/signup
-+ LOG IN_______________________________(POST[email, password])/api/auth/login
++ LOG IN_______________________________(GET[email, password])/api/auth/login
 
 + UPLOAD DELIVERY______________________(POST[info])/api/delivery
 + GET DELIVERIES_______________________(GET)/api/delivery/[id_restaurant]
 + ASIGN DELIVERY_______________________(PUT[id_user])/api/delivery/[id]
 + FINISH DELIVERY______________________(PUT[boolean finished])/api/delivery/[id]
 
+UPDATE PASSWORD________________________(PUT[password])/api/user/auth
+UPDATE PHONE___________________________(PUT[phone])/api/user/auth
 + GET USERS____________________________(GET)/api/user/[id_restaurant]
 + GET ACTIVE USERS_____________________(GET)/api/user/active/[id_restaurant]
 + SIGN IN/OUT ACTIVE___________________(PUT[active])/api/user/active/[id_user]
