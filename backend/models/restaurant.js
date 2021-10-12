@@ -7,7 +7,7 @@ const model = mongoose.Schema({
     },
     address: {
         type: String,
-        required: true
+        required: false
     },
     brand: {
         type: mongoose.ObjectId,
@@ -18,9 +18,9 @@ const model = mongoose.Schema({
         required: true
     },
     creationDate: {
-        type: mongoose.ObjectId,
+        type: Date,
         required: true
-    },
+    }
 });
 
 module.exports = new mongoose.model("Restaurant", model)

@@ -5,30 +5,28 @@ const Restaurant = require('../models/restaurant')
 const User = require('../models/user')
 
 router.post('/', (req, res) => {
-    User.findOne({_id: req.user})
-        .then(user => {
-            if (user.privilege == true) {
-                const newRestaurant = Restaurant({
-                    name: req.body.name,
-                    brand: user.brand,
-                    createdBy: req.user,
-                    creationDate: Date()
-                })
-                newRestaurant.save()
-                    .then(restaurant => {
-                        res.status(200).send()
-                    })
-                    .catch(error => {
-                        res.status(500).json(error)
-                    })
-            }
-            else {
-                res.status(423).json({error: 'user is not allowed to do this action'})
-            }
+    if (req.user.privilege) {
+        const newRestaurant = Restaurant({
+            name: req.body.name,
+            address: req.body.address,
+            brand: req.user.brand,
+            createdBy: req.user._id,
+            creationDate: Date()
         })
+        newRestaurant.save()
+            .then(restaurant => {
+                res.status(200).send()
+            })
+            .catch(error => {
+                res.status(500).json(error)
+            })
+    }
+    else {
+        res.status(423).json({error: 'user is not allowed to do this action'})
+    }
 });
 
-router.get('/restaurant', (req, res) => {
+router.get('/', (req, res) => {
     Restaurant.find({brand: req.user.brand})
         .then(restaurants => {
             if(!restaurants) res.status(404).json({ error: 'restaurants not found' })
@@ -36,26 +34,26 @@ router.get('/restaurant', (req, res) => {
         })
 });
 
-router.put('/restaurant/:id', (req, res) => {
-    User.findOne({_id: req.user})
-        .then(user => {
-            if (typeof req.body.name !== 'undefined') {
-                if (user.privilege == true) {
-                    Restaurant.findOneAndUpdate({_id: req.params.id}, {name: req.body.name}, {new: true}, (error, updatedRestaurant) => {
-                        if (error) return res.status(500).json({error})
-                        else if (!updatedRestaurant) res.status(404).json({error: 'restaurant not found'})
-                        else res.status(200).json(updatedRestaurant)
-                    })
-                }
-                else{
-                    res.status(423).json({error: 'user is not allowed to do this action'})
-                }
-            }
-            else res.status(400).json({error: 'parameter name needed'})
-        })
+router.put('/:id', (req, res) => {
+    let updates = {}
+    if (typeof req.body.name !== 'undefined') updates.name = req.body.name;
+    if (typeof req.body.address !== 'undefined') updates.address = req.body.address;
+    if (updates !== {}) {
+        if (req.user.privilege) {
+            Restaurant.findOneAndUpdate({_id: req.params.id}, {name: req.body.name}, {new: true}, (error, updatedRestaurant) => {
+                if (error)  res.status(500).json({error})
+                else if (!updatedRestaurant) res.status(404).json({error: 'restaurant not found'})
+                else res.status(200).json(updatedRestaurant)
+            })
+        }
+        else{
+            res.status(423).json({error: 'user is not allowed to do this action'})
+        }
+    }
+    else res.status(400).json({error: 'parameters needed'})
 });
 
-router.delete('/restaurant/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     User.findOne({_id: req.user})
         .then(user => {
             if (user.privilege == true) {

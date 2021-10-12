@@ -5,6 +5,10 @@ const User = require('../models/user')
 const Active = require('../models/active')
 const Location = require('../models/location')
 
+const bcrypt = require('bcrypt')
+
+const rounds = 10
+
 router.get('/', (req, res) => {
     User.find({brand: req.user.brand})
         .then(users => {
@@ -13,6 +17,7 @@ router.get('/', (req, res) => {
                 let showableUsers = []
                 users.forEach(user => {
                     showableUsers.push({
+                        _id: user._id,
                         name: user.name,
                         email: user.email,
                         phone: user.phone,
@@ -49,83 +54,28 @@ router.get('/:restaurantId', (req, res) => {
         })
 });
 
-router.get('/active', (req, res) => {
-    let showableUsers = []
-    Active.find({finishTime: null})
-        .then( actives => {
-            if(!actives) res.status(404).json({error: 'not active users'})
-            actives.forEach(active => {
-                User.findOne({_id: active.user})
-                    .then(user => {
-                        showableUsers.push({
-                            name: user.name,
-                            email: user.email,
-                            phone: user.phone
-                        })
-                    })
-                res.status(200).json(showableUsers)
-            })
-        })
-        .catch(error => {
-            res.status(500).json(error)
-        })
-});
-
-router.get('/active/:restaurantId', (req, res) => {
-    let showableUsers = []
-    Active.find({finishTime: null})
-        .then( actives => {
-            if(!actives) res.status(404).json({error: 'not active users'})
-            actives.forEach(active => {
-                User.findOne({_id: active.user})
-                    .then(user => {
-                        if (user.restaurant == restaurantId){
-                            showableUsers.push({
-                                name: user.name,
-                                email: user.email,
-                                phone: user.phone
-                            })
-                        }
-                    })
-                res.status(200).json(showableUsers)
-            })
-        })
-        .catch(error => {
-            res.status(500).json(error)
-        })
-});
-
-router.put('/active/:id', (res, req) => {
-    if (typeof req.body.active === 'undefined') res.status(400).json({error: 'insert valid parameters'})
-    else if (req.body.active){
-        Active.findOne({finishTime: null})
-            .then(active => {
-                if (!active){
-                    const newActive = Active({
-                        user: res.user,
-                        initTime: Date()
-                    })
-                    Active.save(newActive)
-                        .then(active => {
-                            res.status(200).json(newActive)
-                        })
-                        .catch(error => {
-                            res.status(500).json(error)
-                        })
-                }
-                else res.status(200).json(active)
-            })
-            .catch(error => {
+router.put('/info', (req, res) => {
+    let updates = {}
+    if (req.body.phone) updates.phone = req.body.phone
+    if (req.body.password) {
+        bcrypt.hash(req.body.password, rounds, (error, hash) => {
+            if(error) {
                 res.status(500).json(error)
-            })
-    }
-    else {
-        Active.findOneAndUpdate({_id: req.params.id}, {finishTime: Date()}, {new: true}, (error, updatedActive) => {
-            if (error) return res.status(500).json({error})
-            else if (!updatedActive) res.status(400).json({error: 'user was not active'})
-            else res.status(200).json(updatedActive)
+                return
+            }
+            else updates.password = hash
         })
     }
+    if (req.body.brand) updates.brand = req.body.brand
+    if (req.body.restaurant) updates.restaurant = req.body.restaurant
+    if (updates !== {}) {
+        User.findOneAndUpdate({_id: req.user._id}, updates, {new: true}, (error, updatedUser) => {
+            if (error) return res.status(500).json({error})
+            else if (!updatedUser) res.status(404).json({error: 'user not found'})
+            else res.status(200).send()
+        })
+    }
+    else res.status(400).json({error: 'parameters needed'})
 });
 
 router.post('/location', (req, res) => {
@@ -212,26 +162,20 @@ router.get('/location/:idRestaurant', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    if(typeof req.body.restaurant !== 'undefined') {
-        User.findOneAndUpdate({_id: req.params.id}, {restaurant: req.body.restaurant}, {new: true}, (error, updatedUser) => {
-            if (error) return res.status(500).json({error})
-            else if (!updatedUser) res.status(404).json({error: 'user not found'})
-            else res.status(200).json(updatedUser)
-        })
-    }
-    if(typeof req.body.privilege !== 'undefined') {
-        User.findOne({_id: req.user})
-            .then(operatingUser => {
-                if (operatingUser.privilege == true){
-                    User.findOneAndUpdate({_id: req.params.id}, {privilege: req.body.privilege}, {new: true}, (error, updatedUser) => {
-                        if (error) return res.status(500).json({error})
-                        else if (!updatedUser) res.status(404).json({error: 'user not found'})
-                        else res.status(200).json(updatedUser)
-                })}
-                else res.status(423).json({error: 'user is not allowed to do this action'})
+    if(req.user.privilege) {
+        let updates = {}
+        if(typeof req.body.restaurant !== 'undefined') updates.restaurant = req.body.restaurant
+        if(typeof req.body.privilege !== 'undefined') updates.privilege = req.body.privilege
+        if(updates !== {}){
+            User.findOneAndUpdate({_id: req.params.id}, {restaurant: req.body.restaurant}, {new: true}, (error, updatedUser) => {
+                if (error) return res.status(500).json({error})
+                else if (!updatedUser) res.status(404).json({error: 'user not found'})
+                else res.status(200).json(updatedUser)
             })
+        }
+        else res.status(400).json({error: 'parameters needed'})
     }
-    else res.status(204).send()
+    else res.status(423).json({error: 'user is not allowed to do this action'})
 });
 
 module.exports = router

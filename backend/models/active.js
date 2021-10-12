@@ -5,6 +5,10 @@ const model = mongoose.Schema({
         type: mongoose.ObjectId,
         required: true
     },
+    brand: {
+        type: mongoose.ObjectId,
+        required: true
+    },
     initTime: {
         type: Date,
         required: true

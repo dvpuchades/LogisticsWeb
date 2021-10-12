@@ -53,28 +53,6 @@ router.post('/', (req, res) => {
         })
 });
 
-router.put('/', (req, res) => {
-    if (req.body.phone) {
-        User.findOneAndUpdate({_id: req.user._id}, {phone: req.body.phone}, {new: true}, (error, updatedUser) => {
-            if (error) return res.status(500).json({error})
-            else if (!updatedUser) res.status(404).json({error: 'user not found'})
-            else res.status(200).send()
-        })
-    }
-    if (req.body.password) {
-        bcrypt.hash(req.body.password, rounds, (error, hash) => {
-            if(error) res.status(500).json(error)
-            else {
-                User.findOneAndUpdate({_id: req.user._id}, {password: req.body.password}, {new: true}, (error, updatedUser) => {
-                    if (error) return res.status(500).json({error})
-                    else if (!updatedUser) res.status(404).json({error: 'user not found'})
-                    else res.status(200).send()
-                })
-            }
-        })
-    }
-});
-
 function generateToken(user){
     return jwt.sign({data: user}, tokenSecret, {expiresIn: '7 days'})
 }

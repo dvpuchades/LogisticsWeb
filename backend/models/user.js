@@ -10,7 +10,7 @@ const model = mongoose.Schema({
         required: true
     },
     phone: {
-        type: Number,
+        type: String,
         required: false
     },
     password: {
@@ -19,7 +19,7 @@ const model = mongoose.Schema({
     },
     brand: {
         type: mongoose.ObjectId,
-        required: true
+        required: false
     },
     restaurant: {
         type: mongoose.ObjectId,
