@@ -3,6 +3,7 @@ const router = express.Router()
 
 const User = require('../models/user')
 const Location = require('../models/location')
+const Active = require('../models/active')
 
 router.post('/', (req, res) => {
     if(typeof req.body.latitude !== "number" 
@@ -27,66 +28,10 @@ router.post('/', (req, res) => {
 });
 
 router.get('/restaurant/:idRestaurant', (req, res) => {
-    let showableUsers = []
-    User.find({restaurant: req.params.idRestaurant})
-        .then( users => {
-            if(!users) {
-                res.status(404).json({error: 'not users'})
-                return
-            }
-            users.forEach(user => {
-                Active.find({user: user._id, finishTime: { $exists: false }})
-                    .then(active => {
-                        console.log(active)
-                        if (active) {
-                            Location.findOne({}, {}, { object: user._id, sort: { 'time' : -1 } })
-                                .then(location => {
-                                    if (!location){
-                                        showableUsers.push({
-                                            name: user.name,
-                                            email: user.email,
-                                            phone: user.phone,
-                                        })
-                                    }
-                                    else{
-                                        showableUsers.push({
-                                            name: user.name,
-                                            email: user.email,
-                                            phone: user.phone,
-                                            location: {
-                                                longitude: location.longitude,
-                                                latitude: location.latitude,
-                                                time: location.time
-                                            }
-                                        })
-                                    }
-                                })
-                                .catch(error => {
-                                    res.status(500).json(error)
-                                })
-                        }
-                    })
-                    .catch(error => {
-                        res.status(500).json(error)
-                    })
-            })
-            if(showableUsers == []) res.status(404).json({error: 'not active users'})
-            else res.status(200).json(showableUsers)
-        })
-        .catch(error => {
-            res.status(500).json(error)
-        })
+    getLocationForActiveUsersInRestaurant(req, res)
 });
 
-/**
- * get users
- * check if is active
- * get location
- * send showableUsers
- */
-
-function getUsers(req, res, next) {
-    let showableUsers = []
+function getLocationForActiveUsersInRestaurant(req, res) {
     User.find({restaurant: req.params.idRestaurant})
         .then( users => {
             if (!users) res.status(404).json({error: 'not user found'})
@@ -102,29 +47,47 @@ function getUsers(req, res, next) {
                         restaurant: user.restaurant
                     })
                     processedUsers++
-                    if (processedUsers == users.length) next(showableUsers)
+                    if (processedUsers == users.length) getLocationForActiveUsers(req, res, showableUsers)
                 })
             } 
         })
 }
 
-function checkUsersActive(users, next){
+function getLocationForActiveUsers(req, res, users){
     availableUsers = []
     let processedUsers = 0
     users.forEach(user => {
         Active.find({user: user._id, finishTime: { $exists: false }})
             .then(active => {
-                if (active) availableUsers.push(user)
+                if (active.length == 1) availableUsers.push(user)
+                processedUsers++
+                if (processedUsers == users.length) getLocationFromUserList(req, res, availableUsers)
             })
-        processedUsers++
-        if (processedUsers == users.length) next(availableUsers)
     })
 }
 
-// HERE
+function getLocationFromUserList(req, res, users){
+    let locatedUsers = []
+    let processedUsers = 0
+    users.forEach(user => {
+        Location.findOne({ object: user._id}).sort({time: 'descending'})
+            .then(location => {
+                if (location) {
+                    user.location = {
+                        longitude: location.longitude,
+                        latitude: location.latitude,
+                        time: location.time
+                    }
+                    locatedUsers.push(user)
+                }
+                processedUsers++
+                if (processedUsers == users.length) res.status(200).json(locatedUsers)
+            })
+    })
+}
 
-router.get('/:id', (req, res) => {
-    Location.findOne({ object: req.params.id, sort: { 'time' : -1 } })
+router.get('/user/:id', (req, res) => {
+    Location.findOne({ object: req.params.id }).sort({time: 'descending'})
         .then(location => {
             if (!location) res.status(404).json({error: 'location not found'})
             else{
