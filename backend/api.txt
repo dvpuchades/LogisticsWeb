@@ -21,9 +21,9 @@ o GET USERS_____________________________________(GET)/api/user/[id_restaurant]
 o GET ACTIVE USERS______________________________(GET)/api/user/active/[id_restaurant]
 o SIGN IN/OUT ACTIVE____________________________(PUT[active])/api/user/active/
 o SIGN IN/OUT ACTIVE OTHER USER_________________(PUT[active])/api/user/active/[id_user]
-+ SEND LOCATION_________________________________(POST[location])/api/user/location
-+ GET RESTAURANT ACTIVE USERS LOCATION__________(GET)/api/user/location/[id_restaurant]
-+ GET USER LOCATION_____________________________(GET)/api/user/location/[id_user]
++ SEND LOCATION_________________________________(POST[location])/api/location
++ GET RESTAURANT ACTIVE USERS LOCATION__________(GET)/api/location/[id_restaurant]
++ GET USER LOCATION_____________________________(GET)/api/location/[id_user]
 
 o CREATE BRAND__________________________________(POST[name])/api/brand
 
@@ -41,5 +41,5 @@ o REMOVE RESTAURANT_____________________________(DELETE)/api/restaurant/[id]
 o EDIT RESTAURANT_______________________________(PUT[info])/api/restaurant/[id]
 o GET RESTAURANTS_______________________________(GET)/api/restaurant
 
-+ GET ALL DELIVERIES____________________________(GET)/api/delivery
-+ CANCEL DELIVERY_______________________________(DELETE)/api/delivery/[id]
+o GET ALL DELIVERIES____________________________(GET)/api/delivery
+o CANCEL DELIVERY_______________________________(DELETE)/api/delivery/[id]
