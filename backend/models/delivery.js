@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-var mongoose_delete = require('mongoose-delete');
+//var mongoose_delete = require('mongoose-delete');
 
 const model = mongoose.Schema({
     uploadUser: {
@@ -7,6 +7,10 @@ const model = mongoose.Schema({
         required: true,
     },
     restaurant: {
+        type: mongoose.ObjectId,
+        required: true
+    },
+    brand: {
         type: mongoose.ObjectId,
         required: true
     },
@@ -42,5 +46,5 @@ const model = mongoose.Schema({
     }
 });
 
-model.plugin(mongoose_delete);
+//model.plugin(mongoose_delete);
 module.exports = new mongoose.model("Delivery", model)

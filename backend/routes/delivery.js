@@ -8,6 +8,7 @@ router.post('/', (req, res) => {
     const newDelivery = Delivery({
         uploadUser: req.user._id, 
         restaurant: req.body.restaurant,
+        brand: req.user.brand,
         dealer: req.body.dealer, 
         address: req.body.address,
         postcode: req.body.postcode, 
@@ -27,7 +28,7 @@ router.post('/', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    Delivery.find({})
+    Delivery.find({brand: req.user.brand})
         .then(deliveries => {
             if(!deliveries) res.status(404).json({error: 'not delivery found'})
             else res.status(200).json(deliveries)
@@ -76,11 +77,14 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    Delivery.deleteOne({_id: req.params.id}, (error, result) => {
-        if (!result) res.status(404).json({error: 'delivery not found'}) 
-        else if(error) res.status(500).json(error)
-        else res.status(200).send()
-    })
+    if(req.user.privilege){
+        Delivery.deleteOne({_id: req.params.id}, (error, result) => {
+            if (!result) res.status(404).json({error: 'delivery not found'}) 
+            else if(error) res.status(500).json(error)
+            else res.status(200).send()
+        })
+    }
+    else res.status(403).json({error: 'only privilege users can delete deliveries'})
 });
 
 module.exports = router

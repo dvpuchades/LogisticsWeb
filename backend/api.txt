@@ -11,10 +11,10 @@ o UPDATE PASSWORD_______________________________(PUT[password])/api/auth
 o UPDATE PHONE__________________________________(PUT[phone])/api/auth
 o CHANGE BRAND__________________________________(PUT[brand])/api/auth
 
-+ UPLOAD DELIVERY_______________________________(POST[info])/api/delivery
-+ GET DELIVERIES________________________________(GET)/api/delivery/[id_restaurant]
-+ ASIGN DELIVERY________________________________(PUT[id_user])/api/delivery/[id]
-+ FINISH DELIVERY_______________________________(PUT[boolean finished])/api/delivery/[id]
+o UPLOAD DELIVERY_______________________________(POST[info])/api/delivery
+o GET DELIVERIES________________________________(GET)/api/delivery/[id_restaurant]
+o ASIGN DELIVERY________________________________(PUT[id_user])/api/delivery/[id]
+o FINISH DELIVERY_______________________________(PUT[boolean finished])/api/delivery/[id]
 
 
 o GET USERS_____________________________________(GET)/api/user/[id_restaurant]
