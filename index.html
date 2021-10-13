@@ -1,0 +1,1212 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>fattorino</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+        });
+        hljs.initHighlightingOnLoad();
+    </script>
+    <style>body {
+    position: relative;
+}
+
+h1 {
+    margin-top: 5px;
+}
+
+h1, h2, h3, h4 {
+    color: #2b2b2b;
+}
+
+h2:after {
+    content: ' ';
+}
+
+h5 {
+    font-weight: bold;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    display: none;
+    position: absolute;
+    margin-left: 8px;
+}
+
+h1:hover a, h2:hover a, h3:hover a, h4:hover a, h5:hover a, h6:hover a {
+    color: #a5a5a5;
+    display: initial;
+}
+
+.nav.nav-tabs > li > a {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.tab-content {
+    padding-top: 8px;
+}
+
+.table {
+    margin-bottom: 8px;
+}
+
+pre {
+    border-radius: 0px;
+    border: none;
+}
+
+pre code {
+    margin: -9.5px;
+}
+
+.request {
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.response-text-sample {
+    padding: 0px !important;
+}
+
+.response-text-sample pre {
+    margin-bottom: 0px;
+}
+
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #2b2b2b;
+    padding-top: 20px;
+}
+
+#sidebar-wrapper ul {
+    width: 250px;
+}
+
+#sidebar-wrapper ul li {
+    margin-right: 10px;
+}
+
+#sidebar-wrapper ul li a:hover {
+    background: inherit;
+    text-decoration: none;
+}
+
+#sidebar-wrapper ul li a {
+    display: block;
+    color: #ECF0F1;
+    padding: 6px 15px;
+}
+
+#sidebar-wrapper ul li ul {
+    padding-left: 25px;
+}
+
+#sidebar-wrapper ul li ul li a {
+    padding: 1px 0px;
+}
+
+#sidebar-wrapper ul li a:hover,
+#sidebar-wrapper ul li a:focus {
+    color: #37A959;
+    border-right: solid 1px #37A959;
+}
+
+#sidebar-wrapper ul li.active > a {
+    color: #37A959;
+    border-right: solid 3px #37A959;
+}
+
+#sidebar-wrapper ul li:not(.active) ul {
+    display: none;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px 15px 15px 250px;
+}
+</style>
+</head>
+<body data-spy="scroll" data-target=".scrollspy">
+<div id="sidebar-wrapper">
+    <div class="scrollspy">
+    <ul id="main-menu" data-spy="affix" class="nav">
+        <li>
+            <a href="#doc-general-notes">General notes</a>
+        </li>
+        
+        <li>
+            <a href="#doc-api-detail">API detail</a>
+        </li>
+        
+        
+        
+        <li>
+            <a href="#folder-auth">auth</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-auth-sign-in">Sign In</a>
+                </li>
+                
+                <li>
+                    <a href="#request-auth-log-in">Log In</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-user">user</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-user-update-user-info">Update User Info</a>
+                </li>
+                
+                <li>
+                    <a href="#request-user-create-brand">Create Brand</a>
+                </li>
+                
+                <li>
+                    <a href="#request-user-register-in-a-brand">Register in a Brand</a>
+                </li>
+                
+                <li>
+                    <a href="#request-user-get-all-brand-users">Get all Brand Users</a>
+                </li>
+                
+                <li>
+                    <a href="#request-user-sign-in-out-as-active">Sign In/Out as Active</a>
+                </li>
+                
+                <li>
+                    <a href="#request-user-sign-in-out-other-as-active">Sign In/Out other as Active</a>
+                </li>
+                
+                <li>
+                    <a href="#request-user-get-active-users">Get Active Users</a>
+                </li>
+                
+                <li>
+                    <a href="#request-user-get-active-restaurant-users">Get Active Restaurant Users</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-restaurant">restaurant</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-restaurant-create-restaurant">Create Restaurant</a>
+                </li>
+                
+                <li>
+                    <a href="#request-restaurant-edit-restaurant">Edit Restaurant</a>
+                </li>
+                
+                <li>
+                    <a href="#request-restaurant-remove-restaurant">Remove Restaurant</a>
+                </li>
+                
+                <li>
+                    <a href="#request-restaurant-get-restaurants">Get Restaurants</a>
+                </li>
+                
+                <li>
+                    <a href="#request-restaurant-insert-user-in-restaurant">Insert User In Restaurant</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-deliveries">deliveries</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-deliveries-insert-delivery">Insert Delivery</a>
+                </li>
+                
+                <li>
+                    <a href="#request-deliveries-get-deliveries">Get Deliveries</a>
+                </li>
+                
+                <li>
+                    <a href="#request-deliveries-sign-up-delivery">Sign up Delivery</a>
+                </li>
+                
+                <li>
+                    <a href="#request-deliveries-finish-delivery">Finish Delivery</a>
+                </li>
+                
+                <li>
+                    <a href="#request-deliveries-delete-delivery">Delete Delivery</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-location">location</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-location-post-location">Post Location</a>
+                </li>
+                
+                <li>
+                    <a href="#request-location-get-restaurant-locations">Get Restaurant Locations</a>
+                </li>
+                
+                <li>
+                    <a href="#request-location-get-user-location">Get User Location</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+    </ul>
+</div>
+
+</div>
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>fattorino</h1>
+
+                <h2 id="doc-general-notes">
+                    General notes
+                    <a href="#doc-general-notes"><i class="glyphicon glyphicon-link"></i></a>
+                </h2>
+
+                
+
+                
+
+                <h2 id="doc-api-detail">
+                    API detail
+                    <a href="#doc-api-detail"><i class="glyphicon glyphicon-link"></i></a>
+                </h2>
+
+                
+
+
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-auth">
+                        auth
+                        <a href="#folder-auth"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-auth-sign-in">
+                            Sign In
+                            <a href="#request-auth-sign-in"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-auth-sign-in-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-auth-sign-in-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-auth-sign-in-example-curl">
+                                    <pre><code class="hljs curl">curl -X POST -d '{
+    "name":"Martina",
+    "email":"martina@gmail.com",
+    "phone": "0028984999",
+    "password": "password"
+}' "http://localhost:2400/api/auth"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-auth-sign-in-example-http">
+                                    <pre><code class="hljs http">POST /api/auth HTTP/1.1
+Host: localhost:2400
+
+{
+    "name":"Martina",
+    "email":"martina@gmail.com",
+    "phone": "0028984999",
+    "password": "password"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-auth-log-in">
+                            Log In
+                            <a href="#request-auth-log-in"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-auth-log-in-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-auth-log-in-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-auth-log-in-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "http://localhost:2400/api/auth"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-auth-log-in-example-http">
+                                    <pre><code class="hljs http">GET /api/auth HTTP/1.1
+Host: localhost:2400</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-user">
+                        user
+                        <a href="#folder-user"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-user-update-user-info">
+                            Update User Info
+                            <a href="#request-user-update-user-info"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-user-update-user-info-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-user-update-user-info-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-user-update-user-info-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "password": "passw0rd",
+    "phone": "000333444555",
+    "restaurant": "6165ae4d620c81df747d3caf"
+}' "http://localhost:2400/api/user/info"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-user-update-user-info-example-http">
+                                    <pre><code class="hljs http">PUT /api/user/info HTTP/1.1
+Host: localhost:2400
+
+{
+    "password": "passw0rd",
+    "phone": "000333444555",
+    "restaurant": "6165ae4d620c81df747d3caf"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-user-create-brand">
+                            Create Brand
+                            <a href="#request-user-create-brand"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-user-create-brand-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-user-create-brand-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-user-create-brand-example-curl">
+                                    <pre><code class="hljs curl">curl -X POST -d '{
+    "name": "Little Thai"
+}' "http://localhost:2400/api/brand"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-user-create-brand-example-http">
+                                    <pre><code class="hljs http">POST /api/brand HTTP/1.1
+Host: localhost:2400
+
+{
+    "name": "Little Thai"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-user-register-in-a-brand">
+                            Register in a Brand
+                            <a href="#request-user-register-in-a-brand"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-user-register-in-a-brand-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-user-register-in-a-brand-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-user-register-in-a-brand-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "brand":"6164612ca3bdc06eb54179f0"
+}' "http://localhost:2400/api/user/info"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-user-register-in-a-brand-example-http">
+                                    <pre><code class="hljs http">PUT /api/user/info HTTP/1.1
+Host: localhost:2400
+
+{
+    "brand":"6164612ca3bdc06eb54179f0"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-user-get-all-brand-users">
+                            Get all Brand Users
+                            <a href="#request-user-get-all-brand-users"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-user-get-all-brand-users-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-user-get-all-brand-users-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-user-get-all-brand-users-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "http://localhost:2400/api/user/"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-user-get-all-brand-users-example-http">
+                                    <pre><code class="hljs http">GET /api/user/ HTTP/1.1
+Host: localhost:2400</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-user-sign-in-out-as-active">
+                            Sign In/Out as Active
+                            <a href="#request-user-sign-in-out-as-active"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-user-sign-in-out-as-active-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-user-sign-in-out-as-active-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-user-sign-in-out-as-active-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "active": true
+}' "http://localhost:2400/api/user/active"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-user-sign-in-out-as-active-example-http">
+                                    <pre><code class="hljs http">PUT /api/user/active HTTP/1.1
+Host: localhost:2400
+
+{
+    "active": true
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-user-sign-in-out-other-as-active">
+                            Sign In/Out other as Active
+                            <a href="#request-user-sign-in-out-other-as-active"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-user-sign-in-out-other-as-active-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-user-sign-in-out-other-as-active-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-user-sign-in-out-other-as-active-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "active": true
+}' "http://localhost:2400/api/user/active/61645b09a4bbf9e4fd3e30e4"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-user-sign-in-out-other-as-active-example-http">
+                                    <pre><code class="hljs http">PUT /api/user/active/61645b09a4bbf9e4fd3e30e4 HTTP/1.1
+Host: localhost:2400
+
+{
+    "active": true
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-user-get-active-users">
+                            Get Active Users
+                            <a href="#request-user-get-active-users"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-user-get-active-users-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-user-get-active-users-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-user-get-active-users-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "http://localhost:2400/api/user/active"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-user-get-active-users-example-http">
+                                    <pre><code class="hljs http">GET /api/user/active HTTP/1.1
+Host: localhost:2400</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-user-get-active-restaurant-users">
+                            Get Active Restaurant Users
+                            <a href="#request-user-get-active-restaurant-users"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-user-get-active-restaurant-users-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-user-get-active-restaurant-users-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-user-get-active-restaurant-users-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "http://localhost:2400/api/user/active/6165ae4d620c81df747d3caf"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-user-get-active-restaurant-users-example-http">
+                                    <pre><code class="hljs http">GET /api/user/active/6165ae4d620c81df747d3caf HTTP/1.1
+Host: localhost:2400</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-restaurant">
+                        restaurant
+                        <a href="#folder-restaurant"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-restaurant-create-restaurant">
+                            Create Restaurant
+                            <a href="#request-restaurant-create-restaurant"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-restaurant-create-restaurant-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-restaurant-create-restaurant-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-restaurant-create-restaurant-example-curl">
+                                    <pre><code class="hljs curl">curl -X POST -d '{
+    "name": "Best place",
+    "address": "Alverno Drive, 35"
+}' "http://localhost:2400/api/restaurant"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-restaurant-create-restaurant-example-http">
+                                    <pre><code class="hljs http">POST /api/restaurant HTTP/1.1
+Host: localhost:2400
+
+{
+    "name": "Best place",
+    "address": "Alverno Drive, 35"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-restaurant-edit-restaurant">
+                            Edit Restaurant
+                            <a href="#request-restaurant-edit-restaurant"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-restaurant-edit-restaurant-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-restaurant-edit-restaurant-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-restaurant-edit-restaurant-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "name": "Best place",
+    "address": "Alverno Drive, 35"
+}' "http://localhost:2400/api/restaurant/6165a75b479ff2680caef26e"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-restaurant-edit-restaurant-example-http">
+                                    <pre><code class="hljs http">PUT /api/restaurant/6165a75b479ff2680caef26e HTTP/1.1
+Host: localhost:2400
+
+{
+    "name": "Best place",
+    "address": "Alverno Drive, 35"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-restaurant-remove-restaurant">
+                            Remove Restaurant
+                            <a href="#request-restaurant-remove-restaurant"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-restaurant-remove-restaurant-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-restaurant-remove-restaurant-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-restaurant-remove-restaurant-example-curl">
+                                    <pre><code class="hljs curl">curl -X DELETE "http://localhost:2400/api/restaurant/6165a75b479ff2680caef26e"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-restaurant-remove-restaurant-example-http">
+                                    <pre><code class="hljs http">DELETE /api/restaurant/6165a75b479ff2680caef26e HTTP/1.1
+Host: localhost:2400</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-restaurant-get-restaurants">
+                            Get Restaurants
+                            <a href="#request-restaurant-get-restaurants"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-restaurant-get-restaurants-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-restaurant-get-restaurants-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-restaurant-get-restaurants-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "http://localhost:2400/api/restaurant/"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-restaurant-get-restaurants-example-http">
+                                    <pre><code class="hljs http">GET /api/restaurant/ HTTP/1.1
+Host: localhost:2400</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-restaurant-insert-user-in-restaurant">
+                            Insert User In Restaurant
+                            <a href="#request-restaurant-insert-user-in-restaurant"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-restaurant-insert-user-in-restaurant-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-restaurant-insert-user-in-restaurant-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-restaurant-insert-user-in-restaurant-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "restaurant": "6165ae4d620c81df747d3caf"
+}' "http://localhost:2400/api/user/61645b73a4bbf9e4fd3e30e7"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-restaurant-insert-user-in-restaurant-example-http">
+                                    <pre><code class="hljs http">PUT /api/user/61645b73a4bbf9e4fd3e30e7 HTTP/1.1
+Host: localhost:2400
+
+{
+    "restaurant": "6165ae4d620c81df747d3caf"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-deliveries">
+                        deliveries
+                        <a href="#folder-deliveries"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-deliveries-insert-delivery">
+                            Insert Delivery
+                            <a href="#request-deliveries-insert-delivery"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-deliveries-insert-delivery-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-deliveries-insert-delivery-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-deliveries-insert-delivery-example-curl">
+                                    <pre><code class="hljs curl">curl -X POST -d '{
+    "restaurant": "6165ae4d620c81df747d3caf",
+    "address": "Willow Street, 53",
+    "postcode": "N37 WF84",
+    "amount": 80.70,
+    "customer": "Laura"
+}' "http://localhost:2400/api/delivery"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-deliveries-insert-delivery-example-http">
+                                    <pre><code class="hljs http">POST /api/delivery HTTP/1.1
+Host: localhost:2400
+
+{
+    "restaurant": "6165ae4d620c81df747d3caf",
+    "address": "Willow Street, 53",
+    "postcode": "N37 WF84",
+    "amount": 80.70,
+    "customer": "Laura"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-deliveries-get-deliveries">
+                            Get Deliveries
+                            <a href="#request-deliveries-get-deliveries"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-deliveries-get-deliveries-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-deliveries-get-deliveries-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-deliveries-get-deliveries-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "http://localhost:2400/api/delivery"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-deliveries-get-deliveries-example-http">
+                                    <pre><code class="hljs http">GET /api/delivery HTTP/1.1
+Host: localhost:2400</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-deliveries-sign-up-delivery">
+                            Sign up Delivery
+                            <a href="#request-deliveries-sign-up-delivery"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-deliveries-sign-up-delivery-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-deliveries-sign-up-delivery-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-deliveries-sign-up-delivery-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "dealer": "61645a17a4bbf9e4fd3e30e0"
+}' "http://localhost:2400/api/delivery/6166c3d7eb7edca600c55833"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-deliveries-sign-up-delivery-example-http">
+                                    <pre><code class="hljs http">PUT /api/delivery/6166c3d7eb7edca600c55833 HTTP/1.1
+Host: localhost:2400
+
+{
+    "dealer": "61645a17a4bbf9e4fd3e30e0"
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-deliveries-finish-delivery">
+                            Finish Delivery
+                            <a href="#request-deliveries-finish-delivery"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-deliveries-finish-delivery-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-deliveries-finish-delivery-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-deliveries-finish-delivery-example-curl">
+                                    <pre><code class="hljs curl">curl -X PUT -d '{
+    "finished": true
+}' "http://localhost:2400/api/delivery/6166c3d7eb7edca600c55833"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-deliveries-finish-delivery-example-http">
+                                    <pre><code class="hljs http">PUT /api/delivery/6166c3d7eb7edca600c55833 HTTP/1.1
+Host: localhost:2400
+
+{
+    "finished": true
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-deliveries-delete-delivery">
+                            Delete Delivery
+                            <a href="#request-deliveries-delete-delivery"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-deliveries-delete-delivery-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-deliveries-delete-delivery-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-deliveries-delete-delivery-example-curl">
+                                    <pre><code class="hljs curl">curl -X DELETE "http://localhost:2400/api/delivery/6166c3d7eb7edca600c55833"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-deliveries-delete-delivery-example-http">
+                                    <pre><code class="hljs http">DELETE /api/delivery/6166c3d7eb7edca600c55833 HTTP/1.1
+Host: localhost:2400</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-location">
+                        location
+                        <a href="#folder-location"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-location-post-location">
+                            Post Location
+                            <a href="#request-location-post-location"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-location-post-location-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-location-post-location-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-location-post-location-example-curl">
+                                    <pre><code class="hljs curl">curl -X POST -d '{
+    "longitude": 89.345678,
+    "latitude": 381.345678
+}' "http://localhost:2400/api/location"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-location-post-location-example-http">
+                                    <pre><code class="hljs http">POST /api/location HTTP/1.1
+Host: localhost:2400
+
+{
+    "longitude": 89.345678,
+    "latitude": 381.345678
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-location-get-restaurant-locations">
+                            Get Restaurant Locations
+                            <a href="#request-location-get-restaurant-locations"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-location-get-restaurant-locations-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-location-get-restaurant-locations-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-location-get-restaurant-locations-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "http://localhost:2400/api/location/restaurant/6165ae4d620c81df747d3caf"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-location-get-restaurant-locations-example-http">
+                                    <pre><code class="hljs http">GET /api/location/restaurant/6165ae4d620c81df747d3caf HTTP/1.1
+Host: localhost:2400</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-location-get-user-location">
+                            Get User Location
+                            <a href="#request-location-get-user-location"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div></div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-location-get-user-location-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-location-get-user-location-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-location-get-user-location-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "http://localhost:2400/api/location/user/61645a17a4bbf9e4fd3e30e0"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-location-get-user-location-example-http">
+                                    <pre><code class="hljs http">GET /api/location/user/61645a17a4bbf9e4fd3e30e0 HTTP/1.1
+Host: localhost:2400</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("table:not(.table)").addClass('table table-bordered');
+    });
+</script>
+</body>
+</html>

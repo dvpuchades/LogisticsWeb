@@ -1,0 +1,1090 @@
+{
+	"info": {
+		"_postman_id": "0095afb0-ea84-432f-a752-3544b736973c",
+		"name": "fattorino",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Sign In",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNWUzZTRiZGE5NmNjOWQ0NTgwNDU1YyIsImVtYWlsIjoiZHZwdWNoYWRlcyIsInBhc3N3b3JkIjoiJDJiJDEwJDFQZWIvc2dwbWVkZ2JnSHpPelJkd2U2dUN3WW90SXk1Qy83dWZySFZ5VE5MSkExTXdPS1ZhIiwiX192IjowfSwiaWF0IjoxNjMzNTY3NDMwLCJleHAiOjE2MzQxNzIyMzB9.UV0g7y-ue7ejIV39wg4eJ8w7_psLKR-hhim3jAqKrVc",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Martina\",\r\n    \"email\":\"martina@gmail.com\",\r\n    \"phone\": \"0028984999\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log In",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNWUzZTRiZGE5NmNjOWQ0NTgwNDU1YyIsImVtYWlsIjoiZHZwdWNoYWRlcyIsInBhc3N3b3JkIjoiJDJiJDEwJDFQZWIvc2dwbWVkZ2JnSHpPelJkd2U2dUN3WW90SXk1Qy83dWZySFZ5VE5MSkExTXdPS1ZhIiwiX192IjowfSwiaWF0IjoxNjMzNTY3NDMwLCJleHAiOjE2MzQxNzIyMzB9.UV0g7y-ue7ejIV39wg4eJ8w7_psLKR-hhim3jAqKrVc",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"dvpuchades@gmail.com\",\r\n    \"password\": \"passw0rd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Update User Info",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMzQ2Mjg5ODgyNDQiLCJwYXNzd29yZCI6IiQyYiQxMCRSS3c1TWFYWXprOGJqZzUuLi5mV1F1SXVRNmh2N1huSGYuNmRhWWJORnpEdG1USGNKNnkwYSIsIl9fdiI6MH0sImlhdCI6MTYzMzk2NzA5MiwiZXhwIjoxNjM0NTcxODkyfQ.I9R1ZCG9BqDbP43SNze5MhteHS6eyNYRCSa3_TdPLnc",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"passw0rd\",\r\n    \"phone\": \"000333444555\",\r\n    \"restaurant\": \"6165ae4d620c81df747d3caf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Brand",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMzQ2Mjg5ODgyNDQiLCJwYXNzd29yZCI6IiQyYiQxMCRSS3c1TWFYWXprOGJqZzUuLi5mV1F1SXVRNmh2N1huSGYuNmRhWWJORnpEdG1USGNKNnkwYSIsIl9fdiI6MH0sImlhdCI6MTYzMzk2NzA5MiwiZXhwIjoxNjM0NTcxODkyfQ.I9R1ZCG9BqDbP43SNze5MhteHS6eyNYRCSa3_TdPLnc",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Little Thai\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/brand",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"brand"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register in a Brand",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMzQ2Mjg5ODgyNDQiLCJwYXNzd29yZCI6IiQyYiQxMCRSS3c1TWFYWXprOGJqZzUuLi5mV1F1SXVRNmh2N1huSGYuNmRhWWJORnpEdG1USGNKNnkwYSIsIl9fdiI6MH0sImlhdCI6MTYzMzk2NzA5MiwiZXhwIjoxNjM0NTcxODkyfQ.I9R1ZCG9BqDbP43SNze5MhteHS6eyNYRCSa3_TdPLnc",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brand\":\"6164612ca3bdc06eb54179f0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Brand Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwNTYwNzgsImV4cCI6MTYzNDY2MDg3OH0.o4eOyrIga8aZmxVcxRoqho-jod-rd9LB7cIOOyc2mWM",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In/Out as Active",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwODE5NDcsImV4cCI6MTYzNDY4Njc0N30._fjlpQt_tknyj9CFh3BeD8ROtTFaLXzhJGKNpbEJmuo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/active",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In/Out other as Active",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwODE5NDcsImV4cCI6MTYzNDY4Njc0N30._fjlpQt_tknyj9CFh3BeD8ROtTFaLXzhJGKNpbEJmuo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/active/61645b09a4bbf9e4fd3e30e4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"active",
+								"61645b09a4bbf9e4fd3e30e4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwNTYwNzgsImV4cCI6MTYzNDY2MDg3OH0.o4eOyrIga8aZmxVcxRoqho-jod-rd9LB7cIOOyc2mWM",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/active",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Restaurant Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwODE5NDcsImV4cCI6MTYzNDY4Njc0N30._fjlpQt_tknyj9CFh3BeD8ROtTFaLXzhJGKNpbEJmuo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/active/6165ae4d620c81df747d3caf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"active",
+								"6165ae4d620c81df747d3caf"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "restaurant",
+			"item": [
+				{
+					"name": "Create Restaurant",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZX0sImlhdCI6MTYzMzk5MjU3MiwiZXhwIjoxNjM0NTk3MzcyfQ.7OhELBotnRPmdRkbHLxivZNB1MTCG5IJP_lgGJ7RZfU",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Best place\",\r\n    \"address\": \"Alverno Drive, 35\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/restaurant",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"restaurant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Restaurant",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZX0sImlhdCI6MTYzMzk5MjU3MiwiZXhwIjoxNjM0NTk3MzcyfQ.7OhELBotnRPmdRkbHLxivZNB1MTCG5IJP_lgGJ7RZfU",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Best place\",\r\n    \"address\": \"Alverno Drive, 35\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/restaurant/6165a75b479ff2680caef26e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"restaurant",
+								"6165a75b479ff2680caef26e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Restaurant",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZX0sImlhdCI6MTYzMzk5MjU3MiwiZXhwIjoxNjM0NTk3MzcyfQ.7OhELBotnRPmdRkbHLxivZNB1MTCG5IJP_lgGJ7RZfU",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/restaurant/6165a75b479ff2680caef26e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"restaurant",
+								"6165a75b479ff2680caef26e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Restaurants",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZX0sImlhdCI6MTYzMzk5MjU3MiwiZXhwIjoxNjM0NTk3MzcyfQ.7OhELBotnRPmdRkbHLxivZNB1MTCG5IJP_lgGJ7RZfU",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/restaurant/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"restaurant",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert User In Restaurant",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwNTU1NzYsImV4cCI6MTYzNDY2MDM3Nn0.5Lk_x1FLDGvD_EEnPfE6sCjA5GJuekn8pSCC4vNUf3Q",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"restaurant\": \"6165ae4d620c81df747d3caf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/61645b73a4bbf9e4fd3e30e7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"61645b73a4bbf9e4fd3e30e7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "deliveries",
+			"item": [
+				{
+					"name": "Insert Delivery",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwNTU1NzYsImV4cCI6MTYzNDY2MDM3Nn0.5Lk_x1FLDGvD_EEnPfE6sCjA5GJuekn8pSCC4vNUf3Q",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"restaurant\": \"6165ae4d620c81df747d3caf\",\r\n    \"address\": \"Willow Street, 53\",\r\n    \"postcode\": \"N37 WF84\",\r\n    \"amount\": 80.70,\r\n    \"customer\": \"Laura\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/delivery",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"delivery"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deliveries",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwNTU1NzYsImV4cCI6MTYzNDY2MDM3Nn0.5Lk_x1FLDGvD_EEnPfE6sCjA5GJuekn8pSCC4vNUf3Q",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/delivery",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"delivery"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign up Delivery",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwODE5NDcsImV4cCI6MTYzNDY4Njc0N30._fjlpQt_tknyj9CFh3BeD8ROtTFaLXzhJGKNpbEJmuo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dealer\": \"61645a17a4bbf9e4fd3e30e0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/delivery/6166c3d7eb7edca600c55833",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"delivery",
+								"6166c3d7eb7edca600c55833"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finish Delivery",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwODE5NDcsImV4cCI6MTYzNDY4Njc0N30._fjlpQt_tknyj9CFh3BeD8ROtTFaLXzhJGKNpbEJmuo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"finished\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/delivery/6166c3d7eb7edca600c55833",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"delivery",
+								"6166c3d7eb7edca600c55833"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Delivery",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwODE5NDcsImV4cCI6MTYzNDY4Njc0N30._fjlpQt_tknyj9CFh3BeD8ROtTFaLXzhJGKNpbEJmuo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/delivery/6166c3d7eb7edca600c55833",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"delivery",
+								"6166c3d7eb7edca600c55833"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "location",
+			"item": [
+				{
+					"name": "Post Location",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwNTU1NzYsImV4cCI6MTYzNDY2MDM3Nn0.5Lk_x1FLDGvD_EEnPfE6sCjA5GJuekn8pSCC4vNUf3Q",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"longitude\": 89.345678,\r\n    \"latitude\": 381.345678\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Restaurant Locations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwNTU1NzYsImV4cCI6MTYzNDY2MDM3Nn0.5Lk_x1FLDGvD_EEnPfE6sCjA5GJuekn8pSCC4vNUf3Q",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/location/restaurant/6165ae4d620c81df747d3caf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"location",
+								"restaurant",
+								"6165ae4d620c81df747d3caf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Location",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYxNjQ1YTE3YTRiYmY5ZTRmZDNlMzBlMCIsIm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZHZwdWNoYWRlc0BnbWFpbC5jb20iLCJwaG9uZSI6IjAwMDMzMzQ0NDU1NSIsInBhc3N3b3JkIjoiJDJiJDEwJE1aYlpYdTEzWGJwREdsRXVtQTZWaE9sdTI1L2NGM1pwY3c0RW5iTWloY3RGbXF2ZlhNYnVpIiwiX192IjowLCJicmFuZCI6IjYxNjQ2MTJjYTNiZGMwNmViNTQxNzlmMCIsInByaXZpbGVnZSI6dHJ1ZSwicmVzdGF1cmFudCI6IjYxNjVhZTRkNjIwYzgxZGY3NDdkM2NhZiJ9LCJpYXQiOjE2MzQwNTU1NzYsImV4cCI6MTYzNDY2MDM3Nn0.5Lk_x1FLDGvD_EEnPfE6sCjA5GJuekn8pSCC4vNUf3Q",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/location/user/61645a17a4bbf9e4fd3e30e0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"location",
+								"user",
+								"61645a17a4bbf9e4fd3e30e0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

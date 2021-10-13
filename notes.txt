@@ -1,0 +1,7 @@
+Colors: {
+    Green Pigmment: 37a959,
+    Jet: 2B2C28,
+    Light grey: C9CFCF
+}
+
+https://coolors.co/37a959-2b2c28-c9cfcf
