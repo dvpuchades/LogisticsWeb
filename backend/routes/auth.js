@@ -7,14 +7,20 @@ const tokenSecret = 'something'
 
 const rounds = 10
 
-router.get('/', (req, res) => {
+router.post('/login', (req, res) => {
     User.findOne({email: req.body.email})
         .then(user => {
             if (!user) res.status(404).json({error: 'not user found'})
             else {
                 bcrypt.compare(req.body.password, user.password, (error, match) => {
                     if (error) res.status(500).json(error)
-                    else if (match) res.status(200).json({token: generateToken(user)})
+                    else if (match) res.status(200).json({
+                        name: user.name,
+                        brand: user.brand,
+                        restaurant: user.restaurant,
+                        privilege: user.privilege,
+                        token: generateToken(user)
+                    })
                     else res.status(403).json({error: 'wrong password'})
                 })
             } 
@@ -24,7 +30,7 @@ router.get('/', (req, res) => {
         })
 });
 
-router.post('/', (req, res) => {
+router.post('/signup', (req, res) => {
     User.findOne({email: req.body.email})
         .then(user => {
             if(user) res.status(423).json({error: 'email used before'})
@@ -42,7 +48,13 @@ router.post('/', (req, res) => {
                         })
                         newUser.save()
                             .then(user => {
-                                res.status(200).json({token: generateToken(user)})
+                                res.status(200).json({
+                                    name: user.name,
+                                    brand: user.brand,
+                                    restaurant: user.restaurant,
+                                    privilege: user.privilege,
+                                    token: generateToken(user)
+                                })
                             })
                             .catch(error => {
                                 res.status(500).json(error)

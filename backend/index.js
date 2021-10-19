@@ -1,6 +1,7 @@
-const express = require("express")
-const mongoose = require("mongoose")
+const express = require('express')
+const mongoose = require('mongoose')
 const app = express()
+const cors = require('cors');
 
 const authRoute = require('./routes/auth')
 const deliveryRoute = require('./routes/delivery')
@@ -11,6 +12,9 @@ const brandRoute = require('./routes/brand')
 const restaurantRoute = require('./routes/restaurant')
 
 const middleware = require('./middleware')
+app.use(cors({
+    origin: '*'
+}));
 
 const  dbURI = "mongodb://localhost/fattorino"
 app.use(express.json())
