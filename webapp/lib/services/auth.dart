@@ -16,7 +16,7 @@ Future<String> loginUser(LoginData data) async {
             <String, String>{"email": data.name, "password": data.password}));
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
-      //User.fromJson(body); //todo
+      User.fromJson(body);
       return '';
     } else if (response.statusCode == 404) {
       return 'User not found';
@@ -26,7 +26,6 @@ Future<String> loginUser(LoginData data) async {
       return 'Something gets wrong';
     }
   } catch (e) {
-    print(e.toString());
     return e.toString();
   }
 }
