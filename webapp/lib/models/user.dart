@@ -25,15 +25,18 @@ class User {
   }
 
   static void fromJson(Map<String, dynamic> json) {
+    print(json.toString());
+    print(json['email']);
+    print(json['name']);
     User._setParameters(json['name'], json['email'], json['brand'],
         json['restaurant'], json['privilege'], json['token']);
   }
 
   User._setParameters(this.name, this.email, String? brand, String? restaurant,
       bool? privilege, this.token) {
-    (brand == null) ? this.brand = brand! : brand = '';
-    (restaurant == null) ? this.restaurant = restaurant! : restaurant = '';
-    (privilege == null) ? this.privilege = privilege! : privilege = false;
+    (brand == null) ? this.brand = '' : this.brand = brand;
+    (restaurant == null) ? this.restaurant = '' : this.restaurant = restaurant;
+    (privilege == null) ? this.privilege = false : this.privilege = privilege;
     _instance = this;
   }
 }

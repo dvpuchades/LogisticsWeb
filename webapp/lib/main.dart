@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/login.dart';
+import 'package:webapp/screens/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'fattorino',
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: LoginScreen(),
+      theme: ThemeData(
+          primarySwatch: Colors.green, scaffoldBackgroundColor: Colors.green),
+      home: const LoginScreen(),
     );
   }
 }

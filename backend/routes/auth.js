@@ -16,6 +16,7 @@ router.post('/login', (req, res) => {
                     if (error) res.status(500).json(error)
                     else if (match) res.status(200).json({
                         name: user.name,
+                        email: user.email,
                         brand: user.brand,
                         restaurant: user.restaurant,
                         privilege: user.privilege,
@@ -50,6 +51,7 @@ router.post('/signup', (req, res) => {
                             .then(user => {
                                 res.status(200).json({
                                     name: user.name,
+                                    email: user.email,
                                     brand: user.brand,
                                     restaurant: user.restaurant,
                                     privilege: user.privilege,
