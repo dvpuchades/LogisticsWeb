@@ -25,9 +25,6 @@ class User {
   }
 
   static void fromJson(Map<String, dynamic> json) {
-    print(json.toString());
-    print(json['email']);
-    print(json['name']);
     User._setParameters(json['name'], json['email'], json['brand'],
         json['restaurant'], json['privilege'], json['token']);
   }

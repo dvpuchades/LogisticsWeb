@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:webapp/screens/brand_screen.dart';
 import 'package:webapp/screens/login_screen.dart';
+import 'package:webapp/services/auth.dart';
 
 class SignupCard extends StatelessWidget {
   const SignupCard({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class SignupCard extends StatelessWidget {
               padding: const EdgeInsets.all(10),
             )),
             width: 400,
-            height: 500));
+            height: 400));
   }
 }
 
@@ -35,6 +37,10 @@ class SignupFormState extends State<SignupForm> {
   // not a GlobalKey<SignupFormState>.
   final _formKey = GlobalKey<FormState>();
 
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -45,9 +51,10 @@ class SignupFormState extends State<SignupForm> {
           Container(
               padding: const EdgeInsets.all(15),
               child: TextFormField(
+                controller: name,
                 decoration: const InputDecoration(
-                  icon: Icon(Icons.person_off),
-                  labelText: 'Name',
+                  icon: Icon(Icons.person),
+                  labelText: 'name',
                 ),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -60,9 +67,10 @@ class SignupFormState extends State<SignupForm> {
           Container(
               padding: const EdgeInsets.all(15),
               child: TextFormField(
+                controller: email,
                 decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  labelText: 'Username',
+                  icon: Icon(Icons.mail),
+                  labelText: 'email',
                 ),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -73,12 +81,13 @@ class SignupFormState extends State<SignupForm> {
                 },
               )),
           Container(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(15),
               child: TextFormField(
+                controller: password,
                 obscureText: true,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.lock),
-                  labelText: 'Password',
+                  labelText: 'password',
                 ),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -94,11 +103,27 @@ class SignupFormState extends State<SignupForm> {
                 onPressed: () {
                   // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')),
                     );
+                    signupUser(name.text, email.text, password.text)
+                        .then((result) => {
+                              if (result.isEmpty)
+                                {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BrandMenu()),
+                                  )
+                                }
+                              else
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(result)),
+                                  )
+                                }
+                            });
                   }
                 },
                 child: const Text('Submit'),

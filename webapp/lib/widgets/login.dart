@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/screens/signup_screen.dart';
+import 'package:webapp/services/auth.dart';
 
 class LoginCard extends StatelessWidget {
   const LoginCard({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class LoginCard extends StatelessWidget {
               padding: const EdgeInsets.all(10),
             )),
             width: 400,
-            height: 280));
+            height: 300));
   }
 }
 
@@ -35,6 +36,9 @@ class LoginFormState extends State<LoginForm> {
   // not a GlobalKey<LoginFormState>.
   final _formKey = GlobalKey<FormState>();
 
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -45,9 +49,10 @@ class LoginFormState extends State<LoginForm> {
           Container(
               padding: const EdgeInsets.all(15),
               child: TextFormField(
+                controller: email,
                 decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  labelText: 'Username',
+                  icon: Icon(Icons.email),
+                  labelText: 'email',
                 ),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -58,12 +63,13 @@ class LoginFormState extends State<LoginForm> {
                 },
               )),
           Container(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(15),
               child: TextFormField(
+                controller: password,
                 obscureText: true,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.lock),
-                  labelText: 'Password',
+                  labelText: 'password',
                 ),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -79,11 +85,19 @@ class LoginFormState extends State<LoginForm> {
                 onPressed: () {
                   // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')),
                     );
+                    loginUser(email.text, password.text).then((result) => {
+                          if (result.isEmpty)
+                            {}
+                          else
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(result)),
+                              )
+                            }
+                        });
                   }
                 },
                 child: const Text('Submit'),
