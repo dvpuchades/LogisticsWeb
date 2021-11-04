@@ -14,23 +14,25 @@ class _BrandMenuState extends State<BrandMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Scaffold(
+        body: Center(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
               height: 400,
               width: 400,
               child: Card(
                   child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                       padding: const EdgeInsets.all(15),
                       child: TextFormField(
                         controller: brandname,
-                        obscureText: true,
                         decoration: const InputDecoration(
                           icon: Icon(Icons.lock),
-                          labelText: 'password',
+                          labelText: 'brandname',
                         ),
                         // The validator receives the text that the user has entered.
                         validator: (value) {
@@ -59,6 +61,6 @@ class _BrandMenuState extends State<BrandMenu> {
           Container()
         ],
       ),
-    );
+    ));
   }
 }
