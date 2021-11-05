@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:webapp/services/brand.dart';
+import 'package:webapp/services/restaurant.dart';
 
 import '../constants.dart';
 
@@ -169,6 +170,25 @@ class _CreateBrandWidgetState extends State<CreateBrandWidget> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Processing Data')),
                       );
+                      createBrand(brandname.text).then((status) => {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(SnackBar(content: Text(status))),
+                            if (status == 'Brand created successfully')
+                              {
+                                createRestaurant(
+                                        restaurant.text, restaurantAddress.text)
+                                    .then((status) => {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(status))),
+                                          if (status ==
+                                              'Restaurant created successfully')
+                                            {
+                                              //TODO go to dashboard
+                                            }
+                                        })
+                              }
+                          });
                     }
                   },
                   child: const Text('Create'),
