@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+class Backend {
+  static const direction = 'localhost:2400';
+}
+
 class SubtitleTextStyle extends TextStyle {
   final Color color;
   final FontWeight fontWeight;

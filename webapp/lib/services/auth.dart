@@ -1,13 +1,12 @@
 import 'package:http/http.dart';
 import 'package:webapp/models/user.dart';
 import 'dart:convert';
-
-String direction = 'localhost:2400';
+import '../constants.dart';
 
 Future<String> loginUser(String email, String password) async {
   try {
     const route = 'api/auth/login';
-    final response = await post(Uri.http(direction, route),
+    final response = await post(Uri.http(Backend.direction, route),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8'
         },
@@ -32,7 +31,7 @@ Future<String> loginUser(String email, String password) async {
 Future<String> signupUser(String name, String email, String password) async {
   try {
     const route = 'api/auth/signup';
-    final response = await post(Uri.http(direction, route),
+    final response = await post(Uri.http(Backend.direction, route),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8'
         },
