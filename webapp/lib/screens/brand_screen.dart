@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:webapp/services/brand.dart';
 
-import '../textstyle.dart';
+import '../style.dart';
 
 class BrandMenu extends StatefulWidget {
   const BrandMenu({Key? key}) : super(key: key);
@@ -18,10 +20,41 @@ class _BrandMenuState extends State<BrandMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          Center(
+              child: SizedBox(
+                  width: 600,
+                  height: 100,
+                  child: TypeAheadField(
+                    textFieldConfiguration: const TextFieldConfiguration(
+                        autofocus: true,
+                        style: TextStyle(color: Colors.green),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            fillColor: Colors.white,
+                            filled: true)),
+                    suggestionsCallback: (pattern) async {
+                      return await getBrandSuggestions(pattern);
+                    },
+                    itemBuilder: (context, suggestion) {
+                      return ListTile(
+                          leading: const Icon(Icons.search),
+                          title: Text(suggestion as String));
+                    },
+                    onSuggestionSelected: (suggestion) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Data')),
+                      );
+                    },
+                    errorBuilder: (context, error) {
+                      return const ListTile(
+                          leading: Icon(Icons.error),
+                          title: Text('No brand suggested'));
+                    },
+                  ))),
+          SizedBox(
               height: 400,
               width: 400,
               child: Card(

@@ -24,4 +24,20 @@ router.post('/', (req, res) => {
         })
 });
 
+router.get('/search/:pattern', (req, res) => {
+    Brand.find({name: {$regex: req.params.pattern, $options: 'i'}})
+        .then(brands => {
+            if(!brands) res.status(404).json({ error: 'brands not found' })
+            else {
+                showableBrands = []
+                processedBrands = 0
+                brands.forEach(brand => {
+                    showableBrands.push(brand.name)
+                    processedBrands++
+                })
+                if (processedBrands == brands.length) res.status(200).json(showableBrands)
+            }
+        })
+});
+
 module.exports = router
