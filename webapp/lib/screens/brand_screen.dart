@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../textstyle.dart';
+
 class BrandMenu extends StatefulWidget {
   const BrandMenu({Key? key}) : super(key: key);
 
@@ -28,11 +30,47 @@ class _BrandMenuState extends State<BrandMenu> {
                 children: [
                   Container(
                       padding: const EdgeInsets.all(15),
+                      child: const Text('Create a new brand',
+                          style: SubtitleTextStyle())),
+                  Container(
+                      padding: const EdgeInsets.all(15),
                       child: TextFormField(
                         controller: brandname,
                         decoration: const InputDecoration(
-                          icon: Icon(Icons.lock),
-                          labelText: 'brandname',
+                          icon: Icon(Icons.shop),
+                          labelText: 'brand name',
+                        ),
+                        // The validator receives the text that the user has entered.
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a brand name';
+                          }
+                          return null;
+                        },
+                      )),
+                  Container(
+                      padding: const EdgeInsets.all(15),
+                      child: TextFormField(
+                        controller: brandname,
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.restaurant),
+                          labelText: 'restaurant name',
+                        ),
+                        // The validator receives the text that the user has entered.
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a brand name';
+                          }
+                          return null;
+                        },
+                      )),
+                  Container(
+                      padding: const EdgeInsets.all(15),
+                      child: TextFormField(
+                        controller: brandname,
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.location_city),
+                          labelText: 'restaurant address',
                         ),
                         // The validator receives the text that the user has entered.
                         validator: (value) {
