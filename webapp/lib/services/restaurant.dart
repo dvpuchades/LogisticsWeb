@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:webapp/models/user.dart';
 
 import '../constants.dart';
 
@@ -9,7 +10,8 @@ Future<String> createRestaurant(String name, String address) async {
     String route = 'api/restaurant';
     final response = await post(Uri.http(Backend.direction, route),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
+          'Content-Type': 'application/json; charset=UTF-8',
+          'authorization': User.getInstance().token
         },
         body: jsonEncode(<String, String>{"name": name, "address": address}));
     if (response.statusCode == 200) {

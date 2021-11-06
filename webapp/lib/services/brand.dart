@@ -1,15 +1,16 @@
 import 'package:http/http.dart';
+import 'package:webapp/models/user.dart';
 import 'dart:convert';
-
 import '../constants.dart';
 
 Future<List> getBrandSuggestions(String pattern) async {
   try {
     String route = 'api/brand/search/$pattern';
-    final response = await get(Uri.http(Backend.direction, route),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        });
+    final response =
+        await get(Uri.http(Backend.direction, route), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'authorization': User.getInstance().token
+    });
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       return body;
@@ -26,7 +27,8 @@ Future<String> createBrand(String name) async {
     String route = 'api/brand/';
     final response = await post(Uri.http(Backend.direction, route),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
+          'Content-Type': 'application/json; charset=UTF-8',
+          'authorization': User.getInstance().token
         },
         body: jsonEncode(<String, String>{"name": name}));
     if (response.statusCode == 200) {

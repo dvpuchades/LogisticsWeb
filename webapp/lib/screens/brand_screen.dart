@@ -20,7 +20,7 @@ class _BrandMenuState extends State<BrandMenu> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         // ignore: prefer_const_literals_to_create_immutables
-        children: [const SearchBrandWidget(), const CreateBrandWidget()],
+        children: [const SearchBrandWidget(), CreateBrandWidget()],
       ),
     ));
   }
@@ -102,98 +102,103 @@ class _CreateBrandWidgetState extends State<CreateBrandWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 400,
-        width: 400,
-        child: Card(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                padding: const EdgeInsets.all(15),
-                child: const Text('Create a new brand',
-                    style: SubtitleTextStyle())),
-            Container(
-                padding: const EdgeInsets.all(15),
-                child: TextFormField(
-                  controller: brandname,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.shop),
-                    labelText: 'brand name',
-                  ),
-                  // The validator receives the text that the user has entered.
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a brand name';
-                    }
-                    return null;
-                  },
-                )),
-            Container(
-                padding: const EdgeInsets.all(15),
-                child: TextFormField(
-                  controller: restaurant,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.restaurant),
-                    labelText: 'restaurant name',
-                  ),
-                  // The validator receives the text that the user has entered.
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a brand name';
-                    }
-                    return null;
-                  },
-                )),
-            Container(
-                padding: const EdgeInsets.all(15),
-                child: TextFormField(
-                  controller: restaurantAddress,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.location_city),
-                    labelText: 'restaurant address',
-                  ),
-                  // The validator receives the text that the user has entered.
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a brand name';
-                    }
-                    return null;
-                  },
-                )),
-            Container(
-                padding: const EdgeInsets.all(15),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Validate returns true if the form is valid, or false otherwise.
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
-                      createBrand(brandname.text).then((status) => {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(SnackBar(content: Text(status))),
-                            if (status == 'Brand created successfully')
-                              {
-                                createRestaurant(
-                                        restaurant.text, restaurantAddress.text)
-                                    .then((status) => {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                                  content: Text(status))),
-                                          if (status ==
-                                              'Restaurant created successfully')
-                                            {
-                                              //TODO go to dashboard
-                                            }
-                                        })
-                              }
-                          });
-                    }
-                  },
-                  child: const Text('Create'),
-                )),
-          ],
-        )));
+    return Form(
+        key: _formKey,
+        child: SizedBox(
+            height: 400,
+            width: 400,
+            child: Card(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    padding: const EdgeInsets.all(15),
+                    child: const Text('Create a new brand',
+                        style: SubtitleTextStyle())),
+                Container(
+                    padding: const EdgeInsets.all(15),
+                    child: TextFormField(
+                      controller: brandname,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.shop),
+                        labelText: 'brand name',
+                      ),
+                      // The validator receives the text that the user has entered.
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a brand name';
+                        }
+                        return null;
+                      },
+                    )),
+                Container(
+                    padding: const EdgeInsets.all(15),
+                    child: TextFormField(
+                      controller: restaurant,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.restaurant),
+                        labelText: 'restaurant name',
+                      ),
+                      // The validator receives the text that the user has entered.
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a brand name';
+                        }
+                        return null;
+                      },
+                    )),
+                Container(
+                    padding: const EdgeInsets.all(15),
+                    child: TextFormField(
+                      controller: restaurantAddress,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.location_city),
+                        labelText: 'restaurant address',
+                      ),
+                      // The validator receives the text that the user has entered.
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a brand name';
+                        }
+                        return null;
+                      },
+                    )),
+                Container(
+                    padding: const EdgeInsets.all(15),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Validate returns true if the form is valid, or false otherwise.
+                        print("pressed");
+                        if (_formKey.currentState!.validate()) {
+                          print("validate");
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Processing Data')),
+                          );
+                          createBrand(brandname.text).then((status) => {
+                                print("create"),
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(status))),
+                                if (status == 'Brand created successfully')
+                                  {
+                                    createRestaurant(restaurant.text,
+                                            restaurantAddress.text)
+                                        .then((status) => {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                      content: Text(status))),
+                                              if (status ==
+                                                  'Restaurant created successfully')
+                                                {
+                                                  //TODO go to dashboard
+                                                }
+                                            })
+                                  }
+                              });
+                        }
+                      },
+                      child: const Text('Create'),
+                    )),
+              ],
+            ))));
   }
 }
