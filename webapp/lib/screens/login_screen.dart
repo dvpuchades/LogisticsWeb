@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:webapp/models/user.dart';
+import 'package:webapp/screens/brand_screen.dart';
+import 'package:webapp/screens/dashboard.dart';
 import 'package:webapp/screens/signup_screen.dart';
 import 'package:webapp/services/auth.dart';
 
@@ -99,7 +102,26 @@ class LoginFormState extends State<LoginForm> {
                     );
                     loginUser(email.text, password.text).then((result) => {
                           if (result.isEmpty)
-                            {}
+                            {
+                              if (User.getInstance().brand.isEmpty)
+                                {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BrandMenu()),
+                                  )
+                                }
+                              else
+                                {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Dashboard()),
+                                  )
+                                }
+                            }
                           else
                             {
                               ScaffoldMessenger.of(context).showSnackBar(

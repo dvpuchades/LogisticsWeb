@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:webapp/screens/dashboard.dart';
 import 'package:webapp/services/brand.dart';
 import 'package:webapp/services/restaurant.dart';
 
@@ -180,7 +181,12 @@ class _CreateBrandWidgetState extends State<CreateBrandWidget> {
                                               if (status ==
                                                   'Restaurant created successfully')
                                                 {
-                                                  //TODO go to dashboard
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const Dashboard()),
+                                                  )
                                                 }
                                             })
                                   }
