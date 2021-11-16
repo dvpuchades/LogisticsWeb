@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const Brand = require('../models/brand')
+const Brand = require('../models/brand');
+const notification = require('../models/notification');
 const User = require('../models/user')
 
 router.post('/', (req, res) => {
@@ -28,6 +29,31 @@ router.post('/', (req, res) => {
                 .catch(error => {
                     res.status(500).json(error)
                 })
+        }
+    })
+});
+
+router.post('/request', (req, res) => {
+    Brand.findOne({ name: req.body.name }, (err, brand) => {
+        if (err) {
+            res.status(500).json({err})
+        } else if (brand) {
+            const newNotification = Notification({
+                type: "Brand request",
+                from: req.user._id,
+                to: brand._id,
+                creationDate: Date()
+            })
+
+            newNotification.save()
+                .then(notification => {
+                    res.status(200).send()
+                })
+                .catch(error => {
+                    res.status(500).json(error)
+                })
+        } else {
+            res.status(404).json({error:'brand not found'})
         }
     })
 });

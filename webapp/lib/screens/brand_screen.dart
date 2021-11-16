@@ -70,17 +70,6 @@ class SearchBrandWidget extends StatelessWidget {
                       leading: Icon(Icons.error),
                       title: Text('No brand suggested'));
                 },
-              )),
-          Container(
-              padding: const EdgeInsets.all(15),
-              child: ElevatedButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
-                  //TODO write service
-                },
-                child: const Text('Ask to join'),
               ))
         ])));
   }
