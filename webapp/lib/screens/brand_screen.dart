@@ -60,9 +60,11 @@ class SearchBrandWidget extends StatelessWidget {
                       leading: const Icon(Icons.search),
                       title: Text(suggestion as String));
                 },
-                onSuggestionSelected: (suggestion) {
+                onSuggestionSelected: (suggestion) async {
+                  String result =
+                      await requestBrandAccess(suggestion.toString());
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
+                    SnackBar(content: Text(result)),
                   );
                 },
                 errorBuilder: (context, error) {

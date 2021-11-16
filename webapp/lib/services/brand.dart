@@ -42,3 +42,24 @@ Future<String> createBrand(String name) async {
     return e.toString();
   }
 }
+
+Future<String> requestBrandAccess(String name) async {
+  try {
+    String route = 'api/brand/request';
+    final response = await post(Uri.http(Backend.direction, route),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'authorization': User.getInstance().token
+        },
+        body: jsonEncode(<String, String>{"name": name}));
+    if (response.statusCode == 200) {
+      return 'Request created successfully';
+    } else if (response.statusCode == 404) {
+      return 'Brand not found';
+    } else {
+      return 'Internal error';
+    }
+  } catch (e) {
+    return e.toString();
+  }
+}

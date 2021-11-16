@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const Brand = require('../models/brand');
-const notification = require('../models/notification');
+const Notification = require('../models/notification');
 const User = require('../models/user')
 
 router.post('/', (req, res) => {
