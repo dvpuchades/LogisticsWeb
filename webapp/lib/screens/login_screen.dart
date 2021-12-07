@@ -4,13 +4,23 @@ import 'package:webapp/screens/brand_screen.dart';
 import 'package:webapp/screens/dashboard.dart';
 import 'package:webapp/screens/signup_screen.dart';
 import 'package:webapp/services/auth.dart';
+import 'package:webapp/widgets/logo.dart';
+
+import '../constants.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: LoginCard());
+    return Scaffold(
+        body: Column(
+      children: const [
+        Flexible(child: Logo()),
+        Expanded(child: LoginCard(), flex: 3)
+      ],
+      mainAxisAlignment: MainAxisAlignment.center,
+    ));
   }
 }
 

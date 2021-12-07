@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/services/auth.dart';
+import 'package:webapp/widgets/logo.dart';
 
 import 'brand_screen.dart';
 import 'login_screen.dart';
@@ -9,7 +10,14 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: SignupCard());
+    return Scaffold(
+        body: Column(
+      children: const [
+        Flexible(child: Logo()),
+        Expanded(child: SignupCard(), flex: 3)
+      ],
+      mainAxisAlignment: MainAxisAlignment.center,
+    ));
   }
 }
 

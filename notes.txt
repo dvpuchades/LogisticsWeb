@@ -4,6 +4,7 @@ Colors: {
     Light grey: C9CFCF
 }
 
-https://coolors.co/37a959-2b2c28-c9cfcf
+
+https://coolors.co/37a959-2b2c28-c9cfcf     //currently using
 
 https://coolors.co/316b41-37a959-2b2c28-c9cfcf
