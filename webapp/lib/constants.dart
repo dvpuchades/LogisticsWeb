@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Backend {
-  static const direction = 'localhost:2400';
+  static const direction = '10.0.2.2:2400';
 }
 
 class ThemeColors {
@@ -76,6 +76,25 @@ class SubtitleTextStyle extends TextStyle {
     this.color = ThemeColors.green,
     this.fontWeight = FontWeight.bold,
     this.size = 24,
+    this.fontFamily = 'Intro',
+  }) : super(
+          color: Colors.green,
+          fontWeight: fontWeight,
+          fontSize: size,
+          fontFamily: fontFamily,
+        );
+}
+
+class SpecialTextStyle extends TextStyle {
+  final Color color;
+  final FontWeight fontWeight;
+  final double size;
+  final String fontFamily;
+
+  const SpecialTextStyle({
+    this.color = ThemeColors.black,
+    this.fontWeight = FontWeight.bold,
+    this.size = 20,
     this.fontFamily = 'Intro',
   }) : super(
           color: Colors.green,

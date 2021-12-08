@@ -37,7 +37,7 @@ class LoginCard extends StatelessWidget {
               padding: const EdgeInsets.all(10),
             )),
             width: 400,
-            height: 300));
+            height: 350));
   }
 }
 

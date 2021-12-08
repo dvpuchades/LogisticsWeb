@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
+import 'package:webapp/widgets/user_card.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -12,28 +13,33 @@ class Dashboard extends StatelessWidget {
             child: Row(
       children: [
         Expanded(
-            child: Column(
-          children: [
-            const DrawerHeader(
-                child: Text('Fattorino', style: TitleTextStyle())),
-            Card(
-                child: Column(
-              children: [
-                const Text('Declan Smith'),
-                Row(
-                  children: const [
-                    Flexible(child: Text('29 minutes out'), flex: 3),
-                    Spacer(),
-                    Flexible(child: Text('2 deliveries to go'), flex: 3)
-                  ],
-                )
-              ],
-            ))
-          ],
-        )),
+            child: Container(
+                color: ThemeColors.black,
+                child: Column(children: [
+                  SizedBox(
+                      child: Container(
+                        color: ThemeColors.green,
+                        child: const Text('Fattorino', style: TitleTextStyle()),
+                        alignment: Alignment.center,
+                      ),
+                      height: 100),
+                  Expanded(
+                      child: ListView(shrinkWrap: true, children: [
+                    const UserCard(
+                        name: 'Declan Simons', minutes: 39, deliveries: 4),
+                    const UserCard(
+                        name: 'Melissa Rodrigues', minutes: 25, deliveries: 7),
+                    const UserCard(
+                        name: 'Jamie Almond', minutes: 21, deliveries: 5),
+                    const UserCard(
+                        name: 'Laurence Knieve', minutes: 19, deliveries: 1),
+                    const UserCard(
+                        name: 'Paul Semper', minutes: 3, deliveries: 9),
+                  ])),
+                ]))),
         Expanded(
           child: Container(color: Colors.white),
-          flex: 5,
+          flex: 4,
         )
       ],
     )));

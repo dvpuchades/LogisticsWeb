@@ -34,7 +34,7 @@ class SignupCard extends StatelessWidget {
               padding: const EdgeInsets.all(10),
             )),
             width: 400,
-            height: 400));
+            height: 430));
   }
 }
 
