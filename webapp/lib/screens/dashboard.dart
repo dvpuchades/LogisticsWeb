@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
+import 'package:webapp/widgets/side_bar.dart';
 import 'package:webapp/widgets/user_card.dart';
 
 class Dashboard extends StatelessWidget {
@@ -12,28 +13,7 @@ class Dashboard extends StatelessWidget {
         body: SafeArea(
             child: Row(
       children: [
-        Expanded(
-            child: Container(
-                color: ThemeColors.black,
-                child: Column(children: [
-                  SizedBox(
-                      child: Container(
-                        color: ThemeColors.green,
-                        child: const Text('Fattorino', style: TitleTextStyle()),
-                        alignment: Alignment.center,
-                      ),
-                      height: 100),
-                  Expanded(
-                      child: ListView(shrinkWrap: true, children: const [
-                    UserCard(name: 'Declan Simons', minutes: 39, deliveries: 4),
-                    UserCard(
-                        name: 'Melissa Rodrigues', minutes: 25, deliveries: 7),
-                    UserCard(name: 'Jamie Almond', minutes: 21, deliveries: 5),
-                    UserCard(
-                        name: 'Laurence Knieve', minutes: 19, deliveries: 1),
-                    UserCard(name: 'Paul Semper', minutes: 3, deliveries: 9),
-                  ])),
-                ]))),
+        Expanded(child: const SideBar()),
         Expanded(
           child: Column(
             children: [
