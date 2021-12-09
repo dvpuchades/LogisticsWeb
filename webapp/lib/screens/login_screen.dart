@@ -4,7 +4,6 @@ import 'package:webapp/screens/brand_screen.dart';
 import 'package:webapp/screens/dashboard.dart';
 import 'package:webapp/screens/signup_screen.dart';
 import 'package:webapp/services/auth.dart';
-import 'package:webapp/widgets/logo.dart';
 
 import '../constants.dart';
 
@@ -16,7 +15,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
         body: Column(
       children: const [
-        Flexible(child: Logo()),
+        Flexible(child: Text('Fattorino', style: LogoTextStyle())),
         Expanded(child: LoginCard(), flex: 3)
       ],
       mainAxisAlignment: MainAxisAlignment.center,
