@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
+import 'package:webapp/models/user.dart';
 
 class NewOrderButton extends StatelessWidget {
   const NewOrderButton({Key? key}) : super(key: key);
@@ -39,6 +40,7 @@ class ProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String name = User.getInstance().name;
     return Container(
         margin: const EdgeInsets.only(top: 30, left: 20, right: 30),
         child: SizedBox(
@@ -47,18 +49,17 @@ class ProfileButton extends StatelessWidget {
             child: Container(
               color: ThemeColors.black,
               child: TextButton(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.person,
-                        size: 30,
-                        color: ThemeColors.white,
-                      ),
-                      Text(' Profile',
-                          style:
-                              TextStyle(fontSize: 20, color: ThemeColors.white))
-                    ]),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  const Icon(
+                    Icons.person,
+                    size: 30,
+                    color: ThemeColors.white,
+                  ),
+                  Text(' ' + name,
+                      style: const TextStyle(
+                          fontSize: 20, color: ThemeColors.white))
+                ]),
                 onPressed: () {
                   //TODO
                 },

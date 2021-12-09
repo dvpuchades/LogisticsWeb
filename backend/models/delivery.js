@@ -24,6 +24,10 @@ const model = mongoose.Schema({
         type: String,
         required: true
     },
+    city: {
+        type: String,
+        required: true
+    },
     postcode: {
         type: String,
         required: false

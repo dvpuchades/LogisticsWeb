@@ -11,6 +11,7 @@ router.post('/', (req, res) => {
         brand: req.user.brand,
         dealer: req.body.dealer, 
         address: req.body.address,
+        city: req.body.city,
         postcode: req.body.postcode, 
         initTime: Date(),
         finishTime: req.body.finishTime,

@@ -103,3 +103,21 @@ class SpecialTextStyle extends TextStyle {
           fontFamily: fontFamily,
         );
 }
+
+class NormalTextStyle extends TextStyle {
+  final Color color;
+  final FontWeight fontWeight;
+  final double size;
+  final String fontFamily;
+
+  const NormalTextStyle({
+    this.color = ThemeColors.white,
+    this.fontWeight = FontWeight.normal,
+    this.size = 20,
+    this.fontFamily = 'Roboto',
+  }) : super(
+          fontWeight: fontWeight,
+          fontSize: size,
+          fontFamily: fontFamily,
+        );
+}
