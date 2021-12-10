@@ -21,7 +21,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   FlutterMap(
                       options: MapOptions(
-                        center: LatLng(53.425, -7.936),
+                        center: LatLng(39.47256311597271, -0.37568144612336224),
                         zoom: 13.0,
                       ),
                       layers: [
