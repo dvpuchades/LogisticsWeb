@@ -103,3 +103,63 @@ class _DeliveryCardState extends State<DeliveryCard> {
                     ]))));
   }
 }
+
+class NotificationCard extends StatefulWidget {
+  const NotificationCard({Key? key, required this.title, required this.body})
+      : super(key: key);
+
+  final String title;
+  final String body;
+
+  @override
+  _NotificationCardState createState() => _NotificationCardState();
+}
+
+class _NotificationCardState extends State<NotificationCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        alignment: Alignment.centerRight,
+        margin: const EdgeInsets.only(bottom: 30, right: 30),
+        child: SizedBox(
+            height: 150,
+            width: 330,
+            child: Container(
+                color: ThemeColors.green,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Flexible(
+                        child: Container(
+                            margin: const EdgeInsets.only(top: 10, left: 25),
+                            child: const Icon(
+                              Icons.mail,
+                              size: 30,
+                              color: ThemeColors.white,
+                            )),
+                      ),
+                      Flexible(
+                          flex: 5,
+                          child: Column(children: [
+                            Flexible(
+                                child: Container(
+                                    margin: const EdgeInsets.only(
+                                        top: 15, right: 30),
+                                    child: Text(
+                                      widget.title,
+                                      textAlign: TextAlign.right,
+                                      style: const NormalTextStyle(),
+                                    ))),
+                            Flexible(
+                                flex: 3,
+                                child: Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 30, right: 30),
+                                    alignment: Alignment.centerRight,
+                                    child: Text(widget.body,
+                                        textAlign: TextAlign.left,
+                                        style: const NormalTextStyle()))),
+                          ]))
+                    ]))));
+  }
+}

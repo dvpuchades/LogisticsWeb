@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Backend {
-  static const direction = 'localhost:2400';
-  //static const direction = '10.0.2.2:2400';
+  //static const direction = 'localhost:2400';
+  static const direction = '10.0.2.2:2400';
 }
 
 class ThemeColors {
-  static const green = Color(0xff37A959);
+  static const green = Color(0xff236c39);
   static const black = Color(0xff2B2C28);
   static const grey = Color(0xffC9CFCF);
   static const white = Colors.white;
