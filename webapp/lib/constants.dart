@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 class Backend {
-  //static const direction = 'localhost:2400';
-  static const direction = '10.0.2.2:2400';
+  static const direction = 'localhost:2400';
+  //static const direction = '10.0.2.2:2400';
 }
 
 class ThemeColors {
