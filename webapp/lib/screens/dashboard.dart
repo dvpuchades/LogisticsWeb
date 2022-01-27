@@ -20,10 +20,10 @@ class Dashboard extends StatelessWidget {
               child: Stack(
                 children: [
                   Container(
-                    child: Map(),
+                    child: const Map(),
                     color: Colors.white,
                   ),
-                  FloatingLayout(),
+                  const FloatingLayout(),
                 ],
               ))
         ],

@@ -21,7 +21,7 @@ class _BrandMenuState extends State<BrandMenu> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         // ignore: prefer_const_literals_to_create_immutables
-        children: [const SearchBrandWidget(), CreateBrandWidget()],
+        children: [const SearchBrandWidget(), const CreateBrandWidget()],
       ),
     ));
   }
@@ -160,14 +160,11 @@ class _CreateBrandWidgetState extends State<CreateBrandWidget> {
                     child: ElevatedButton(
                       onPressed: () {
                         // Validate returns true if the form is valid, or false otherwise.
-                        print("pressed");
                         if (_formKey.currentState!.validate()) {
-                          print("validate");
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Processing Data')),
                           );
                           createBrand(brandname.text).then((status) => {
-                                print("create"),
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text(status))),
                                 if (status == 'Brand created successfully')

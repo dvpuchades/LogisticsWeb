@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
 import 'buttons.dart';
 import 'cards.dart';
 
