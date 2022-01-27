@@ -3,7 +3,6 @@ import 'package:location/location.dart';
 
 class MyLocation {
   static Future<LatLng> getLatLng() async {
-    print('hello');
     Location location = Location();
 
     bool _serviceEnabled;
@@ -18,8 +17,6 @@ class MyLocation {
       }
     }
 
-    print('serviceEnabled');
-
     _permissionGranted = await location.hasPermission();
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
@@ -28,12 +25,8 @@ class MyLocation {
       }
     }
 
-    print('permissionGranted');
-
     _locationData = await location.getLocation();
 
-    print('locationData');
-    print(_locationData.latitude);
     return LatLng(_locationData.latitude!, _locationData.longitude!);
   }
 }
