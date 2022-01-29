@@ -44,26 +44,34 @@ class ProfileButton extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.only(top: 30, left: 20, right: 30),
         child: SizedBox(
-            height: 50,
-            width: 200,
-            child: Container(
-              color: ThemeColors.black,
-              child: TextButton(
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  const Icon(
-                    Icons.person,
-                    size: 30,
-                    color: ThemeColors.white,
-                  ),
-                  Text(' ' + name,
-                      style: const TextStyle(
-                          fontSize: 20, color: ThemeColors.white))
-                ]),
-                onPressed: () {
-                  //TODO
-                },
+          height: 50,
+          width: 200,
+          child: Container(
+            color: ThemeColors.black,
+            child: DropdownButton(
+              icon: const Icon(
+                Icons.person,
+                size: 30,
+                color: ThemeColors.white,
               ),
-            )));
+              value: 'profile',
+              hint: Text(' ' + name,
+                  style:
+                      const TextStyle(fontSize: 20, color: ThemeColors.white)),
+              items: const [
+                DropdownMenuItem(child: Text('Profile'), value: 'profile'),
+                DropdownMenuItem(child: Text('Edit'), value: 'edit'),
+                DropdownMenuItem(child: Text('Logout'), value: 'logout'),
+              ],
+              onChanged: (value) {
+                if (value == 'Edit') {
+                  //TODO
+                } else if (value == 'Logout') {
+                  //TODO
+                }
+              },
+            ),
+          ),
+        ));
   }
 }
