@@ -55,11 +55,12 @@ class ProfileButton extends StatelessWidget {
                 color: ThemeColors.white,
               ),
               value: 'profile',
-              hint: Text(' ' + name,
-                  style:
-                      const TextStyle(fontSize: 20, color: ThemeColors.white)),
-              items: const [
-                DropdownMenuItem(child: Text('Profile'), value: 'profile'),
+              items: [
+                DropdownMenuItem(
+                    child: Text(' ' + name,
+                        style: const TextStyle(
+                            fontSize: 20, color: ThemeColors.white)),
+                    value: 'profile'),
                 DropdownMenuItem(child: Text('Edit'), value: 'edit'),
                 DropdownMenuItem(child: Text('Logout'), value: 'logout'),
               ],
