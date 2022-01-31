@@ -20,7 +20,7 @@ class Dashboard extends StatelessWidget {
               child: Stack(
                 children: [
                   Container(
-                    child: const Map(),
+                    child: const OpenMap(),
                     color: Colors.white,
                   ),
                   const FloatingLayout(),
@@ -32,14 +32,14 @@ class Dashboard extends StatelessWidget {
   }
 }
 
-class Map extends StatefulWidget {
-  const Map({Key? key}) : super(key: key);
+class OpenMap extends StatefulWidget {
+  const OpenMap({Key? key}) : super(key: key);
 
   @override
-  _MapState createState() => _MapState();
+  _OpenMapState createState() => _OpenMapState();
 }
 
-class _MapState extends State<Map> {
+class _OpenMapState extends State<OpenMap> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<LatLng>(
