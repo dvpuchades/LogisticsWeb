@@ -49,12 +49,14 @@ class ProfileButton extends StatelessWidget {
           child: Container(
             color: ThemeColors.black,
             child: DropdownButton(
+              dropdownColor: ThemeColors.black,
               icon: const Icon(
                 Icons.person,
                 size: 30,
                 color: ThemeColors.white,
               ),
               value: 'profile',
+              style: const TextStyle(fontSize: 20, color: ThemeColors.white),
               items: [
                 DropdownMenuItem(
                     child: Text(' ' + name,
