@@ -1,4 +1,5 @@
 import 'package:http/http.dart';
+import 'package:webapp/models/log_data.dart';
 import 'package:webapp/models/user.dart';
 import 'dart:convert';
 import '../constants.dart';
@@ -15,6 +16,7 @@ Future<String> loginUser(String email, String password) async {
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       User.fromJson(body);
+      LogData.toStore(email, password); // store user data
       return '';
     } else if (response.statusCode == 404) {
       return 'User not found';

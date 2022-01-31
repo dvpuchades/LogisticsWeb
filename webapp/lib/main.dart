@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
+import 'package:webapp/screens/dashboard.dart';
 import 'package:webapp/screens/login_screen.dart';
+import 'package:webapp/services/auth.dart';
+
+import 'models/log_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +21,36 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: MaterialThemeColors.green,
           scaffoldBackgroundColor: MaterialThemeColors.green),
-      home: const LoginScreen(),
+      home: _decideHomeScreen(),
     );
   }
+}
+
+FutureBuilder _decideHomeScreen() {
+  return FutureBuilder(
+    future: LogData.getFromStore(),
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        if (snapshot.data['email'].isEmpty) {
+          return const LoginScreen();
+        } else {
+          var data = snapshot.data;
+          return FutureBuilder(
+              future: loginUser(data['email'], data['password']),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data == '') {
+                    return const Dashboard();
+                  } else {
+                    return const LoginScreen();
+                  }
+                } else {
+                  return const LoginScreen();
+                }
+              });
+        }
+      }
+      return Container();
+    },
+  );
 }

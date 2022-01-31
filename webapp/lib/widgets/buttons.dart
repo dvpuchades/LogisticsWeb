@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
+import 'package:webapp/models/log_data.dart';
 import 'package:webapp/models/user.dart';
+import 'package:webapp/screens/login_screen.dart';
 
 class NewOrderButton extends StatelessWidget {
   const NewOrderButton({Key? key}) : super(key: key);
@@ -63,14 +65,19 @@ class ProfileButton extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 20, color: ThemeColors.white)),
                     value: 'profile'),
-                DropdownMenuItem(child: Text('Edit'), value: 'edit'),
-                DropdownMenuItem(child: Text('Logout'), value: 'logout'),
+                const DropdownMenuItem(child: Text('Edit'), value: 'edit'),
+                const DropdownMenuItem(child: Text('Logout'), value: 'logout'),
               ],
               onChanged: (value) {
-                if (value == 'Edit') {
+                if (value == 'edit') {
                   //TODO
-                } else if (value == 'Logout') {
-                  //TODO
+                } else if (value == 'logout') {
+                  LogData.removeFromStore();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
+                  );
                 }
               },
             ),
