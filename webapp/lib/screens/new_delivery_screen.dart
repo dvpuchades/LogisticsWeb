@@ -67,17 +67,32 @@ class _DeliveryFormState extends State<DeliveryForm> {
               ),
             )),
             Expanded(
-                child: Container(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      child:
-                          Text('Create', style: TextStyle(color: Colors.white)),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.green),
-                      ),
-                      onPressed: () {},
-                    ))),
+                child: Row(children: [
+              Expanded(
+                  child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                        child: Text('Cancel',
+                            style: TextStyle(color: Colors.white)),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.red),
+                        ),
+                        onPressed: () {},
+                      ))),
+              Expanded(
+                  child: Container(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        child: Text('Create',
+                            style: TextStyle(color: Colors.white)),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.green),
+                        ),
+                        onPressed: () {},
+                      )))
+            ])),
           ])),
     );
   }
