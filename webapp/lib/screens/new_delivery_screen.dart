@@ -78,7 +78,9 @@ class _DeliveryFormState extends State<DeliveryForm> {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.red),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ))),
               Expanded(
                   child: Container(
