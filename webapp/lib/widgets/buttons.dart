@@ -49,6 +49,7 @@ class ProfileButton extends StatelessWidget {
           height: 50,
           width: 200,
           child: Container(
+            alignment: Alignment.center,
             color: ThemeColors.black,
             child: DropdownButton(
               dropdownColor: ThemeColors.black,
