@@ -3,6 +3,7 @@ import 'package:webapp/constants.dart';
 import 'package:webapp/models/log_data.dart';
 import 'package:webapp/models/user.dart';
 import 'package:webapp/screens/login_screen.dart';
+import 'package:webapp/screens/new_delivery_screen.dart';
 
 class NewOrderButton extends StatelessWidget {
   const NewOrderButton({Key? key}) : super(key: key);
@@ -30,7 +31,11 @@ class NewOrderButton extends StatelessWidget {
                               TextStyle(fontSize: 20, color: ThemeColors.white))
                     ]),
                 onPressed: () {
-                  //TODO
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NewDelivery()),
+                  );
                 },
               ),
             )));
