@@ -34,6 +34,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
   TextEditingController customer = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController amount = TextEditingController();
+  String restaurantId = '';
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +121,9 @@ class _DeliveryFormState extends State<DeliveryForm> {
                       .map((restaurant) => DropdownMenuItem(
                           child: Text(restaurant.name), value: restaurant.id))
                       .toList(),
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    restaurantId = value as String;
+                  },
                   validator: (value) {
                     if (value == null) {
                       return 'Please select a restaurant';
@@ -166,7 +169,8 @@ class _DeliveryFormState extends State<DeliveryForm> {
                                         postcode.text,
                                         phone.text,
                                         customer.text,
-                                        double.parse(amount.text))
+                                        double.parse(amount.text),
+                                        restaurantId)
                                     .then((result) => {
                                           if (result.isEmpty)
                                             {Navigator.pop(context)}

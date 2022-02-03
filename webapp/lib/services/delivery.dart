@@ -6,7 +6,7 @@ import 'package:webapp/models/user.dart';
 import '../constants.dart';
 
 Future<String> createDelivery(String address, String city, String postcode,
-    String phone, String customer, double amount) async {
+    String phone, String customer, double amount, String restaurantId) async {
   try {
     String route = 'api/delivery';
     final response = await post(Uri.http(Backend.direction, route),
@@ -20,7 +20,8 @@ Future<String> createDelivery(String address, String city, String postcode,
           "postcode": postcode,
           "amount": amount,
           "customer": customer,
-          "phone": phone
+          "phone": phone,
+          "restaurant": restaurantId
         }));
     if (response.statusCode == 200) {
       return '';
