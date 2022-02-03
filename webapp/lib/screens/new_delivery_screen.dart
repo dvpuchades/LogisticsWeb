@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
+import 'package:webapp/models/restaurant.dart';
 import 'package:webapp/services/delivery.dart';
 import 'package:webapp/services/restaurant.dart';
 
@@ -114,8 +115,19 @@ class _DeliveryFormState extends State<DeliveryForm> {
                 ])),
                 Expanded(
                     child: DropdownButtonFormField(
-                      items: getRestaurants().,
-                    )),
+                  items: RestaurantBuffer.getInstance()
+                      .all
+                      .map((restaurant) => DropdownMenuItem(
+                          child: Text(restaurant.name), value: restaurant.id))
+                      .toList(),
+                  onChanged: (value) {},
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select a restaurant';
+                    }
+                    return null;
+                  },
+                )),
                 Expanded(
                     child: Row(children: [
                   Expanded(
@@ -143,13 +155,11 @@ class _DeliveryFormState extends State<DeliveryForm> {
                                   MaterialStateProperty.all(Colors.green),
                             ),
                             onPressed: () {
-                              print('pressed');
                               if (_formKey.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text('Processing Data')),
                                 );
-                                print('validated');
                                 createDelivery(
                                         address.text,
                                         city.text,
