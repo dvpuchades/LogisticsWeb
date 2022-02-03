@@ -4,7 +4,6 @@ const router = express.Router()
 const Delivery = require('../models/delivery')
 
 router.post('/', (req, res) => {
-    
     const newDelivery = Delivery({
         uploadUser: req.user._id, 
         restaurant: req.body.restaurant,
@@ -16,7 +15,8 @@ router.post('/', (req, res) => {
         initTime: Date(),
         finishTime: req.body.finishTime,
         amount: req.body.amount,
-        customer: req.body.customer
+        customer: req.body.customer,
+        phone: req.body.phone
     })
 
     newDelivery.save()

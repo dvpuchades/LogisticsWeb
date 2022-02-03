@@ -25,3 +25,22 @@ Future<String> createRestaurant(String name, String address) async {
     return e.toString();
   }
 }
+
+Future<List> getRestaurants() async {
+  try {
+    String route = 'api/restaurant';
+    final response =
+        await get(Uri.http(Backend.direction, route), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'authorization': User.getInstance().token
+    });
+    if (response.statusCode == 200) {
+      final body = json.decode(response.body);
+      return body;
+    } else {
+      return [];
+    }
+  } catch (e) {
+    return [e.toString()];
+  }
+}
