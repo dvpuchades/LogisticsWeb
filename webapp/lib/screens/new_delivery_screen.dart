@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
+import 'package:webapp/services/delivery.dart';
+import 'package:webapp/services/restaurant.dart';
 
 class NewDelivery extends StatelessWidget {
   const NewDelivery({Key? key}) : super(key: key);
@@ -9,7 +11,7 @@ class NewDelivery extends StatelessWidget {
     return Scaffold(
         body: Center(
             child: SizedBox(
-                height: 400,
+                height: 450,
                 width: 700,
                 child: Container(child: DeliveryForm()))));
   }
@@ -23,79 +25,154 @@ class DeliveryForm extends StatefulWidget {
 }
 
 class _DeliveryFormState extends State<DeliveryForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController address = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController postcode = TextEditingController();
+  TextEditingController customer = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController amount = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Container(
           margin: EdgeInsets.all(20),
-          child: Column(children: [
-            Expanded(child: Text('New Delivery', style: SubtitleTextStyle())),
-            Expanded(
-                child: TextField(
-              decoration: InputDecoration(
-                labelText: 'Address',
-              ),
-            )),
-            Expanded(
-                child: Row(children: [
-              Expanded(
-                  flex: 6,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'City',
-                    ),
-                  )),
-              Spacer(),
-              Expanded(
-                  flex: 6,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Postcode',
-                    ),
-                  ))
-            ])),
-            Expanded(
-                child: TextField(
-              decoration: InputDecoration(
-                labelText: 'Customer',
-              ),
-            )),
-            Expanded(
-                child: TextField(
-              decoration: InputDecoration(
-                labelText: 'Phone',
-              ),
-            )),
-            Expanded(
-                child: Row(children: [
-              Expanded(
-                  child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton(
-                        child: Text('Cancel',
-                            style: TextStyle(color: Colors.white)),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.red),
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
+          child: Form(
+              key: _formKey,
+              child: Column(children: [
+                Expanded(
+                    child: Text('New Delivery', style: SubtitleTextStyle())),
+                Expanded(
+                    child: TextFormField(
+                  controller: address,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter an address';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Address',
+                  ),
+                )),
+                Expanded(
+                    child: Row(children: [
+                  Expanded(
+                      flex: 6,
+                      child: TextFormField(
+                        controller: city,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a city';
+                          }
+                          return null;
                         },
-                      ))),
-              Expanded(
-                  child: Container(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        child: Text('Create',
-                            style: TextStyle(color: Colors.white)),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.green),
+                        decoration: InputDecoration(
+                          labelText: 'City',
                         ),
-                        onPressed: () {},
-                      )))
-            ])),
-          ])),
+                      )),
+                  Spacer(),
+                  Expanded(
+                      flex: 6,
+                      child: TextFormField(
+                        controller: postcode,
+                        decoration: InputDecoration(
+                          labelText: 'Postcode',
+                        ),
+                      ))
+                ])),
+                Expanded(
+                    child: TextFormField(
+                  controller: customer,
+                  decoration: InputDecoration(
+                    labelText: 'Customer',
+                  ),
+                )),
+                Expanded(
+                    child: Row(children: [
+                  Expanded(
+                      flex: 6,
+                      child: TextFormField(
+                        controller: phone,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          labelText: 'Phone',
+                        ),
+                      )),
+                  Spacer(),
+                  Expanded(
+                      flex: 6,
+                      child: TextFormField(
+                        controller: amount,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Amount',
+                        ),
+                      ))
+                ])),
+                Expanded(
+                    child: DropdownButtonFormField(
+                      items: getRestaurants().,
+                    )),
+                Expanded(
+                    child: Row(children: [
+                  Expanded(
+                      child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: TextButton(
+                            child: Text('Cancel',
+                                style: TextStyle(color: Colors.white)),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.red),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ))),
+                  Expanded(
+                      child: Container(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            child: Text('Create',
+                                style: TextStyle(color: Colors.white)),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.green),
+                            ),
+                            onPressed: () {
+                              print('pressed');
+                              if (_formKey.currentState!.validate()) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Processing Data')),
+                                );
+                                print('validated');
+                                createDelivery(
+                                        address.text,
+                                        city.text,
+                                        postcode.text,
+                                        phone.text,
+                                        customer.text,
+                                        double.parse(amount.text))
+                                    .then((result) => {
+                                          if (result.isEmpty)
+                                            {Navigator.pop(context)}
+                                          else
+                                            {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(content: Text(result)),
+                                              )
+                                            }
+                                        });
+                              }
+                            },
+                          )))
+                ])),
+              ]))),
     );
   }
 }
