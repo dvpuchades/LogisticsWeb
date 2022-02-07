@@ -20,7 +20,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
   Timer? _timer;
 
   String _getDeliveryState() {
-    if (widget.delivery.dealer != null) {
+    if (widget.delivery.dealer != '') {
       if (widget.delivery.finishTime != null) return 'Delivered';
       return 'On-its-way';
     }
@@ -29,7 +29,8 @@ class _DeliveryCardState extends State<DeliveryCard> {
 
   void _getDeliveryMinutes() {
     if (_state != 'Delivered') {
-      _timer = Timer.periodic(Duration(minutes: 1), (timer) {
+      _minutes = DateTime.now().difference(widget.delivery.initTime).inMinutes;
+      _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
         setState(() {
           _minutes =
               DateTime.now().difference(widget.delivery.initTime).inMinutes;
@@ -46,6 +47,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
   @override
   Widget build(BuildContext context) {
     _state = _getDeliveryState();
+    _getDeliveryMinutes();
     return Container(
         alignment: Alignment.centerRight,
         margin: const EdgeInsets.only(bottom: 30, right: 30),
@@ -76,7 +78,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
                                   child: Text(
                                     widget.delivery.address +
                                         '\n' +
-                                        widget.delivery.postcode,
+                                        widget.delivery.postcode!,
                                     textAlign: TextAlign.right,
                                     style: const NormalTextStyle(),
                                   )),
