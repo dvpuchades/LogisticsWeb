@@ -1,5 +1,5 @@
 import 'package:http/http.dart';
-import 'package:webapp/models/log_data.dart';
+import 'package:webapp/utils/log_data.dart';
 import 'package:webapp/models/user.dart';
 import 'dart:convert';
 import '../constants.dart';

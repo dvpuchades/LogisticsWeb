@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:webapp/models/location.dart';
-import 'package:webapp/models/restaurant.dart';
+import 'package:webapp/utils/location.dart';
 import 'package:webapp/services/restaurant.dart';
+import 'package:webapp/utils/restaurant_list.dart';
 import 'package:webapp/widgets/floating_layout.dart';
 import 'package:webapp/widgets/side_bar.dart';
 
@@ -13,7 +13,7 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getRestaurants().then((restaurants) {
-      RestaurantBuffer.fromJson(restaurants);
+      RestaurantList.fromJson(restaurants);
     });
 
     return Scaffold(

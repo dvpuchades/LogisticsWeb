@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
-import 'package:webapp/models/restaurant.dart';
 import 'package:webapp/services/delivery.dart';
-import 'package:webapp/services/restaurant.dart';
+import 'package:webapp/utils/restaurant_list.dart';
 
 class NewDelivery extends StatelessWidget {
   const NewDelivery({Key? key}) : super(key: key);
@@ -116,7 +115,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
                 ])),
                 Expanded(
                     child: DropdownButtonFormField(
-                  items: RestaurantBuffer.getInstance()
+                  items: RestaurantList.getInstance()
                       .all
                       .map((restaurant) => DropdownMenuItem(
                           child: Text(restaurant.name), value: restaurant.id))

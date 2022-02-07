@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
-import 'package:webapp/models/log_data.dart';
+import 'package:webapp/utils/log_data.dart';
 import 'package:webapp/models/user.dart';
 import 'package:webapp/screens/login_screen.dart';
 import 'package:webapp/screens/new_delivery_screen.dart';

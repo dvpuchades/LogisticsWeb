@@ -4,7 +4,7 @@ import 'package:webapp/screens/dashboard.dart';
 import 'package:webapp/screens/login_screen.dart';
 import 'package:webapp/services/auth.dart';
 
-import 'models/log_data.dart';
+import 'utils/log_data.dart';
 
 void main() {
   runApp(const MyApp());

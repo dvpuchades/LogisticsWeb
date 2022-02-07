@@ -1,32 +1,51 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:webapp/models/delivery.dart';
 
 import '../constants.dart';
 
 class DeliveryCard extends StatefulWidget {
-  const DeliveryCard(
-      {Key? key,
-      required this.address,
-      required this.postcode,
-      required this.city,
-      required this.state,
-      required this.amount,
-      required this.minutes})
-      : super(key: key);
+  const DeliveryCard({Key? key, required this.delivery}) : super(key: key);
 
-  final String address;
-  final String postcode;
-  final String city;
-  final String state;
-  final double amount;
-  final int minutes;
+  final Delivery delivery;
 
   @override
   _DeliveryCardState createState() => _DeliveryCardState();
 }
 
 class _DeliveryCardState extends State<DeliveryCard> {
+  int _minutes = 0;
+  String? _state;
+  Timer? _timer;
+
+  String _getDeliveryState() {
+    if (widget.delivery.dealer != null) {
+      if (widget.delivery.finishTime != null) return 'Delivered';
+      return 'On-its-way';
+    }
+    return 'In kitchen';
+  }
+
+  void _getDeliveryMinutes() {
+    if (_state != 'Delivered') {
+      _timer = Timer.periodic(Duration(minutes: 1), (timer) {
+        setState(() {
+          _minutes =
+              DateTime.now().difference(widget.delivery.initTime).inMinutes;
+          //TODO
+        });
+      });
+    } else {
+      _minutes = widget.delivery.finishTime!
+          .difference(widget.delivery.initTime)
+          .inMinutes;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    _state = _getDeliveryState();
     return Container(
         alignment: Alignment.centerRight,
         margin: const EdgeInsets.only(bottom: 30, right: 30),
@@ -55,7 +74,9 @@ class _DeliveryCardState extends State<DeliveryCard> {
                                   margin:
                                       const EdgeInsets.only(top: 15, right: 30),
                                   child: Text(
-                                    widget.address + '\n' + widget.postcode,
+                                    widget.delivery.address +
+                                        '\n' +
+                                        widget.delivery.postcode,
                                     textAlign: TextAlign.right,
                                     style: const NormalTextStyle(),
                                   )),
@@ -67,13 +88,13 @@ class _DeliveryCardState extends State<DeliveryCard> {
                         children: [
                           Container(
                               margin: const EdgeInsets.only(left: 30),
-                              child: Text(widget.state,
+                              child: Text(_state!,
                                   textAlign: TextAlign.left,
                                   style: const NormalTextStyle())),
                           Container(
                               margin: const EdgeInsets.only(right: 30),
                               child: Text(
-                                widget.city,
+                                widget.delivery.city,
                                 textAlign: TextAlign.right,
                                 style: const NormalTextStyle(),
                               )),
@@ -86,15 +107,14 @@ class _DeliveryCardState extends State<DeliveryCard> {
                           Container(
                               margin:
                                   const EdgeInsets.only(left: 30, bottom: 15),
-                              child: Text(
-                                  widget.minutes.toString() + ' minutes ago',
+                              child: Text(_minutes.toString() + ' minutes ago',
                                   textAlign: TextAlign.left,
                                   style: const NormalTextStyle())),
                           Container(
                               margin:
                                   const EdgeInsets.only(right: 30, bottom: 15),
                               child: Text(
-                                widget.amount.toString() + ' €',
+                                widget.delivery.amount.toString() + ' €',
                                 textAlign: TextAlign.right,
                                 style: const NormalTextStyle(),
                               )),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:webapp/models/delivery.dart';
+import 'package:webapp/services/delivery.dart';
 import 'buttons.dart';
 import 'cards.dart';
 
@@ -29,7 +31,32 @@ class NotificationList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
         width: 400,
-        child: ListView(
+        child: FutureBuilder(
+          future: getDeliveries(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List deliveries = snapshot.data as List;
+              List<Widget> cards = [];
+              for (var item in deliveries) {
+                print(item);
+                cards.add(DeliveryCard(delivery: Delivery.fromJson(item)));
+              }
+              return ListView(
+                  padding: const EdgeInsets.only(top: 30),
+                  shrinkWrap: true,
+                  children: cards);
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ));
+  }
+}
+
+
+//copy
+/*
+ListView(
           padding: const EdgeInsets.only(top: 30),
           shrinkWrap: true,
           children: const [
@@ -72,6 +99,4 @@ class NotificationList extends StatelessWidget {
                 amount: 54.90,
                 minutes: 34),
           ],
-        ));
-  }
-}
+*/

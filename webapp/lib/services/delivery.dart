@@ -32,3 +32,22 @@ Future<String> createDelivery(String address, String city, String postcode,
     return e.toString();
   }
 }
+
+Future<List> getDeliveries() async {
+  try {
+    String route = 'api/delivery';
+    final response =
+        await get(Uri.http(Backend.direction, route), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'authorization': User.getInstance().token
+    });
+    if (response.statusCode == 200) {
+      final body = json.decode(response.body);
+      return body;
+    } else {
+      return [];
+    }
+  } catch (e) {
+    return [e.toString()];
+  }
+}
