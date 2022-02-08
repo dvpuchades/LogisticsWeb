@@ -28,6 +28,19 @@ const model = mongoose.Schema({
     privilege: {
         type: Boolean,
         required: false
+    },
+    //last location
+    latitude: {
+        type: Number,
+        required: false
+    },
+    longitude: {
+        type: Number,
+        required: false
+    },
+    time: {
+        type: Date,
+        required: false
     }
 });
 

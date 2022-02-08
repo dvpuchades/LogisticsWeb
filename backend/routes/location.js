@@ -11,6 +11,8 @@ router.post('/', (req, res) => {
             res.status(400).json({error: 'define longitude and latitude'})
     }
     else{
+        let locationUpdated = false
+        let userUpdated = false
         newLocation = Location({
             object: req.user,
             longitude: req.body.longitude,
@@ -19,11 +21,19 @@ router.post('/', (req, res) => {
         })
         newLocation.save()
             .then(user => {
-                res.status(200).send()
+                locationUpdated = true
             })
             .catch(error => {
                 res.status(500).json(error)
             })
+        User.findOneAndUpdate({_id: req.user._id}, 
+            {longitude: req.body.longitude, latitude: req.body.latitude, time: Date()},
+            {new: true}, (error, updatedUser) => {
+                if (error) return res.status(500).json({error})
+                else if (!updatedUser) res.status(404).json({error: 'user not found'})
+                else userUpdated = true
+        })
+        if(locationUpdated && userUpdated) res.status(200).send()
     }
 });
 

@@ -10,6 +10,7 @@ const userRoute = require('./routes/user')
 const activeRoute = require('./routes/active')
 const brandRoute = require('./routes/brand')
 const restaurantRoute = require('./routes/restaurant')
+const contextRoute = require('./routes/context')
 
 const middleware = require('./middleware')
 app.use(cors({
@@ -28,6 +29,7 @@ app.use('/api/user/active', activeRoute)
 app.use('/api/user', userRoute)
 app.use('/api/restaurant', restaurantRoute)
 app.use('/api/brand', brandRoute)
+app.use('/api/context', contextRoute)
 
 mongoose.connect(dbURI , {useNewUrlParser: true, useUnifiedTopology: true})
 const db = mongoose.connection
