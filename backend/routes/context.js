@@ -13,25 +13,30 @@ router.get('/:datetime', (req, res) => {
     let index = Date.parse(req.body.datetime)
     let contextMap = req.app.get('contextMap')
 
-    if(index < contextMap.get(req.user.brand).firstIndex){
-        res.status(404).json({error: 'Index older than server first entrance'})
+    if((typeof  contextMap.get(req.user.brand)) == 'undefined'){
+        res.status(200).json({updates: []})
     }
     else{
-        let stack = contextMap.get(req.user.brand).stack
-        if((typeof stack) == 'undefined'){
-            res.status(200).json({updates: []})
+        if(index < contextMap.get(req.user.brand).firstIndex){
+            res.status(404).json({error: 'Index older than server first entrance'})
         }
         else{
-            let element = stack.pop()
-            let result = []
-            let done = false
-            while(!done){
-                if(index < element){
-                    done = true
-                    res.status(200).json({updates: result})
+            let stack = contextMap.get(req.user.brand).stack
+            if((typeof stack) == 'undefined'){
+                res.status(200).json({updates: []})
+            }
+            else{
+                let element = stack.pop()
+                let result = []
+                let done = false
+                while(!done){
+                    if(index < element){
+                        done = true
+                        res.status(200).json({updates: result})
+                    }
+                    result.push(element.content)
+                    element = stack.pop()
                 }
-                result.push(element.content)
-                element = stack.pop()
             }
         }
     }
