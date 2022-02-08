@@ -38,7 +38,6 @@ class NotificationList extends StatelessWidget {
               List deliveries = snapshot.data as List;
               List<Widget> cards = [];
               for (var item in deliveries) {
-                print(item);
                 cards.add(DeliveryCard(delivery: Delivery.fromJson(item)));
               }
               return ListView(
