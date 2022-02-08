@@ -40,7 +40,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:restaurantId', (req, res) => {
-    Delivery.find({restaurant: req.body.restaurant})
+    Delivery.find({restaurant: req.body.restaurantId})
         .then(deliveries => {
             if(!deliveries) res.status(404).json({error: 'not delivery found'})
             else res.status(200).json(deliveries)

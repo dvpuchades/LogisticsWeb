@@ -37,6 +37,7 @@ const db = mongoose.connection
 db.on("error", (err)=>{console.error(err)})
 db.once("open", () => {console.log("DB started successfully")})
 
+app.set('contextMap', new Map())
 // TODO
 
 app.listen(2400, () => {console.log("Server started: 2400")})

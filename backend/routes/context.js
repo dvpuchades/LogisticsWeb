@@ -4,9 +4,38 @@ const Active = require('../models/active')
 const Notification = require('../models/notification');
 const Restaurant = require('../models/restaurant')
 const User = require('../models/user')
-const Delivery = require('../models/delivery')
+const Delivery = require('../models/delivery');
+const user = require('../models/user');
 
 const router = express.Router()
+
+router.get('/:datetime', (req, res) => {
+    let index = Date.parse(req.body.datetime)
+    let contextMap = req.app.get('contextMap')
+
+    if(index < contextMap.get(req.user.brand).firstIndex){
+        res.status(404).json({error: 'Index older than server first entrance'})
+    }
+    else{
+        let stack = contextMap.get(req.user.brand).stack
+        if((typeof stack) == 'undefined'){
+            res.status(200).json({updates: []})
+        }
+        else{
+            let element = stack.pop()
+            let result = []
+            let done = false
+            while(!done){
+                if(index < element){
+                    done = true
+                    res.status(200).json({updates: result})
+                }
+                result.push(element.content)
+                element = stack.pop()
+            }
+        }
+    }
+});
 
 router.get('/new', (req, res) => {
     let usersReady = false
@@ -99,6 +128,5 @@ router.get('/new', (req, res) => {
         }
     }
 });
-
 
 module.exports = router
