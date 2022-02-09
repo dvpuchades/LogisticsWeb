@@ -1,6 +1,6 @@
 const Stack = require("./stack");
 
-class ContextTable{
+class HashTable{
     constructor(){
         this.map = new Map();
     }
@@ -20,5 +20,4 @@ class ContextTable{
     }
 }
 
-
-module.exports = new ContextTable();
+module.exports = HashTable;

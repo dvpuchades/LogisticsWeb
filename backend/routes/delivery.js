@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const Delivery = require('../models/delivery')
-const Context = require('../util/context')
+const Buffer = require('../util/hashtable')
 
 router.post('/', (req, res) => {
     const newDelivery = Delivery({
@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
     }else{
         key = req.user.brand.toString() + req.user.restaurant.toString()
     }
-    Context.set(key, {content: newDelivery, index: Date.now()})
+    Buffer.set(key, {content: newDelivery, index: Date.now()})
 
     newDelivery.save()
         .then(Delivery => {
