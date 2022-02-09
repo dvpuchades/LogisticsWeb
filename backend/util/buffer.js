@@ -5,20 +5,38 @@ class Buffer{
         this.hashtable = new HashTable()
     }
 
-    set(user, value, operation){
+    //operation ['new', 'updated', 'deleted']
+
+    /**
+     * OPERATIONS
+     * 'new'
+     * 'update'
+     * 'delete'
+     * 
+     * 'activate'   -> for users
+     * 'deactivate'
+     * 
+     * 
+     * TYPES
+     * 'delivery'
+     * 'user'
+     * 'location'
+     * 'restaurant'
+     * 'notification' -> TODO
+     */
+    set(user, value, operation, type){
         let key
         if(typeof user.restaurant == 'undefined'){
             key = user.brand.toString()
         }else{
             key = user.brand.toString() + user.restaurant.toString()
         }
-        this.hashtable.set(key, {content: value, index: Date.now(), operation: operation})
+        this.hashtable.set(key, {content: value, index: Date.now(), operation: operation, type: type})
     }
 
     get(user, index){
         let restaurant
         let brand
-        let error = false
 
         if(typeof this.hashtable.get(user.brand.toString() + user.restaurant.toString()) == 'undefined'){
             restaurant = []

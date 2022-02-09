@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
         phone: req.body.phone
     })
 
-    buffer.set(req.user, newDelivery)
+    buffer.set(req.user, newDelivery, 'new', 'delivery')
 
     newDelivery.save()
         .then(Delivery => {
@@ -58,7 +58,10 @@ router.put('/:id', (req, res) => {
         Delivery.findOneAndUpdate({_id: req.params.id}, {name: req.body.name}, {new: true}, (error, updatedDelivery) => {
             if (error) return res.status(500).json({error})
             else if (!updatedDelivery) res.status(404).json({error: 'delivery not found'})
-            else res.status(200).json(updatedDelivery)
+            else {
+                buffer.set(req.user, updatedDelivery, 'updated', 'delivery')
+                res.status(200).json(updatedDelivery)
+            }
         })
     }
     else if (typeof req.body.finished !== 'undefined') {
@@ -66,14 +69,20 @@ router.put('/:id', (req, res) => {
             Delivery.findOneAndUpdate({_id: req.params.id}, {finishTime: Date()}, {new: true}, (error, updatedDelivery) => {
                 if (error) return res.status(500).json({error})
                 else if (!updatedDelivery) res.status(404).json({error: 'delivery not found'})
-                else res.status(200).json(updatedDelivery)
+                else {
+                    buffer.set(req.user, updatedDelivery, 'updated')
+                    res.status(200).json(updatedDelivery)
+                }
             })
         }
         else {
             Delivery.findOneAndUpdate({_id: req.params.id}, {finishTime: null}, {new: true}, (error, updatedDelivery) => {
                 if (error) return res.status(500).json({error})
                 else if (!updatedDelivery) res.status(404).json({error: 'delivery not found'})
-                else res.status(200).json(updatedDelivery)
+                else {
+                    buffer.set(req.user, updatedDelivery, 'updated', 'delivery')
+                    res.status(200).json(updatedDelivery)
+                }
             })
         }
     }
@@ -85,7 +94,10 @@ router.delete('/:id', (req, res) => {
         Delivery.deleteOne({_id: req.params.id}, (error, result) => {
             if (!result) res.status(404).json({error: 'delivery not found'}) 
             else if(error) res.status(500).json(error)
-            else res.status(200).send()
+            else {
+                buffer.set(req.user, {_id: req.params.id}, 'deleted', 'delivery')
+                res.status(200).send()
+            }
         })
     }
     else res.status(403).json({error: 'only privilege users can delete deliveries'})

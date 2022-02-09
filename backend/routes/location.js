@@ -4,6 +4,7 @@ const router = express.Router()
 const User = require('../models/user')
 const Location = require('../models/location')
 const Active = require('../models/active')
+const buffer = require('../util/buffer')
 
 router.post('/', (req, res) => {
     if(typeof req.body.latitude !== "number" 
@@ -19,6 +20,9 @@ router.post('/', (req, res) => {
             latitude: req.body.latitude,
             time: Date()
         })
+
+        buffer.set(req.user, newLocation, 'updated', 'location')
+
         newLocation.save()
             .then(user => {
                 locationUpdated = true
