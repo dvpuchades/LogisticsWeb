@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const Delivery = require('../models/delivery')
+const Context = require('../util/context')
 
 router.post('/', (req, res) => {
     const newDelivery = Delivery({
@@ -18,6 +19,14 @@ router.post('/', (req, res) => {
         customer: req.body.customer,
         phone: req.body.phone
     })
+
+    let key
+    if(typeof req.user.restaurant == 'undefined'){
+        key = req.user.brand.toString()
+    }else{
+        key = req.user.brand.toString() + req.user.restaurant.toString()
+    }
+    Context.set(key, {content: newDelivery, index: Date.now()})
 
     newDelivery.save()
         .then(Delivery => {
