@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const Delivery = require('../models/delivery')
-const Buffer = require('../util/hashtable')
+const buffer = require('../util/buffer')
 
 router.post('/', (req, res) => {
     const newDelivery = Delivery({
@@ -20,13 +20,7 @@ router.post('/', (req, res) => {
         phone: req.body.phone
     })
 
-    let key
-    if(typeof req.user.restaurant == 'undefined'){
-        key = req.user.brand.toString()
-    }else{
-        key = req.user.brand.toString() + req.user.restaurant.toString()
-    }
-    Buffer.set(key, {content: newDelivery, index: Date.now()})
+    buffer.set(req.user, newDelivery)
 
     newDelivery.save()
         .then(Delivery => {
