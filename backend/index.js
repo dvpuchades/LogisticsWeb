@@ -12,6 +12,8 @@ const brandRoute = require('./routes/brand')
 const restaurantRoute = require('./routes/restaurant')
 const contextRoute = require('./routes/context')
 
+const buffer = require('./util/buffer')
+
 const middleware = require('./util/middleware')
 app.use(cors({
     origin: '*'

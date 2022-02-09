@@ -5,14 +5,14 @@ class Buffer{
         this.hashtable = new HashTable()
     }
 
-    set(user, value){
+    set(user, value, operation){
         let key
         if(typeof user.restaurant == 'undefined'){
             key = user.brand.toString()
         }else{
             key = user.brand.toString() + user.restaurant.toString()
         }
-        this.hashtable.set(key, {content: newDelivery, index: Date.now()})
+        this.hashtable.set(key, {content: value, index: Date.now(), operation: operation})
     }
 
     get(user, index){
