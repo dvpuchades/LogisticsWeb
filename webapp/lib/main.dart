@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
-import 'package:webapp/screens/dashboard.dart';
 import 'package:webapp/screens/login_screen.dart';
+import 'package:webapp/screens/starter.dart';
 import 'package:webapp/services/auth.dart';
 
 import 'utils/log_data.dart';
@@ -40,9 +40,9 @@ FutureBuilder _decideHomeScreen() {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data == '') {
-                    return const Dashboard();
+                    return const Starter();
                   } else {
-                    return const LoginScreen();
+                    return const Center(child: CircularProgressIndicator());
                   }
                 } else {
                   return const LoginScreen();

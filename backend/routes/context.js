@@ -10,7 +10,7 @@ const router = express.Router()
 
 const buffer = require('../util/buffer')
 
-router.get('/:datetime', (req, res) => {
+router.get('/update/:datetime', (req, res) => {
     let index = Date.parse(req.body.datetime)
     let data = buffer.get(req.user, index)
     if(data.error == true){
