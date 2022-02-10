@@ -14,14 +14,15 @@ router.post('/', (req, res) => {
     else{
         let locationUpdated = false
         let userUpdated = false
-        newLocation = Location({
+        const location = {
             object: req.user,
             longitude: req.body.longitude,
             latitude: req.body.latitude,
             time: Date()
-        })
+        }
+        newLocation = Location(location)
 
-        buffer.set(req.user, newLocation, 'updated', 'location')
+        buffer.set(req.user, location, 'updated', 'location')
 
         newLocation.save()
             .then(user => {

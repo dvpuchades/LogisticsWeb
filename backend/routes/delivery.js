@@ -5,7 +5,8 @@ const Delivery = require('../models/delivery')
 const buffer = require('../util/buffer')
 
 router.post('/', (req, res) => {
-    const newDelivery = Delivery({
+
+    const delivery = {
         uploadUser: req.user._id, 
         restaurant: req.body.restaurant,
         brand: req.user.brand,
@@ -18,9 +19,11 @@ router.post('/', (req, res) => {
         amount: req.body.amount,
         customer: req.body.customer,
         phone: req.body.phone
-    })
+    }
 
-    buffer.set(req.user, newDelivery, 'new', 'delivery')
+    const newDelivery = Delivery(delivery)
+
+    buffer.set(req.user, delivery, 'new', 'delivery')
 
     newDelivery.save()
         .then(Delivery => {
