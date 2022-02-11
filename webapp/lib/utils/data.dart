@@ -28,9 +28,8 @@ class Data {
 
   Data._newFromJson(Map<String, dynamic> json) {
     users = json['users'];
-    deliveries = json['deliveries'];
     notifications = json['notifications'];
-
+    print('executing newFromJson');
     for (var element in json['deliveries']) {
       Delivery delivery = Delivery(
           id: element['_id'],
@@ -51,6 +50,7 @@ class Data {
           restaurant['_id'], restaurant['name'], restaurant['address']);
       restaurants.addAll({model.id: model});
     }
+    print(restaurants);
   }
 
   void updateFromJson(Map<String, dynamic> json) {

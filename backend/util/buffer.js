@@ -35,13 +35,11 @@ class Buffer{
     }
 
     get(user, index){
-        let restaurant
-        let brand
+        let restaurant = []
+        let brand = []
 
-        if(typeof this.hashtable.get(user.brand.toString() + user.restaurant.toString()) == 'undefined'){
-            restaurant = []
-        }
-        else{
+        if(typeof user.restaurant != 'undefined'){
+            
             let list = this.hashtable.get(user.brand.toString() + user.restaurant.toString())
             if(index < list[0].index){
                 return {restaurant: [], brand: [], error: true}
@@ -52,21 +50,30 @@ class Buffer{
                 element = list.pop()
             }
         }
-
-        if(typeof this.hashtable.get(user.brand.toString()) == 'undefined'){
-            brand = []
-        }
-        else{
-            let list = this.hashtable.get(user.brand.toString())
+        
+        /**
+         * Using this.hashtable.get(user.brand.toString())
+         * you get a reference to the list in the Stack instance,
+         * any change in this list will be reflected in the Stack
+         * (Don't change that list)
+         */
+        let list = this.hashtable.get(user.brand.toString())
+        console.log('list from hashtable (brand)')
+        console.log(list)
+        if(list.length > 0){
+            console.log('ready for iterate')
             if(index < list[0].index){
                 return {restaurant: [], brand: [], error: true}
             }
-            let element = list.pop()
-            while(index >= element.index){
-                brand.push(element)
-                element = list.pop()
+            console.log('Provided Index ' + index)
+            console.log('Element index ' + list[0].index)
+            for (let i = 0; index >= list[i].index; i++) {
+                brand.unshift(list[i]);
             }
+            console.log('done')
+            console.log(brand)
         }
+
         return {restaurant: restaurant, brand: brand, error: false}
     }
 }

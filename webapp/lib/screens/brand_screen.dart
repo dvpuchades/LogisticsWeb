@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:webapp/screens/dashboard.dart';
+import 'package:webapp/screens/starter.dart';
 import 'package:webapp/services/brand.dart';
 import 'package:webapp/services/restaurant.dart';
 
@@ -182,7 +183,7 @@ class _CreateBrandWidgetState extends State<CreateBrandWidget> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const Dashboard()),
+                                                            const Starter()),
                                                   )
                                                 }
                                             })
