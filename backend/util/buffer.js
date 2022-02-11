@@ -58,20 +58,13 @@ class Buffer{
          * (Don't change that list)
          */
         let list = this.hashtable.get(user.brand.toString())
-        console.log('list from hashtable (brand)')
-        console.log(list)
         if(list.length > 0){
-            console.log('ready for iterate')
             if(index < list[0].index){
                 return {restaurant: [], brand: [], error: true}
             }
-            console.log('Provided Index ' + index)
-            console.log('Element index ' + list[0].index)
-            for (let i = 0; index >= list[i].index; i++) {
+            for (let i = (list.length - 1); i > 0 && index <= list[i].index; i--) {
                 brand.unshift(list[i]);
             }
-            console.log('done')
-            console.log(brand)
         }
 
         return {restaurant: restaurant, brand: brand, error: false}

@@ -11,12 +11,11 @@ const router = express.Router()
 const buffer = require('../util/buffer')
 
 router.get('/update/:index', (req, res) => {
-    let index = Number.parseInt(req.body.index)
+    let index = Number.parseInt(req.params.index)
     let data = buffer.get(req.user, index)
     if(data.error == true){
         res.status(404).send()
     }else{
-        console.log(data)
         res.status(200).json(data)
     }
 });

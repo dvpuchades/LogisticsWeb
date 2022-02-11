@@ -9,13 +9,14 @@ class Data {
   Map deliveries = HashMap();
   List notifications = [];
   Map restaurants = HashMap();
-  DateTime? lastUpdate;
+  DateTime lastUpdate = DateTime(1970);
 
   Data._internal() {
     users = [];
     deliveries = HashMap();
     notifications = [];
     restaurants = HashMap();
+    lastUpdate = DateTime(1970);
   }
 
   static Data getInstance() {

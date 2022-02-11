@@ -10,7 +10,7 @@ import '../constants.dart';
 Future<bool> getNewContext() async {
   try {
     print('running get new context');
-    Data.getInstance().lastUpdate = DateTime.now();
+    DateTime startTime = DateTime.now();
     String route = 'api/context/new';
     final response =
         await get(Uri.http(Backend.direction, route), headers: <String, String>{
@@ -20,6 +20,7 @@ Future<bool> getNewContext() async {
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       Data.newFromJson(body);
+      Data.getInstance().lastUpdate = startTime;
       return true;
     } else {
       print(response.statusCode);
@@ -33,16 +34,16 @@ Future<bool> getNewContext() async {
 void updateContext() async {
   try {
     DateTime updateTime = DateTime.now();
-    print(Data.getInstance());
+    print('TRYING updateTime ' + updateTime.toString());
     String route = 'api/context/update/' +
-        Data.getInstance().lastUpdate!.millisecondsSinceEpoch.toString();
+        Data.getInstance().lastUpdate.millisecondsSinceEpoch.toString();
     final response =
         await get(Uri.http(Backend.direction, route), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'authorization': User.getInstance().token
     });
     if (response.statusCode == 200) {
-      Data.getInstance().lastUpdate = DateTime.now();
+      Data.getInstance().lastUpdate = updateTime;
       final body = json.decode(response.body);
       Data.getInstance().updateFromJson(body);
     } else {

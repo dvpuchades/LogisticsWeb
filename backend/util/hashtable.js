@@ -19,7 +19,6 @@ class HashTable{
         if(typeof this.map.get(key) != 'undefined'){
             return this.map.get(key).toList()
         }
-        console.log('no key')
         return []
     }
 }
