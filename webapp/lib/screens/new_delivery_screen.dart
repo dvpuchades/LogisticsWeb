@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
 import 'package:webapp/services/delivery.dart';
+import 'package:webapp/utils/data.dart';
 import 'package:webapp/utils/restaurant_list.dart';
 
 class NewDelivery extends StatelessWidget {
@@ -115,10 +116,10 @@ class _DeliveryFormState extends State<DeliveryForm> {
                 ])),
                 Expanded(
                     child: DropdownButtonFormField(
-                  items: RestaurantList.getInstance()
-                      .all
-                      .map((restaurant) => DropdownMenuItem(
-                          child: Text(restaurant.name), value: restaurant.id))
+                  items: Data.getRestaurants()
+                      .entries
+                      .map((e) => DropdownMenuItem(
+                          child: Text(e.value.name), value: e.value.id))
                       .toList(),
                   onChanged: (value) {
                     restaurantId = value as String;

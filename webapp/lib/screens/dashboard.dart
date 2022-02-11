@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -11,7 +13,9 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getNewContext();
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      updateContext();
+    });
     return Scaffold(
         body: SafeArea(
       child: Row(

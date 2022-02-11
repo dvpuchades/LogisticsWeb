@@ -8,13 +8,14 @@ class Data {
   List users = [];
   Map deliveries = HashMap();
   List notifications = [];
-  List restaurants = [];
+  Map restaurants = HashMap();
+  DateTime? lastUpdate;
 
   Data._internal() {
     users = [];
     deliveries = HashMap();
     notifications = [];
-    restaurants = [];
+    restaurants = HashMap();
   }
 
   static Data getInstance() {
@@ -30,15 +31,37 @@ class Data {
     deliveries = json['deliveries'];
     notifications = json['notifications'];
 
-    restaurants = [];
+    for (var element in json['deliveries']) {
+      Delivery delivery = Delivery(
+          id: element['_id'],
+          address: element['address'],
+          city: element['city'],
+          restaurant: element['restaurant'],
+          initTime: DateTime.parse(element['initTime']),
+          amount: (element['amount'] ?? ''),
+          customer: (element['customer'] ?? ''),
+          postcode: (element['postcode'] ?? ''),
+          phone: (element['phone'] ?? ''),
+          dealer: (element['dealer'] ?? ''));
+      deliveries.addAll({delivery.id: delivery});
+    }
+
     for (var restaurant in json['restaurants']) {
       var model = Restaurant(
           restaurant['_id'], restaurant['name'], restaurant['address']);
-      restaurants.add(model);
+      restaurants.addAll({model.id: model});
     }
   }
 
-  void updateFromJson(Map<String, dynamic> json) {}
+  void updateFromJson(Map<String, dynamic> json) {
+    print(json);
+    for (var element in json['restaurant']) {
+      sortElement(element);
+    }
+    for (var element in json['brand']) {
+      sortElement(element);
+    }
+  }
 
   void sortElement(element) {
     if (element['operation'] == 'new') {
@@ -77,5 +100,13 @@ class Data {
     if (element['type'] == 'location') {}
     if (element['type'] == 'restaurant') {}
     if (element['type'] == 'notification') {}
+  }
+
+  static Map getDeliveries() {
+    return _instance.deliveries;
+  }
+
+  static Map getRestaurants() {
+    return _instance.restaurants;
   }
 }
