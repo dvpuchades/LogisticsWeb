@@ -2,28 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:webapp/utils/data.dart';
-import 'buttons.dart';
 import 'cards.dart';
-
-class FloatingLayout extends StatelessWidget {
-  const FloatingLayout({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-      Expanded(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: const [
-          Flexible(child: NewOrderButton()),
-          Flexible(child: ProfileButton())
-        ],
-      )),
-      const Expanded(flex: 6, child: NotificationList())
-    ]));
-  }
-}
 
 class NotificationList extends StatefulWidget {
   const NotificationList({Key? key}) : super(key: key);

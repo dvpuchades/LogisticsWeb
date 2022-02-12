@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
 import 'package:webapp/services/delivery.dart';
 import 'package:webapp/utils/data.dart';
-import 'package:webapp/utils/restaurant_list.dart';
 
 class NewDelivery extends StatelessWidget {
   const NewDelivery({Key? key}) : super(key: key);

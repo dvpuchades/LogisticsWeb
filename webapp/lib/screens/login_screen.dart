@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/models/user.dart';
 import 'package:webapp/screens/brand_screen.dart';
-import 'package:webapp/screens/dashboard.dart';
 import 'package:webapp/screens/signup_screen.dart';
 import 'package:webapp/screens/starter.dart';
 import 'package:webapp/services/auth.dart';
