@@ -18,6 +18,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
   int _minutes = 0;
   String? _state;
   Timer? _timer;
+  String? _amount;
 
   String _getDeliveryState() {
     if (widget.delivery.dealer != '') {
@@ -48,6 +49,11 @@ class _DeliveryCardState extends State<DeliveryCard> {
   Widget build(BuildContext context) {
     _state = _getDeliveryState();
     _getDeliveryMinutes();
+    if (widget.delivery.amount == -1) {
+      _amount = '';
+    } else {
+      _amount = widget.delivery.amount.toString() + ' €';
+    }
     return Container(
         alignment: Alignment.centerRight,
         margin: const EdgeInsets.only(bottom: 30, right: 30),
@@ -116,7 +122,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
                               margin:
                                   const EdgeInsets.only(right: 30, bottom: 15),
                               child: Text(
-                                widget.delivery.amount.toString() + ' €',
+                                _amount!,
                                 textAlign: TextAlign.right,
                                 style: const NormalTextStyle(),
                               )),
