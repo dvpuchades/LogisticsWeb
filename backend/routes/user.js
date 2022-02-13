@@ -5,6 +5,7 @@ const User = require('../models/user')
 const Active = require('../models/active')
 
 const bcrypt = require('bcrypt')
+const buffer = require('../util/buffer')
 
 const rounds = 10
 
@@ -71,7 +72,11 @@ router.put('/info', (req, res) => {
         User.findOneAndUpdate({_id: req.user._id}, updates, {new: true}, (error, updatedUser) => {
             if (error) return res.status(500).json({error})
             else if (!updatedUser) res.status(404).json({error: 'user not found'})
-            else res.status(200).send()
+            else {
+                res.status(200).send()
+                updates.password = ''
+                buffer.set(req.user, updates, 'update', 'user')
+            }
         })
     }
     else res.status(400).json({error: 'parameters needed'})
@@ -86,7 +91,10 @@ router.put('/:id', (req, res) => {
             User.findOneAndUpdate({_id: req.params.id}, {restaurant: req.body.restaurant}, {new: true}, (error, updatedUser) => {
                 if (error) return res.status(500).json({error})
                 else if (!updatedUser) res.status(404).json({error: 'user not found'})
-                else res.status(200).json(updatedUser)
+                else {
+                    buffer.set(req.user, updates, 'update', 'user')
+                    res.status(200).json(updatedUser)
+                }
             })
         }
         else res.status(400).json({error: 'parameters needed'})

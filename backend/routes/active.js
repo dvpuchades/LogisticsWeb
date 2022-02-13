@@ -2,7 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 const User = require('../models/user')
-const Active = require('../models/active')
+const Active = require('../models/active');
+const buffer = require('../util/buffer');
 
 
 router.get('/', (req, res) => {
@@ -74,7 +75,8 @@ router.put('/:id', (req, res) => {
 
 function setActive(req, res, userId) {
     if (typeof req.body.active === 'undefined') res.status(400).json({error: 'insert valid parameters'})
-    else if (req.body.active){
+    else if (req.body.active == 'true'){
+        buffer.set(req.user, {_id: userId}, 'activate', 'user')
         Active.find({user: userId, finishTime: { $exists: false }})
             .then(active => {
                 if (active.length == 0){
@@ -98,6 +100,7 @@ function setActive(req, res, userId) {
             })
     }
     else {
+        buffer.set(req.user, {_id: userId}, 'deactivate', 'user')
         Active.findOneAndUpdate({user: userId}, {finishTime: Date()}, {new: true}, (error, updatedActive) => {
             if (error) return res.status(500).json({error})
             else if (!updatedActive) res.status(400).json({error: 'user was not active'})

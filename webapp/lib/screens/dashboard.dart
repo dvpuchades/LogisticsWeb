@@ -1,10 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:webapp/utils/location.dart';
-import 'package:webapp/services/restaurant.dart';
-import 'package:webapp/utils/restaurant_list.dart';
-import 'package:webapp/widgets/floating_layout.dart';
+import 'package:webapp/services/context.dart';
+import 'package:webapp/widgets/buttons.dart';
+import 'package:webapp/widgets/notification_list.dart';
+import 'package:webapp/widgets/open_map.dart';
 import 'package:webapp/widgets/side_bar.dart';
 
 class Dashboard extends StatelessWidget {
@@ -12,10 +12,9 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getRestaurants().then((restaurants) {
-      RestaurantList.fromJson(restaurants);
+    Timer.periodic(const Duration(seconds: 2), (timer) {
+      updateContext();
     });
-
     return Scaffold(
         body: SafeArea(
       child: Row(
@@ -29,48 +28,21 @@ class Dashboard extends StatelessWidget {
                     child: const OpenMap(),
                     color: Colors.white,
                   ),
-                  const FloatingLayout(),
+                  Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                    Expanded(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        Flexible(child: NewOrderButton()),
+                        Flexible(child: ProfileButton())
+                      ],
+                    )),
+                    const Expanded(flex: 6, child: NotificationList())
+                  ])
                 ],
               ))
         ],
       ),
     ));
-  }
-}
-
-class OpenMap extends StatefulWidget {
-  const OpenMap({Key? key}) : super(key: key);
-
-  @override
-  _OpenMapState createState() => _OpenMapState();
-}
-
-class _OpenMapState extends State<OpenMap> {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<LatLng>(
-        future: MyLocation.getLatLng(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return FlutterMap(
-              options: MapOptions(
-                center: snapshot.data,
-                zoom: 13.0,
-              ),
-              layers: [
-                TileLayerOptions(
-                  minZoom: 1,
-                  maxZoom: 18,
-                  backgroundColor: Colors.black,
-                  urlTemplate:
-                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  subdomains: ['a', 'b', 'c'],
-                )
-              ],
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        });
   }
 }

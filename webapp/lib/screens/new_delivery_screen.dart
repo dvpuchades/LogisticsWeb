@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
 import 'package:webapp/services/delivery.dart';
-import 'package:webapp/utils/restaurant_list.dart';
+import 'package:webapp/utils/data.dart';
 
 class NewDelivery extends StatelessWidget {
   const NewDelivery({Key? key}) : super(key: key);
@@ -79,7 +79,13 @@ class _DeliveryFormState extends State<DeliveryForm> {
                       flex: 6,
                       child: TextFormField(
                         controller: postcode,
-                        decoration: InputDecoration(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a postcode';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
                           labelText: 'Postcode',
                         ),
                       ))
@@ -87,7 +93,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
                 Expanded(
                     child: TextFormField(
                   controller: customer,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Customer',
                   ),
                 )),
@@ -98,7 +104,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
                       child: TextFormField(
                         controller: phone,
                         keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Phone',
                         ),
                       )),
@@ -108,6 +114,16 @@ class _DeliveryFormState extends State<DeliveryForm> {
                       child: TextFormField(
                         controller: amount,
                         keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return null;
+                          }
+                          RegExp regex = RegExp(r'^[0-9,$]');
+                          if (!regex.hasMatch(value)) {
+                            return 'Please enter a valid amount';
+                          }
+                          return null;
+                        },
                         decoration: InputDecoration(
                           labelText: 'Amount',
                         ),
@@ -115,10 +131,10 @@ class _DeliveryFormState extends State<DeliveryForm> {
                 ])),
                 Expanded(
                     child: DropdownButtonFormField(
-                  items: RestaurantList.getInstance()
-                      .all
-                      .map((restaurant) => DropdownMenuItem(
-                          child: Text(restaurant.name), value: restaurant.id))
+                  items: Data.getRestaurants()
+                      .entries
+                      .map((e) => DropdownMenuItem(
+                          child: Text(e.value.name), value: e.value.id))
                       .toList(),
                   onChanged: (value) {
                     restaurantId = value as String;
@@ -162,13 +178,19 @@ class _DeliveryFormState extends State<DeliveryForm> {
                                   const SnackBar(
                                       content: Text('Processing Data')),
                                 );
+                                double amountInDouble;
+                                try {
+                                  amountInDouble = double.parse(amount.text);
+                                } catch (e) {
+                                  amountInDouble = -1;
+                                }
                                 createDelivery(
                                         address.text,
                                         city.text,
                                         postcode.text,
                                         phone.text,
                                         customer.text,
-                                        double.parse(amount.text),
+                                        amountInDouble,
                                         restaurantId)
                                     .then((result) => {
                                           if (result.isEmpty)

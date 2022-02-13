@@ -15,10 +15,18 @@ const model = mongoose.Schema({
     },
     to: {
         type: mongoose.ObjectId,
+        required: false
+    },
+    brand: {
+        type: mongoose.ObjectId,
         required: true
     },
     creationDate: {
         type: Date,
+        required: true
+    },
+    displayed: {
+        type: Boolean,
         required: true
     }
 });
