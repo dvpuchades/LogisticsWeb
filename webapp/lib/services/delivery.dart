@@ -1,14 +1,24 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:webapp/models/user.dart';
 
 import '../constants.dart';
 
-Future<String> createDelivery(String address, String city, String postcode,
-    String phone, String customer, double amount, String restaurantId) async {
+Future<String> createDelivery(
+    String address,
+    String city,
+    String postcode,
+    String phone,
+    String customer,
+    double amount,
+    String restaurantId,
+    LatLng? coordinates) async {
   try {
     String route = 'api/delivery';
+    double? latitude = coordinates?.latitude;
+    double? longitude = coordinates?.longitude;
     final response = await post(Uri.http(Backend.direction, route),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -21,7 +31,9 @@ Future<String> createDelivery(String address, String city, String postcode,
           "amount": amount,
           "customer": customer,
           "phone": phone,
-          "restaurant": restaurantId
+          "restaurant": restaurantId,
+          "longitude": longitude,
+          "latitude": latitude
         }));
     if (response.statusCode == 200) {
       return '';

@@ -81,17 +81,7 @@ class Data {
     //restart
     if (element['type'] == 'delivery') {
       if (element['operation'] != 'remove') {
-        Delivery delivery = Delivery(
-            id: element['content']['_id'],
-            address: element['content']['address'],
-            city: element['content']['city'],
-            restaurant: element['content']['restaurant'],
-            initTime: DateTime.parse(element['content']['initTime']),
-            amount: (element['content']['amount'] ?? ''),
-            customer: (element['content']['customer'] ?? ''),
-            postcode: (element['content']['postcode'] ?? ''),
-            phone: (element['content']['phone'] ?? ''),
-            dealer: (element['content']['dealer'] ?? ''));
+        Delivery delivery = Delivery.fromJson(element['content']);
         deliveries.addAll({delivery.id: delivery});
       } else {
         deliveries.remove(element['content']['_id']);

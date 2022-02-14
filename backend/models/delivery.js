@@ -51,8 +51,15 @@ const model = mongoose.Schema({
     phone: {
         type: String,
         required: false
+    },
+    latitude: {
+        type: Number,
+        required: false
+    },
+    longitude: {
+        type: Number,
+        required: false
     }
 });
 
-//model.plugin(mongoose_delete);
 module.exports = new mongoose.model("Delivery", model)

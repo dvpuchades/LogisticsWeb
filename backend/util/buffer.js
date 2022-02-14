@@ -39,7 +39,6 @@ class Buffer{
         let brand = []
 
         if(typeof user.restaurant != 'undefined'){
-            
             let list = this.hashtable.get(user.brand.toString() + user.restaurant.toString())
             if(index < list[0].index){
                 return {restaurant: [], brand: [], error: true}

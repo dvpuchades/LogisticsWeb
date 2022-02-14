@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
 import 'package:webapp/services/delivery.dart';
+import 'package:webapp/services/geocoding.dart';
 import 'package:webapp/utils/data.dart';
+import 'package:latlong2/latlong.dart';
 
 class NewDelivery extends StatelessWidget {
   const NewDelivery({Key? key}) : super(key: key);
@@ -172,7 +174,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.green),
                             ),
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -184,6 +186,8 @@ class _DeliveryFormState extends State<DeliveryForm> {
                                 } catch (e) {
                                   amountInDouble = -1;
                                 }
+                                LatLng? coordinates = await getCoordinates(
+                                    address.text, city.text, postcode.text);
                                 createDelivery(
                                         address.text,
                                         city.text,
@@ -191,7 +195,8 @@ class _DeliveryFormState extends State<DeliveryForm> {
                                         phone.text,
                                         customer.text,
                                         amountInDouble,
-                                        restaurantId)
+                                        restaurantId,
+                                        coordinates)
                                     .then((result) => {
                                           if (result.isEmpty)
                                             {Navigator.pop(context)}

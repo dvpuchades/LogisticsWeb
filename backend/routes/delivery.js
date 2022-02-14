@@ -18,7 +18,9 @@ router.post('/', (req, res) => {
         finishTime: req.body.finishTime,
         amount: req.body.amount,
         customer: req.body.customer,
-        phone: req.body.phone
+        phone: req.body.phone,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude
     }
 
     const newDelivery = Delivery(delivery)

@@ -1,3 +1,5 @@
+import 'package:latlong2/latlong.dart';
+
 class Delivery {
   late String id;
   late String address;
@@ -13,6 +15,8 @@ class Delivery {
   late DateTime? finishTime;
   late String? dealer;
 
+  late LatLng? coordinates;
+
   Delivery(
       {required this.id,
       required this.address,
@@ -24,7 +28,8 @@ class Delivery {
       this.phone,
       this.dealer,
       this.amount = 0.0,
-      this.finishTime});
+      this.finishTime,
+      this.coordinates});
 
   Delivery.fromJson(var json) {
     id = json['_id'];
@@ -37,5 +42,8 @@ class Delivery {
     dealer = (json['dealer'] ?? '');
     phone = (json['phone'] ?? '');
     postcode = (json['postcode'] ?? '');
+    if (json['longitude'] != null && json['latitude'] != null) {
+      coordinates = LatLng(json['latitude'], json['longitude']);
+    }
   }
 }
