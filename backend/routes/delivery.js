@@ -4,9 +4,9 @@ const router = express.Router()
 const Delivery = require('../models/delivery')
 const buffer = require('../util/buffer')
 
-router.post('/', (req, res) => {
+router.post('/', (req, res) => { 
 
-    const delivery = {
+    const newDelivery = Delivery({
         uploadUser: req.user._id, 
         restaurant: req.body.restaurant,
         brand: req.user.brand,
@@ -21,15 +21,12 @@ router.post('/', (req, res) => {
         phone: req.body.phone,
         latitude: req.body.latitude,
         longitude: req.body.longitude
-    }
-
-    const newDelivery = Delivery(delivery)
-
-    buffer.set(req.user, delivery, 'new', 'delivery')
+    })
 
     newDelivery.save()
-        .then(Delivery => {
+        .then(delivery => {
             res.status(200).send()
+            buffer.set(req.user, delivery, 'new', 'delivery')
         })
         .catch(error => {
             res.status(500).json(error)

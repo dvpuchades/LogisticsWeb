@@ -45,6 +45,8 @@ void updateContext() async {
     if (response.statusCode == 200) {
       Data.getInstance().lastUpdate = updateTime;
       final body = json.decode(response.body);
+      print('response body:');
+      print(body);
       Data.getInstance().updateFromJson(body);
     } else {
       print(response.statusCode);

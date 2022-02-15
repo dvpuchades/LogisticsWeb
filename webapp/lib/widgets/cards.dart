@@ -130,6 +130,12 @@ class _DeliveryCardState extends State<DeliveryCard> {
                       ))
                     ]))));
   }
+
+  @override
+  void dispose() {
+    _timer!.cancel();
+    super.dispose();
+  }
 }
 
 class NotificationCard extends StatefulWidget {

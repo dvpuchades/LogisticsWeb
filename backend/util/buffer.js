@@ -65,7 +65,6 @@ class Buffer{
                 brand.unshift(list[i]);
             }
         }
-
         return {restaurant: restaurant, brand: brand, error: false}
     }
 }

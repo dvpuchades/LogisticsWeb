@@ -65,26 +65,14 @@ class Data {
   }
 
   void sortElement(element) {
-    if (element['operation'] == 'new') {
-      if (element['type'] == 'delivery') {}
-      if (element['type'] == 'delivery') {}
-    }
-
-    if (element['operation'] == 'update') {}
-
-    if (element['operation'] == 'delete') {}
-
-    if (element['operation'] == 'activate') {}
-
-    if (element['operation'] == 'deactivate') {}
-
-    //restart
     if (element['type'] == 'delivery') {
       if (element['operation'] != 'remove') {
         Delivery delivery = Delivery.fromJson(element['content']);
         deliveries.addAll({delivery.id: delivery});
+        return;
       } else {
         deliveries.remove(element['content']['_id']);
+        return;
       }
     }
     if (element['type'] == 'user') {}

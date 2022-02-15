@@ -7,18 +7,18 @@ const buffer = require('../util/buffer');
 
 router.post('/', (req, res) => {
     if (req.user.privilege) {
-        const restaurant = {
+        const newRestaurant = Restaurant({
             name: req.body.name,
             address: req.body.address,
             brand: req.user.brand,
             createdBy: req.user._id,
             creationDate: Date()
-        }
-        const newRestaurant = Restaurant(restaurant)
-        buffer.set(req.user, restaurant, 'new', 'restaurant')
+        })
+        
         newRestaurant.save()
             .then(restaurant => {
                 res.status(200).send()
+                buffer.set(req.user, restaurant, 'new', 'restaurant')
             })
             .catch(error => {
                 res.status(500).json(error)

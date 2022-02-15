@@ -1,6 +1,6 @@
 {
   "name": "backend",
-  "version": "0.0.0",
+  "version": "2.0.1",
   "description": "Backend side of fattorino app",
   "main": "index.js",
   "scripts": {
