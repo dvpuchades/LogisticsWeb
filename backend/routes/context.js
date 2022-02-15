@@ -11,19 +11,16 @@ const router = express.Router()
 const buffer = require('../util/buffer')
 
 router.get('/update/:index', (req, res) => {
-    let initTime = Date.now() // testing
     let index = Number.parseInt(req.params.index)
     let data = buffer.get(req.user, index)
     if(data.error == true){
         res.status(404).send()
     }else{
         res.status(200).json(data)
-        console.log('new context time: ' + Date.now() - initTime) // testing
     }
 });
 
 router.get('/new', (req, res) => {
-    let initTime = Date.now() // testing
     let usersReady = false
     let userList = []
     let deliveryList
@@ -111,7 +108,6 @@ router.get('/new', (req, res) => {
                 notifications: notificationList,
                 restaurants: restaurantList
             })
-            console.log('new context time: ' + Date.now() - initTime) // testing
         }
     }
 });
