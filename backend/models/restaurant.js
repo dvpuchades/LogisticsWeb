@@ -9,6 +9,22 @@ const model = mongoose.Schema({
         type: String,
         required: false
     },
+    city: {
+        type: String,
+        required: false
+    },
+    postcode: {
+        type: String,
+        required: false
+    },
+    latitude: {
+        type: Number,
+        required: false
+    },
+    longitude: {
+        type: Number,
+        required: false
+    },
     brand: {
         type: mongoose.ObjectId,
         required: true

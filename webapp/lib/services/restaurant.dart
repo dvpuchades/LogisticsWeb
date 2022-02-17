@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:webapp/models/user.dart';
 
 import '../constants.dart';
 
-Future<String> createRestaurant(String name, String address) async {
+Future<String> createRestaurant(String name, String address, String city,
+    String postcode, LatLng coordinates) async {
   try {
     String route = 'api/restaurant';
     final response = await post(Uri.http(Backend.direction, route),
@@ -13,7 +15,14 @@ Future<String> createRestaurant(String name, String address) async {
           'Content-Type': 'application/json; charset=UTF-8',
           'authorization': User.getInstance().token
         },
-        body: jsonEncode(<String, String>{"name": name, "address": address}));
+        body: jsonEncode(<String, dynamic>{
+          "name": name,
+          "address": address,
+          "city": city,
+          "postcode": postcode,
+          "latitude": coordinates.latitude,
+          "longitude": coordinates.longitude
+        }));
     if (response.statusCode == 200) {
       return 'Restaurant created successfully';
     } else if (response.statusCode == 423) {

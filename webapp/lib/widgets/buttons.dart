@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
+import 'package:webapp/screens/new_restaurant_screen.dart';
 import 'package:webapp/utils/log_data.dart';
 import 'package:webapp/models/user.dart';
 import 'package:webapp/screens/login_screen.dart';
@@ -72,11 +73,20 @@ class ProfileButton extends StatelessWidget {
                             fontSize: 20, color: ThemeColors.white)),
                     value: 'profile'),
                 const DropdownMenuItem(child: Text('Edit'), value: 'edit'),
+                const DropdownMenuItem(
+                    child: Text('Create Restaurant'),
+                    value: 'create restaurant'),
                 const DropdownMenuItem(child: Text('Logout'), value: 'logout'),
               ],
               onChanged: (value) {
                 if (value == 'edit') {
                   //TODO
+                } else if (value == 'create restaurant') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NewRestaurantScreen()),
+                  );
                 } else if (value == 'logout') {
                   LogData.removeFromStore();
                   Navigator.push(

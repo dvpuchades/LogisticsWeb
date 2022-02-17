@@ -10,6 +10,10 @@ router.post('/', (req, res) => {
         const newRestaurant = Restaurant({
             name: req.body.name,
             address: req.body.address,
+            city: req.body.city,
+            postcode: req.body.postcode,
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
             brand: req.user.brand,
             createdBy: req.user._id,
             creationDate: Date()

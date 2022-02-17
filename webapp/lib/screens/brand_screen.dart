@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:webapp/screens/starter.dart';
 import 'package:webapp/services/brand.dart';
+import 'package:webapp/services/geocoding.dart';
 import 'package:webapp/services/restaurant.dart';
 
 import '../constants.dart';
@@ -91,13 +93,15 @@ class _CreateBrandWidgetState extends State<CreateBrandWidget> {
   TextEditingController brandname = TextEditingController();
   TextEditingController restaurant = TextEditingController();
   TextEditingController restaurantAddress = TextEditingController();
+  TextEditingController restaurantPostcode = TextEditingController();
+  TextEditingController restaurantCity = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
         child: SizedBox(
-            height: 400,
+            height: 500,
             width: 400,
             child: Card(
                 child: Column(
@@ -134,7 +138,7 @@ class _CreateBrandWidgetState extends State<CreateBrandWidget> {
                       // The validator receives the text that the user has entered.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a brand name';
+                          return 'Please enter a restaurant name';
                         }
                         return null;
                       },
@@ -144,50 +148,116 @@ class _CreateBrandWidgetState extends State<CreateBrandWidget> {
                     child: TextFormField(
                       controller: restaurantAddress,
                       decoration: const InputDecoration(
-                        icon: Icon(Icons.location_city),
+                        icon: Icon(Icons.location_searching),
                         labelText: 'restaurant address',
                       ),
                       // The validator receives the text that the user has entered.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a brand name';
+                          return 'Please enter a restaurant address';
                         }
                         return null;
                       },
                     )),
                 Container(
+                  child: Row(children: [
+                    Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.all(15),
+                            child: TextFormField(
+                              controller: restaurantCity,
+                              decoration: const InputDecoration(
+                                icon: Icon(Icons.location_city),
+                                labelText: 'city',
+                              ),
+                              // The validator receives the text that the user has entered.
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a restaurant city';
+                                }
+                                return null;
+                              },
+                            ))),
+                    Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.all(15),
+                            child: TextFormField(
+                              controller: restaurantPostcode,
+                              decoration: const InputDecoration(
+                                icon: Icon(Icons.location_pin),
+                                labelText: 'postcode',
+                              ),
+                              // The validator receives the text that the user has entered.
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a restaurant postcode';
+                                }
+                                return null;
+                              },
+                            ))),
+                  ]),
+                ),
+                Container(
                     padding: const EdgeInsets.all(15),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         // Validate returns true if the form is valid, or false otherwise.
                         if (_formKey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Processing Data')),
                           );
-                          createBrand(brandname.text).then((status) => {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(status))),
-                                if (status == 'Brand created successfully')
-                                  {
-                                    createRestaurant(restaurant.text,
-                                            restaurantAddress.text)
-                                        .then((status) => {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                      content: Text(status))),
-                                              if (status ==
-                                                  'Restaurant created successfully')
-                                                {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const Starter()),
-                                                  )
-                                                }
-                                            })
-                                  }
-                              });
+                          LatLng? coordinates = await getCoordinates(
+                              restaurantAddress.text,
+                              restaurantCity.text,
+                              restaurantPostcode.text);
+                          if (coordinates == null) {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('Address not found'),
+                                    content: const Text(
+                                        'Could not find the location of the restaurant'),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text('Ok'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
+                          } else {
+                            createBrand(brandname.text).then((status) => {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(status))),
+                                  if (status == 'Brand created successfully')
+                                    {
+                                      createRestaurant(
+                                              restaurant.text,
+                                              restaurantAddress.text,
+                                              restaurantCity.text,
+                                              restaurantPostcode.text,
+                                              coordinates)
+                                          .then((status) => {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                        content: Text(status))),
+                                                if (status ==
+                                                    'Restaurant created successfully')
+                                                  {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const Starter()),
+                                                    )
+                                                  }
+                                              })
+                                    }
+                                });
+                          }
                         }
                       },
                       child: const Text('Create'),
