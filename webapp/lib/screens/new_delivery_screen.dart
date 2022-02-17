@@ -10,12 +10,9 @@ class NewDelivery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         body: Center(
-            child: SizedBox(
-                height: 450,
-                width: 700,
-                child: Container(child: DeliveryForm()))));
+            child: SizedBox(height: 450, width: 700, child: DeliveryForm())));
   }
 }
 
@@ -37,15 +34,18 @@ class _DeliveryFormState extends State<DeliveryForm> {
   TextEditingController amount = TextEditingController();
   String restaurantId = '';
 
+  double amountInDouble = -1;
+  LatLng? coordinates;
+
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-          margin: EdgeInsets.all(20),
+          margin: const EdgeInsets.all(20),
           child: Form(
               key: _formKey,
               child: Column(children: [
-                Expanded(
+                const Expanded(
                     child: Text('New Delivery', style: SubtitleTextStyle())),
                 Expanded(
                     child: TextFormField(
@@ -56,7 +56,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Address',
                   ),
                 )),
@@ -72,11 +72,11 @@ class _DeliveryFormState extends State<DeliveryForm> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'City',
                         ),
                       )),
-                  Spacer(),
+                  const Spacer(),
                   Expanded(
                       flex: 6,
                       child: TextFormField(
@@ -110,7 +110,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
                           labelText: 'Phone',
                         ),
                       )),
-                  Spacer(),
+                  const Spacer(),
                   Expanded(
                       flex: 6,
                       child: TextFormField(
@@ -126,7 +126,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Amount',
                         ),
                       ))
@@ -154,7 +154,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
                       child: Container(
                           alignment: Alignment.centerLeft,
                           child: TextButton(
-                            child: Text('Cancel',
+                            child: const Text('Cancel',
                                 style: TextStyle(color: Colors.white)),
                             style: ButtonStyle(
                               backgroundColor:
@@ -168,7 +168,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
                       child: Container(
                           alignment: Alignment.centerRight,
                           child: TextButton(
-                            child: Text('Create',
+                            child: const Text('Create',
                                 style: TextStyle(color: Colors.white)),
                             style: ButtonStyle(
                               backgroundColor:
@@ -180,39 +180,62 @@ class _DeliveryFormState extends State<DeliveryForm> {
                                   const SnackBar(
                                       content: Text('Processing Data')),
                                 );
-                                double amountInDouble;
+
                                 try {
                                   amountInDouble = double.parse(amount.text);
                                 } catch (e) {
                                   amountInDouble = -1;
                                 }
-                                LatLng? coordinates = await getCoordinates(
+                                coordinates = await getCoordinates(
                                     address.text, city.text, postcode.text);
-                                createDelivery(
-                                        address.text,
-                                        city.text,
-                                        postcode.text,
-                                        phone.text,
-                                        customer.text,
-                                        amountInDouble,
-                                        restaurantId,
-                                        coordinates)
-                                    .then((result) => {
-                                          if (result.isEmpty)
-                                            {Navigator.pop(context)}
-                                          else
-                                            {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(content: Text(result)),
+
+                                if (coordinates == null) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (buildContext) => AlertDialog(
+                                            title:
+                                                const Text("Address not found"),
+                                            content: const Text(
+                                                "Would you like to continue without show a marker on this address in the map?"),
+                                            actions: [
+                                              TextButton(
+                                                child: const Text("Cancel"),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: const Text("Continue"),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                  createDeliveryAndGo();
+                                                },
                                               )
-                                            }
-                                        });
+                                            ],
+                                          ));
+                                } else {
+                                  createDeliveryAndGo();
+                                }
                               }
                             },
                           )))
                 ])),
               ]))),
     );
+  }
+
+  void createDeliveryAndGo() {
+    createDelivery(address.text, city.text, postcode.text, phone.text,
+            customer.text, amountInDouble, restaurantId, coordinates)
+        .then((result) => {
+              if (result.isEmpty)
+                {Navigator.pop(context)}
+              else
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(result)),
+                  )
+                }
+            });
   }
 }

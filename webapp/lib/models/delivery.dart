@@ -15,7 +15,7 @@ class Delivery {
   late DateTime? finishTime;
   late String? dealer;
 
-  late LatLng? coordinates;
+  LatLng? coordinates;
 
   Delivery(
       {required this.id,
