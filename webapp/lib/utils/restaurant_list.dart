@@ -1,3 +1,4 @@
+import 'package:latlong2/latlong.dart';
 import 'package:webapp/models/restaurant.dart';
 
 class RestaurantList {
@@ -17,7 +18,13 @@ class RestaurantList {
 
   RestaurantList.fromJson(List json) {
     for (var item in json) {
-      all.add(Restaurant(item['_id'], item['name'], item['address']));
+      all.add(Restaurant(
+          item['_id'],
+          item['name'],
+          item['address'],
+          item['city'],
+          item['postcode'],
+          LatLng(item['latitude'], item['longitude'])));
     }
     _instance = this;
   }

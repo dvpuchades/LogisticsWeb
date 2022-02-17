@@ -53,8 +53,7 @@ class Data {
     }
 
     for (var restaurant in json['restaurants']) {
-      var model = Restaurant(
-          restaurant['_id'], restaurant['name'], restaurant['address']);
+      var model = Restaurant.fromJson(restaurant);
       restaurants.addAll({model.id: model});
     }
     print(restaurants);
@@ -83,7 +82,16 @@ class Data {
     }
     if (element['type'] == 'user') {}
     if (element['type'] == 'location') {}
-    if (element['type'] == 'restaurant') {}
+    if (element['type'] == 'restaurant') {
+      if (element['operation'] != 'remove') {
+        Restaurant restaurant = Restaurant.fromJson(element['content']);
+        restaurants.addAll({restaurant.id: restaurant});
+        return;
+      } else {
+        restaurants.remove(element['content']['_id']);
+        return;
+      }
+    }
     if (element['type'] == 'notification') {}
   }
 

@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:webapp/constants.dart';
 import 'package:webapp/models/delivery.dart';
+import 'package:webapp/models/restaurant.dart';
 import 'package:webapp/utils/data.dart';
 import 'package:webapp/utils/location.dart';
 
@@ -29,12 +30,18 @@ class _OpenMapState extends State<OpenMap> {
                 size: 30, color: ThemeColors.black)));
       }
     }
+    for (Restaurant restaurant in Data.getRestaurants().values) {
+      result.add(Marker(
+          point: restaurant.coordinates,
+          builder: (context) => const Icon(Icons.restaurant,
+              size: 30, color: ThemeColors.green)));
+    }
     return result;
   }
 
   @override
   void initState() {
-    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       setState(() {
         _markers = getMarkers();
       });
