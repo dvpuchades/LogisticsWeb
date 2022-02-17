@@ -35,7 +35,6 @@ class _DeliveryCardState extends State<DeliveryCard> {
         setState(() {
           _minutes =
               DateTime.now().difference(widget.delivery.initTime).inMinutes;
-          //TODO
         });
       });
     } else {
@@ -46,9 +45,20 @@ class _DeliveryCardState extends State<DeliveryCard> {
   }
 
   @override
+  void initState() {
+    _getDeliveryMinutes();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer!.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _state = _getDeliveryState();
-    _getDeliveryMinutes();
     if (widget.delivery.amount == -1) {
       _amount = '';
     } else {
@@ -129,12 +139,6 @@ class _DeliveryCardState extends State<DeliveryCard> {
                         ],
                       ))
                     ]))));
-  }
-
-  @override
-  void dispose() {
-    _timer!.cancel();
-    super.dispose();
   }
 }
 

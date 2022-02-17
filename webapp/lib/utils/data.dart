@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:latlong2/latlong.dart';
 import 'package:webapp/models/delivery.dart';
 import 'package:webapp/models/restaurant.dart';
 
@@ -32,6 +33,10 @@ class Data {
     notifications = json['notifications'];
     print('executing newFromJson');
     for (var element in json['deliveries']) {
+      LatLng? coordinates;
+      if (element['latitude'] != null && element['longitude'] != null) {
+        coordinates = LatLng(element['latitude'], element['longitude']);
+      }
       Delivery delivery = Delivery(
           id: element['_id'],
           address: element['address'],
@@ -42,7 +47,8 @@ class Data {
           customer: (element['customer'] ?? ''),
           postcode: (element['postcode'] ?? ''),
           phone: (element['phone'] ?? ''),
-          dealer: (element['dealer'] ?? ''));
+          dealer: (element['dealer'] ?? ''),
+          coordinates: coordinates);
       deliveries.addAll({delivery.id: delivery});
     }
 
