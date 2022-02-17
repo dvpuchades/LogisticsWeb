@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:webapp/services/geocoding.dart';
 import 'package:webapp/services/restaurant.dart';
 
 import '../constants.dart';
@@ -25,6 +26,8 @@ class _CreateRestaurantWidgetState extends State<CreateRestaurantWidget> {
 
   TextEditingController restaurant = TextEditingController();
   TextEditingController restaurantAddress = TextEditingController();
+  TextEditingController restaurantCity = TextEditingController();
+  TextEditingController restaurantPostcode = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -74,28 +77,90 @@ class _CreateRestaurantWidgetState extends State<CreateRestaurantWidget> {
                       },
                     )),
                 Container(
+                  child: Row(children: [
+                    Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.all(15),
+                            child: TextFormField(
+                              controller: restaurantCity,
+                              decoration: const InputDecoration(
+                                icon: Icon(Icons.location_city),
+                                labelText: 'city',
+                              ),
+                              // The validator receives the text that the user has entered.
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a restaurant city';
+                                }
+                                return null;
+                              },
+                            ))),
+                    Expanded(
+                        child: Container(
+                            padding: const EdgeInsets.all(15),
+                            child: TextFormField(
+                              controller: restaurantPostcode,
+                              decoration: const InputDecoration(
+                                icon: Icon(Icons.location_pin),
+                                labelText: 'postcode',
+                              ),
+                              // The validator receives the text that the user has entered.
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a restaurant postcode';
+                                }
+                                return null;
+                              },
+                            ))),
+                  ]),
+                ),
+                Container(
                     padding: const EdgeInsets.all(15),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         // Validate returns true if the form is valid, or false otherwise.
                         if (_formKey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Processing Data')),
                           );
-
-                          createRestaurant(
-                                  restaurant.text,
-                                  restaurantAddress.text,
-                                  'ewf',
-                                  'bcewf',
-                                  LatLng(0, 0))
-                              .then((status) => {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(status))),
-                                    if (status ==
-                                        'Restaurant created successfully')
-                                      {Navigator.pop(context)}
-                                  });
+                          LatLng? coordinates = await getCoordinates(
+                              restaurantAddress.text,
+                              restaurantCity.text,
+                              restaurantPostcode.text);
+                          if (coordinates == null) {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('Address not found'),
+                                    content: const Text(
+                                        'Could not find the location of the restaurant'),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text('Ok'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
+                          } else {
+                            createRestaurant(
+                                    restaurant.text,
+                                    restaurantAddress.text,
+                                    restaurantCity.text,
+                                    restaurantPostcode.text,
+                                    coordinates)
+                                .then((status) => {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                              SnackBar(content: Text(status))),
+                                      if (status ==
+                                          'Restaurant created successfully')
+                                        {Navigator.pop(context)}
+                                    });
+                          }
                         }
                       },
                       child: const Text('Create'),

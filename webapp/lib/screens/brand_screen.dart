@@ -119,7 +119,6 @@ class _CreateBrandWidgetState extends State<CreateBrandWidget> {
                         icon: Icon(Icons.shop),
                         labelText: 'brand name',
                       ),
-                      // The validator receives the text that the user has entered.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a brand name';
@@ -135,7 +134,6 @@ class _CreateBrandWidgetState extends State<CreateBrandWidget> {
                         icon: Icon(Icons.restaurant),
                         labelText: 'restaurant name',
                       ),
-                      // The validator receives the text that the user has entered.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a restaurant name';
