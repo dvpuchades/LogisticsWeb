@@ -6,14 +6,14 @@ import 'package:webapp/models/restaurant.dart';
 
 class Data {
   static Data _instance = Data._internal();
-  List users = [];
+  Map users = HashMap();
   Map deliveries = HashMap();
   List notifications = [];
   Map restaurants = HashMap();
   DateTime lastUpdate = DateTime(1970);
 
   Data._internal() {
-    users = [];
+    users = HashMap();
     deliveries = HashMap();
     notifications = [];
     restaurants = HashMap();
@@ -101,5 +101,9 @@ class Data {
 
   static Map getRestaurants() {
     return _instance.restaurants;
+  }
+
+  static Map getUsers() {
+    return _instance.users;
   }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:webapp/models/delivery.dart';
+import 'package:webapp/models/user.dart';
 
 import '../constants.dart';
 
@@ -19,6 +20,43 @@ class _DeliveryCardState extends State<DeliveryCard> {
   String? _state;
   Timer? _timer;
   String? _amount;
+  double _height = 200;
+
+  Widget _expandCard() {
+    if (User.getInstance().privilege) {
+      _height = 200;
+      return Flexible(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+              margin: const EdgeInsets.only(left: 30, bottom: 15),
+              child: DropdownButton(
+                dropdownColor: ThemeColors.black,
+                items: [
+                  DropdownMenuItem(
+                      child: Text(
+                        'Delivery Man',
+                        style: NormalTextStyle(),
+                      ),
+                      value: 'deliveryman')
+                ],
+                onChanged: (value) {},
+              )),
+          Container(
+            margin: EdgeInsets.only(right: 30, bottom: 10),
+            child: TextButton(
+              child: Text('Finished'),
+              onPressed: () {},
+            ),
+          ),
+        ],
+      ));
+    } else {
+      _height = 180;
+      return Container();
+    }
+  }
 
   String _getDeliveryState() {
     if (widget.delivery.dealer != '') {
@@ -68,7 +106,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
         alignment: Alignment.centerRight,
         margin: const EdgeInsets.only(bottom: 30, right: 30),
         child: SizedBox(
-            height: 150,
+            height: _height,
             width: 330,
             child: Container(
                 color: ThemeColors.black,
@@ -137,7 +175,8 @@ class _DeliveryCardState extends State<DeliveryCard> {
                                 style: const NormalTextStyle(),
                               )),
                         ],
-                      ))
+                      )),
+                      _expandCard()
                     ]))));
   }
 }
