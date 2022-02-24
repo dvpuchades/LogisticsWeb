@@ -16,7 +16,7 @@ class Worker {
     email = json['email'];
     restaurant = json['restaurant'];
     phone = json['phone'];
-    privilege = json['privilege'];
+    privilege = (json['privilege'] ?? false);
     if (json['latitude'] != null && json['longitude'] != null) {
       coordinates = LatLng(json['latitude'], json['longitude']);
     }

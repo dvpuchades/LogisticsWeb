@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:latlong2/latlong.dart';
 import 'package:webapp/models/delivery.dart';
 import 'package:webapp/models/restaurant.dart';
+import 'package:webapp/models/worker.dart';
 
 class Data {
   static Data _instance = Data._internal();
@@ -29,7 +30,9 @@ class Data {
   }
 
   Data._newFromJson(Map<String, dynamic> json) {
-    users = json['users'];
+    for (var element in json['users']) {
+      Worker worker = Worker.fromJson(element);
+    }
     notifications = json['notifications'];
     print('executing newFromJson');
     for (var element in json['deliveries']) {
@@ -60,7 +63,6 @@ class Data {
   }
 
   void updateFromJson(Map<String, dynamic> json) {
-    print(json);
     for (var element in json['restaurant']) {
       sortElement(element);
     }
@@ -80,7 +82,14 @@ class Data {
         return;
       }
     }
-    if (element['type'] == 'user') {}
+    if (element['type'] == 'user') {
+      if (element['operation'] == 'activate') {
+        Worker worker = Worker.fromJson(element['content']);
+        users.addAll({worker.email: worker});
+      } else {
+        users.remove(element['content']['email']);
+      }
+    }
     if (element['type'] == 'location') {}
     if (element['type'] == 'restaurant') {
       if (element['operation'] != 'remove') {

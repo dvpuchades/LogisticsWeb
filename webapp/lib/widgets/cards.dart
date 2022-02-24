@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webapp/models/delivery.dart';
 import 'package:webapp/models/user.dart';
+import 'package:webapp/models/worker.dart';
+import 'package:webapp/utils/data.dart';
 
 import '../constants.dart';
 
@@ -33,14 +35,15 @@ class _DeliveryCardState extends State<DeliveryCard> {
               margin: const EdgeInsets.only(left: 30, bottom: 15),
               child: DropdownButton(
                 dropdownColor: ThemeColors.black,
-                items: [
-                  DropdownMenuItem(
-                      child: Text(
-                        'Delivery Man',
-                        style: NormalTextStyle(),
-                      ),
-                      value: 'deliveryman')
-                ],
+                items: Data.getUsers()
+                    .values
+                    .map((e) => DropdownMenuItem(
+                        child: Text(
+                          e.name,
+                          style: const NormalTextStyle(),
+                        ),
+                        value: e.email))
+                    .toList(),
                 onChanged: (value) {},
               )),
           Container(

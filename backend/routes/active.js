@@ -69,14 +69,17 @@ router.put('/', (req, res) => {
     setActive(req, res, req.user._id)
 });
 
-router.put('/:id', (req, res) => {
-    setActive(req, res, req.params.id)
-});
-
 function setActive(req, res, userId) {
+    console.log(req.body.active)
     if (typeof req.body.active === 'undefined') res.status(400).json({error: 'insert valid parameters'})
-    else if (req.body.active == 'true'){
-        buffer.set(req.user, {_id: userId}, 'activate', 'user')
+    else if (req.body.active == true){
+        buffer.set(req.user, {name: req.user.name, 
+            email: req.user.email, 
+            restaurant: req.user.restaurant, 
+            phone: req.user.phone,
+            privilege: req.user.privilege,
+            longitude: req.user.longitude, 
+            latitude: req.user.latitude}, 'activate', 'user')
         Active.find({user: userId, finishTime: { $exists: false }})
             .then(active => {
                 if (active.length == 0){

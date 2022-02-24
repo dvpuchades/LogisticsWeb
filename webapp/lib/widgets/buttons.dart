@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:webapp/constants.dart';
 import 'package:webapp/screens/new_restaurant_screen.dart';
+import 'package:webapp/services/active.dart';
+import 'package:webapp/utils/data.dart';
 import 'package:webapp/utils/log_data.dart';
 import 'package:webapp/models/user.dart';
 import 'package:webapp/screens/login_screen.dart';
@@ -43,12 +47,25 @@ class NewOrderButton extends StatelessWidget {
   }
 }
 
-class ProfileButton extends StatelessWidget {
+class ProfileButton extends StatefulWidget {
   const ProfileButton({Key? key}) : super(key: key);
 
   @override
+  _ProfileButtonState createState() => _ProfileButtonState();
+}
+
+class _ProfileButtonState extends State<ProfileButton> {
+  bool _active = Data.getUsers().containsKey(User.getInstance().email);
+
+  String isActive(active) {
+    if (active) {
+      return 'Stop delivering';
+    }
+    return 'Start to delivery';
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String name = User.getInstance().name;
     return Container(
         margin: const EdgeInsets.only(top: 30, left: 20, right: 30),
         child: SizedBox(
@@ -68,11 +85,13 @@ class ProfileButton extends StatelessWidget {
               style: const TextStyle(fontSize: 20, color: ThemeColors.white),
               items: [
                 DropdownMenuItem(
-                    child: Text(' ' + name,
+                    child: Text(' ' + User.getInstance().name,
                         style: const TextStyle(
                             fontSize: 20, color: ThemeColors.white)),
                     value: 'profile'),
                 const DropdownMenuItem(child: Text('Edit'), value: 'edit'),
+                DropdownMenuItem(
+                    child: Text(isActive(_active)), value: 'active'),
                 const DropdownMenuItem(
                     child: Text('Create Restaurant'),
                     value: 'create restaurant'),
@@ -81,6 +100,11 @@ class ProfileButton extends StatelessWidget {
               onChanged: (value) {
                 if (value == 'edit') {
                   //TODO
+                } else if (value == 'active') {
+                  setActive(!_active);
+                  setState(() {
+                    _active = !_active;
+                  });
                 } else if (value == 'create restaurant') {
                   Navigator.push(
                     context,
