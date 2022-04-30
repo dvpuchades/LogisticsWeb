@@ -129,16 +129,18 @@ class _DeliveryCardState extends State<DeliveryCard> {
                                     size: 30,
                                     color: ThemeColors.white,
                                   )),
-                              Container(
-                                  margin:
-                                      const EdgeInsets.only(top: 15, right: 30),
-                                  child: Text(
-                                    widget.delivery.address +
-                                        '\n' +
-                                        widget.delivery.postcode!,
-                                    textAlign: TextAlign.right,
-                                    style: const NormalTextStyle(),
-                                  )),
+                              Flexible(
+                                  child: Container(
+                                      margin: const EdgeInsets.only(
+                                          top: 15, right: 30, left: 5),
+                                      child: Text(
+                                        widget.delivery.address +
+                                            '\n' +
+                                            widget.delivery.postcode!,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.right,
+                                        style: const NormalTextStyle(),
+                                      ))),
                             ],
                           )),
                       Flexible(
