@@ -32,7 +32,7 @@ class Data {
   Data._newFromJson(Map<String, dynamic> json) {
     for (var element in json['users']) {
       Worker worker = Worker.fromJson(element);
-      users.addAll({worker.email: worker});
+      users.addAll({worker.id: worker});
     }
     notifications = json['notifications'];
     print('executing newFromJson');

@@ -73,7 +73,9 @@ function setActive(req, res, userId) {
     console.log(req.body.active)
     if (typeof req.body.active === 'undefined') res.status(400).json({error: 'insert valid parameters'})
     else if (req.body.active == true){
-        buffer.set(req.user, {name: req.user.name, 
+        buffer.set(req.user, {
+            id: req.user._id,
+            name: req.user.name, 
             email: req.user.email, 
             restaurant: req.user.restaurant, 
             phone: req.user.phone,

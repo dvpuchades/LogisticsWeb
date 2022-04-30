@@ -1,6 +1,7 @@
 import 'package:latlong2/latlong.dart';
 
 class Worker {
+  late String id;
   late String name;
   late String email;
   late String? restaurant;
@@ -12,6 +13,7 @@ class Worker {
   Worker(this.name, this.email, this.restaurant, this.phone, this.coordinates);
 
   Worker.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     name = json['name'];
     email = json['email'];
     restaurant = json['restaurant'];

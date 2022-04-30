@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webapp/models/delivery.dart';
 import 'package:webapp/models/user.dart';
-import 'package:webapp/models/worker.dart';
+import 'package:webapp/services/delivery.dart';
 import 'package:webapp/utils/data.dart';
 
 import '../constants.dart';
@@ -23,6 +23,7 @@ class _DeliveryCardState extends State<DeliveryCard> {
   Timer? _timer;
   String? _amount;
   double _height = 200;
+  String? _dealer;
 
   Widget _expandCard() {
     if (User.getInstance().privilege) {
@@ -42,9 +43,17 @@ class _DeliveryCardState extends State<DeliveryCard> {
                           e.name,
                           style: const NormalTextStyle(),
                         ),
-                        value: e.email))
+                        value: e.id))
                     .toList(),
-                onChanged: (value) {},
+                value: _dealer,
+                onChanged: (id) {
+                  Delivery updatedDelivery = widget.delivery.copy();
+                  updatedDelivery.dealer = id as String;
+                  updateDeliveryDealer(updatedDelivery);
+                  setState(() {
+                    _dealer = Data.getUsers()[id].name;
+                  });
+                },
               )),
           Container(
             margin: EdgeInsets.only(right: 30, bottom: 10),

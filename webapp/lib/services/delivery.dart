@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:webapp/models/delivery.dart';
 import 'package:webapp/models/user.dart';
 
 import '../constants.dart';
@@ -43,6 +44,25 @@ Future<String> createDelivery(
   } catch (e) {
     return e.toString();
   }
+}
+
+Future<String> updateDeliveryDealer(Delivery delivery) async {
+  //try {
+  String route = 'api/delivery/${delivery.id}';
+  final response = await put(Uri.http(Backend.direction, route),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'authorization': User.getInstance().token
+      },
+      body: jsonEncode(<String, dynamic>{"dealer": delivery.dealer}));
+  if (response.statusCode == 200) {
+    return '';
+  } else {
+    return 'Error updating delivery';
+  }
+  // } catch (e) {
+  //   return e.toString();
+  // }
 }
 
 Future<List> getDeliveries() async {

@@ -46,4 +46,17 @@ class Delivery {
       coordinates = LatLng(json['latitude'], json['longitude']);
     }
   }
+
+  Delivery copy() => Delivery(
+      id: id,
+      address: address,
+      city: city,
+      restaurant: restaurant,
+      initTime: initTime,
+      postcode: postcode,
+      customer: customer,
+      phone: phone,
+      dealer: dealer,
+      amount: amount,
+      finishTime: finishTime);
 }

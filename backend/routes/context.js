@@ -8,7 +8,8 @@ const Delivery = require('../models/delivery');
 
 const router = express.Router()
 
-const buffer = require('../util/buffer')
+const buffer = require('../util/buffer');
+const delivery = require('../models/delivery');
 
 router.get('/update/:index', (req, res) => {
     let index = Number.parseInt(req.params.index)
@@ -36,6 +37,7 @@ router.get('/new', (req, res) => {
                     User.findOne({_id: active.user})
                         .then( user => {
                             userList.push({
+                                id: user._id,
                                 name: user.name,
                                 email: user.email,
                                 phone: user.phone,
@@ -47,7 +49,7 @@ router.get('/new', (req, res) => {
                         })
                     count++;
                 });
-                if(count == (actives.length - 1)) {
+                if(count == actives.length) {
                     usersReady = true
                 }
             }
