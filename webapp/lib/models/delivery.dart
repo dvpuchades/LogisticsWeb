@@ -12,7 +12,7 @@ class Delivery {
   late double? amount;
 
   late DateTime initTime;
-  late DateTime? finishTime;
+  DateTime? finishTime;
   late String? dealer;
 
   LatLng? coordinates;
@@ -48,15 +48,16 @@ class Delivery {
   }
 
   Delivery copy() => Delivery(
-      id: id,
-      address: address,
-      city: city,
-      restaurant: restaurant,
-      initTime: initTime,
-      postcode: postcode,
-      customer: customer,
-      phone: phone,
-      dealer: dealer,
-      amount: amount,
-      finishTime: finishTime);
+        id: id,
+        address: address,
+        city: city,
+        restaurant: restaurant,
+        initTime: initTime,
+        postcode: postcode,
+        customer: customer,
+        phone: phone,
+        dealer: dealer,
+        amount: amount,
+        finishTime: finishTime,
+      );
 }

@@ -2,9 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:webapp/models/delivery.dart';
-import 'package:webapp/models/user.dart';
-import 'package:webapp/services/delivery.dart';
-import 'package:webapp/utils/data.dart';
 
 import '../constants.dart';
 
@@ -22,58 +19,12 @@ class _DeliveryCardState extends State<DeliveryCard> {
   String? _state;
   Timer? _timer;
   String? _amount;
-  double _height = 200;
-  String? _dealer;
-
-  Widget _expandCard() {
-    if (User.getInstance().privilege) {
-      _height = 200;
-      return Flexible(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-              margin: const EdgeInsets.only(left: 30, bottom: 15),
-              child: DropdownButton(
-                dropdownColor: ThemeColors.black,
-                items: Data.getUsers()
-                    .values
-                    .map((e) => DropdownMenuItem(
-                        child: Text(
-                          e.name,
-                          style: const NormalTextStyle(),
-                        ),
-                        value: e.id))
-                    .toList(),
-                value: _dealer,
-                onChanged: (id) {
-                  Delivery updatedDelivery = widget.delivery.copy();
-                  updatedDelivery.dealer = id as String;
-                  updateDeliveryDealer(updatedDelivery);
-                  setState(() {
-                    _dealer = Data.getUsers()[id].name;
-                  });
-                },
-              )),
-          Container(
-            margin: EdgeInsets.only(right: 30, bottom: 10),
-            child: TextButton(
-              child: Text('Finished'),
-              onPressed: () {},
-            ),
-          ),
-        ],
-      ));
-    } else {
-      _height = 180;
-      return Container();
-    }
-  }
+  double _height = 180;
 
   String _getDeliveryState() {
     if (widget.delivery.dealer != '') {
       if (widget.delivery.finishTime != null) return 'Delivered';
-      return 'On-its-way';
+      return 'On its way';
     }
     return 'In kitchen';
   }
@@ -189,18 +140,16 @@ class _DeliveryCardState extends State<DeliveryCard> {
                                 style: const NormalTextStyle(),
                               )),
                         ],
-                      )),
-                      _expandCard()
+                      ))
                     ]))));
   }
 }
 
 class NotificationCard extends StatefulWidget {
-  const NotificationCard({Key? key, required this.title, required this.body})
+  const NotificationCard({Key? key, required this.notification})
       : super(key: key);
 
-  final String title;
-  final String body;
+  final Notification notification;
 
   @override
   _NotificationCardState createState() => _NotificationCardState();
@@ -237,7 +186,7 @@ class _NotificationCardState extends State<NotificationCard> {
                                     margin: const EdgeInsets.only(
                                         top: 15, right: 30),
                                     child: Text(
-                                      widget.title,
+                                      "New add in request",
                                       textAlign: TextAlign.right,
                                       style: const NormalTextStyle(),
                                     ))),
@@ -247,7 +196,8 @@ class _NotificationCardState extends State<NotificationCard> {
                                     margin: const EdgeInsets.only(
                                         left: 30, right: 30),
                                     alignment: Alignment.centerRight,
-                                    child: Text(widget.body,
+                                    child: Text(
+                                        "Someone wants to work in your restaurant",
                                         textAlign: TextAlign.left,
                                         style: const NormalTextStyle()))),
                           ]))

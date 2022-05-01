@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:latlong2/latlong.dart';
 import 'package:webapp/models/delivery.dart';
+import 'package:webapp/models/notification.dart';
 import 'package:webapp/models/restaurant.dart';
 import 'package:webapp/models/worker.dart';
 
@@ -102,7 +103,11 @@ class Data {
         return;
       }
     }
-    if (element['type'] == 'notification') {}
+    if (element['type'] == 'notification') {
+      Notification notification = Notification.fromJson(element['content']);
+      notifications.add(notification);
+      return;
+    }
   }
 
   static Map getDeliveries() {

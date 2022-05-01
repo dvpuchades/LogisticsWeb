@@ -75,7 +75,7 @@ router.get('/new', (req, res) => {
 
     //get add requests
     if(req.user.privilege){
-        Notification.find({brand: req.user.brand, type: 'add-request'})
+        Notification.find({brand: req.user.brand})
             .then(notifications => {
                 if(!notifications){ notificationList = [] }
                 else{ notificationList = notifications }

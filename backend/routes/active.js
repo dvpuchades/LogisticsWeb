@@ -70,7 +70,6 @@ router.put('/', (req, res) => {
 });
 
 function setActive(req, res, userId) {
-    console.log(req.body.active)
     if (typeof req.body.active === 'undefined') res.status(400).json({error: 'insert valid parameters'})
     else if (req.body.active == true){
         buffer.set(req.user, {

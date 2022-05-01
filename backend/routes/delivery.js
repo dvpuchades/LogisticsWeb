@@ -57,7 +57,7 @@ router.get('/:restaurantId', (req, res) => {
 
 router.put('/:id', (req, res) => {
     if (typeof req.body.dealer !== 'undefined') {
-        Delivery.findOneAndUpdate({_id: req.params.id}, {name: req.body.name}, {new: true}, (error, updatedDelivery) => {
+        Delivery.findOneAndUpdate({_id: req.params.id}, {dealer: req.body.dealer}, {new: true}, (error, updatedDelivery) => {
             if (error) return res.status(500).json({error})
             else if (!updatedDelivery) res.status(404).json({error: 'delivery not found'})
             else {
