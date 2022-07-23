@@ -7,13 +7,27 @@ import { MapPin } from "react-native-feather";
 export default function App() {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
-    <Text category='h1' style={{margin: 50}}>HOME</Text>
+    <Text category='h1' style={{margin: 50}}>Deliveries</Text>
     <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Card style={{width: '80%'}}>
           <View style={{flexDirection: 'row'}}>
-            <MapPin  stroke="black" style={{ marginRight: 15}}/>
-            <Text>Hello World</Text>
+            <View style={ {flexDirection: 'column', flex: 1} }>
+              <MapPin  stroke="black" style={{ marginRight: 15}}/>
+            </View>
+            <View style={ {flexDirection: 'column', flex: 5} }>
+              <Text category='label'>21 Tigermilk St</Text>
+              <Text category='h3'>San Francisco, CA</Text>
+            </View>
           </View>
+          <View style={ {flexDirection: 'row'} }>
+            <View style={ {flexDirection: 'column', flex: 1} }>
+              <Text category='h2'>33$</Text>
+            </View>
+            <View style={ {flexDirection: 'column', flex: 5} }>
+              <Text category='h2'>Shirley Conran</Text>
+            </View>
+          </View>
+
         </Card>
     </Layout>
     </ApplicationProvider>
