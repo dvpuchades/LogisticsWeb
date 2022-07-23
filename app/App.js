@@ -12,22 +12,15 @@ export default function App() {
         <Card style={{width: '80%'}}>
           <View style={{flexDirection: 'row'}}>
             <View style={ {flexDirection: 'column', flex: 1} }>
-              <MapPin  stroke="black" style={{ marginRight: 15}}/>
+              <MapPin stroke="black" style={{ alignSelf: 'center',marginBottom: 10}}/>
+              <Text category='c2' style={{ textAlign: 'center'}}>33£</Text>
             </View>
-            <View style={ {flexDirection: 'column', flex: 5} }>
-              <Text category='label'>21 Tigermilk St</Text>
-              <Text category='h3'>San Francisco, CA</Text>
-            </View>
-          </View>
-          <View style={ {flexDirection: 'row'} }>
-            <View style={ {flexDirection: 'column', flex: 1} }>
-              <Text category='h2'>33$</Text>
-            </View>
-            <View style={ {flexDirection: 'column', flex: 5} }>
-              <Text category='h2'>Shirley Conran</Text>
+            <View style={ {flexDirection: 'column', flex: 5, alignItems: 'flex-end'} }>
+              <Text category='c2'>21 Tigermilk St</Text>
+              <Text category='c2'>San Francisco, CA</Text>
+              <Text category='c2'>Shirley Conran</Text>
             </View>
           </View>
-
         </Card>
     </Layout>
     </ApplicationProvider>
