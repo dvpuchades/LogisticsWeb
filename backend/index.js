@@ -19,7 +19,7 @@ app.use(cors({
     origin: '*'
 }));
 
-const  dbURI = "mongodb://localhost/fattorino"
+const  dbURI = "mongodb://10.0.0.218/fattorino"
 app.use(express.json())
 app.use('/api/auth', authRoute)
 
